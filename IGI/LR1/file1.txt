@@ -1,1 +1,2 @@
 Hello file1
+It's fun (file1)
