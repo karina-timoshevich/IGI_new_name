@@ -3,6 +3,7 @@ import check_input
 
 def input_list():
     """Ввод элементов списка пользователем"""
+
     lst = []
     print("Введите размер списка: ")
     size = check_input.input_positive_integer()
@@ -13,13 +14,9 @@ def input_list():
     return lst
 
 
-def is_valid(lst):
-    """Проверка корректности вводимых данных"""
-    return all(isinstance(num, float) for num in lst)
-
-
 def process_list(lst):
     """Реализация основного задания с выводом результатов"""
+
     min_abs = min(lst, key=abs)
     first_positive = next(i for i, num in enumerate(lst) if num > 0)
     last_positive = len(lst) - 1 - next(i for i, num in enumerate(reversed(lst)) if num > 0)
@@ -33,11 +30,9 @@ def print_list(lst):
     print(lst)
 
 
-def main_task_5():
+def task5():
     """Главная функция для задания 5, которая объединяет все остальные функции"""
+    print("Задание №5. Обработка списка. Вывод минимального по модулю элемента и суммы элементов между первым и последним положительными элементами.")
     lst = input_list()
-    if is_valid(lst):
-        process_list(lst)
-        print_list(lst)
-    else:
-        print("Введенные данные некорректны.")
+    process_list(lst)
+    print_list(lst)
