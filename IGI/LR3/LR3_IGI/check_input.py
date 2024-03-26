@@ -20,7 +20,7 @@ def input_float():
 
 
 def input_positive_float():
-    """Запрашивает у пользователя ввод дробного числа"""
+    """Запрашивает у пользователя ввод положительного дробного числа"""
     while True:
         num = input()
         if num.replace('.', '', 1).isdigit():
