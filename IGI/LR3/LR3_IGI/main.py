@@ -1,4 +1,10 @@
-from colorama import Fore, Style   # print(Style.RESET_ALL + 'Это обычный текст')
+# Main file for the 3rd lab work of Python course
+# Program was created by Timoshevich Karina, group 253503
+# Date: 2024.25.03
+# Version: 1.0
+
+import os
+from colorama import Fore, Style   # print(Style.RESET_ALL) - сброс стилей
 from task_1 import task1
 from task_2 import task2
 from task_3 import task3
@@ -13,7 +19,7 @@ def menu():
     while True:
         print(Style.BRIGHT)
         print(Fore.MAGENTA)
-        print("\nХотите взглянуть на какое-нибудь задание? Просто выберите понравившийся пункт:")
+        print("Хотите взглянуть на какое-нибудь задание? Просто выберите понравившийся пункт:")
         print("1. Выполнить 1 задание (вычисление экспоненты в степени х с помощью ряда Тейлора)")
         print("2. Выполнить 2 задание (сумма каждого второго числа, пока не введется 1)")
         print("3. Выполнить 3 задание (подсчет слов, начинающихся со строчной согласной буквы)")
@@ -39,12 +45,12 @@ def menu():
             print(Fore.CYAN + "\nВы выбрали 5 задание, начнем его выполнение!" + Style.RESET_ALL)
             task5()
         elif choice == '6':
-            print(Fore.CYAN)
-            print("\nЭх, уже уходите, было приятно провести с вами время, до новых встреч :)")
+            print(Fore.CYAN + "\nЭх, уже уходите, было приятно провести с вами время, до новых встреч :)")
             break
         else:
             print("\nОй-ой-ой, кажется, вы ввели что-то не то, попробуйте еще раз и всё получится!")
 
 
 if __name__ == '__main__':
+    # print(task4.__doc__)
     menu()
