@@ -1,13 +1,16 @@
 def count_words_starting_with_consonant(string):
-    consonants = 'bcdfghjklmnpqrstvwxz'
-    words = string.split()
-    count = 0
+    try:
+        consonants = 'bcdfghjklmnpqrstvwxz'
+        words = string.split()
+        count = 0
 
-    for word in words:
-        if word[0].lower() in consonants:
-            count += 1
+        for word in words:
+            if word[0].lower() in consonants:
+                count += 1
 
-    return count
+        return count
+    except IndexError:
+        print("Ошибка: вероятно ваша строка пуста.")
 
 
 def task3():

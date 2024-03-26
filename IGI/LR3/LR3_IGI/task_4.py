@@ -4,33 +4,47 @@ import string
 def task_a(text):
     """Определить, сколько слов имеют минимальную длину"""
 
-    # Заменяем все символы, кроме букв, на пробелы
-    text = ''.join(char if char.isalpha() else ' ' for char in text)
+    try:
+        text = ''.join(char if char.isalpha() else ' ' for char in text)
 
-    words = text.split()
-    min_length = min(len(word) for word in words)
-    min_length_words = [word for word in words if len(word) == min_length]
-    print(f"Количество слов с минимальной длиной: {len(min_length_words)}")
-    print("Слова с минимальной длиной: " + ', '.join(min_length_words))
+        words = text.split()
+        min_length = min(len(word) for word in words)
+        min_length_words = [word for word in words if len(word) == min_length]
+        print(f"Количество слов с минимальной длиной: {len(min_length_words)}")
+        print("Слова с минимальной длиной: " + ', '.join(min_length_words))
+    except IndexError:
+        print("\nОшибка: вероятно ваша строка пуста.\n")
+    except ValueError:
+        print("\nОшибка: вероятно ваша строка не содержит слов.\n")
 
 
 def task_b(text):
     """Вывести все слова, за которыми следует точка"""
 
-    sentences = text.split('.')
-    words_before_dot = [sentence.rstrip().split()[-1] for sentence in sentences[:-1] if sentence.strip()]
-    if sentences[-1].strip().endswith('.'):
-        words_before_dot.append(sentences[-1].rstrip().split()[-1])
-    print("Слова, за которыми следует точка: " + ', '.join(words_before_dot))
+    try:
+        sentences = text.split('.')
+        words_before_dot = [sentence.rstrip().split()[-1] for sentence in sentences[:-1] if sentence.strip()]
+        if sentences[-1].strip().endswith('.'):
+            words_before_dot.append(sentences[-1].rstrip().split()[-1])
+        print("Слова, за которыми следует точка: " + ', '.join(words_before_dot))
+
+    except IndexError:
+        print("\nОшибка: вероятно ваша строка пуста.\n")
+    except ValueError:
+        print("\nОшибка: вероятно ваша строка не содержит слов.\n")
 
 
 def task_c(text):
     """Найти самое длинное слово, которое заканчивается на 'r'"""
-
-    words = text.replace(',', '').split()
-    r_words = [word for word in words if word.endswith('r') or word.endswith('R')]
-    longest_r_word = max(r_words, key=len, default='')
-    print(f"Самое длинное слово, заканчивающееся на 'r': {longest_r_word}")
+    try:
+        words = text.replace(',', '').split()
+        r_words = [word for word in words if word.endswith('r') or word.endswith('R')]
+        longest_r_word = max(r_words, key=len, default='')
+        print(f"Самое длинное слово, заканчивающееся на 'r': {longest_r_word}")
+    except IndexError:
+        print("\nОшибка: вероятно ваша строка пуста.\n")
+    except ValueError:
+        print("\nОшибка: вероятно ваша строка не содержит слов.\n")
 
 
 def task4():
