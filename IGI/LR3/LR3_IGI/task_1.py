@@ -3,6 +3,18 @@ import math
 import check_input
 
 
+def time_func_dec(func):
+    import time
+
+    def wrapper():
+        start = time.time()
+        func()
+        end = time.time()
+        print('Время выполнения функции: {} секунд.'.format(end - start))
+
+    return wrapper
+
+
 def calculate_exp(x, eps):
     """Вычисляет значение экспоненты в степени х с помощью ряда Тейлора."""
 
@@ -21,6 +33,7 @@ def calculate_exp(x, eps):
         print("Ошибка: введенные значения слишком большие.")
 
 
+@time_func_dec
 def task1():
     """Главная функция для задания 1, которая объединяет все остальные функции."""
 
