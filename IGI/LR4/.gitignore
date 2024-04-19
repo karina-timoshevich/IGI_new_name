@@ -7,7 +7,7 @@ __pycache__/
 *.so
 
 # Distribution / packaging
- ../LR3/
+../LR3/
 .Python
 build/
 develop-eggs/
