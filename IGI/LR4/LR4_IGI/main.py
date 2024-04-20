@@ -16,8 +16,8 @@ def menu():
             runpy.run_path(path_name='task_1/task1_main.py')
         elif choice == '2':
             runpy.run_path(path_name='task_2/task2_main.py')
-        # elif choice == '3':
-        #    #  task3()
+        elif choice == '3':
+            runpy.run_path(path_name='task_3/task3_main.py')
         # elif choice == '4':
         #     task4()
         # elif choice == '5':
