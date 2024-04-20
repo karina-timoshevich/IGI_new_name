@@ -44,3 +44,4 @@ class VacationChart:
         for i in range(12):
             statistics[i] = (statistics[i], statistics[i] / total * 100)
         return statistics
+

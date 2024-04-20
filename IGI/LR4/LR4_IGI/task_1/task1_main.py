@@ -59,3 +59,10 @@ if employee is not None:
     print(f"Дата окончания отпуска: {employee[1].strftime('%d-%m-%Y')}")
 else:
     print(f"Сотрудник с именем {employee_name} не найден.")
+
+# Call the function
+sorted_employees = chart.sort_by_vacation_start()
+
+# Print the sorted employees
+for employee in sorted_employees:
+    print(f"{employee[0]}: {employee[1][0].strftime('%d-%m-%Y')} - {employee[1][1].strftime('%d-%m-%Y')}")
