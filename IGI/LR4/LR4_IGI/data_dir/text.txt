@@ -1,5 +1,5 @@
 This is a test text. It contains many sentences. Some of them end with an exclamation mark!!! Is this a question sentence? Here's another question sentence, is it true?
-The text also contains time: 12:34, 23:59:59, 00:00:00. And even smileys: :-), ;-], :-(, :---ррр-[[.
+The text also contains time: 12:34, 43:59:59, 00:00. And even smileys: :-), ;--], :-(, :---ррр-[[.
 And here's a sentence with an apostrophe. It's a good day, isn't it? Here's another sentence with an apostrophe. Don't you think so?
 And the last sentence for checking. But here's another sentence for checking! And another question sentence?
 The text also contains words ending in vowels, such as "are", "be", "see", "doe". And words of medium length, such as "text", "also", "time", "last".

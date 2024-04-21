@@ -1,0 +1,5 @@
+Figure: Triangle
+Color: purple
+Sides: 23.0, 18.0
+Angle: 37.0
+Area: 124.57570979247399

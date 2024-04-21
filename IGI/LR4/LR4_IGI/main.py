@@ -20,8 +20,8 @@ def menu():
             runpy.run_path(path_name='task_3/task3_main.py')
         elif choice == '4':
             runpy.run_path(path_name='task_4/task4_main.py')
-        # elif choice == '5':
-        #     task5()
+        elif choice == '5':
+            runpy.run_path(path_name='task_5/task5_main.py')
         elif choice == '6':
             print("Exiting...")
             break

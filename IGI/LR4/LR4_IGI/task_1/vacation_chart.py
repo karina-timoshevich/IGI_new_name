@@ -1,6 +1,3 @@
-import csv
-import pickle
-from datetime import datetime
 from task_1.employee import Employee
 from task_1.files_service import save_to_csv, load_from_csv, save_to_pickle, load_from_pickle
 
@@ -33,12 +30,12 @@ class VacationChart:
         return self.employees.get(name, None)
 
     def sort_by_vacation_start(self):
-        return sorted(self.employees.items(), key=lambda x: x[1][0])
+        return sorted(self.employees.items(), key=lambda x: x[1][0])  # 1 - dates, 0 - start date, x - pair (name,dates)
 
     def vacation_statistics(self):
         statistics = [0]*12
         for dates in self.employees.values():
-            for month in range(dates[0].month, dates[1].month + 1):
+            for month in range(dates[0].month, dates[1].month + 1): # +1 потому что range не включает последний элемент
                 statistics[month - 1] += 1
         total = len(self.employees)
         for i in range(12):

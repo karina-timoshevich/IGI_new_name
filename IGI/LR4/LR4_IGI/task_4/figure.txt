@@ -1,5 +1,5 @@
 Figure: Triangle
-Color: purple
-Sides: 5.0, 6.0
-Angle: 48.00000000000001
-Area: 11.147172382160914
+Color: green
+Sides: 5.0, 4.0
+Angle: 65.0
+Area: 9.063077870366499

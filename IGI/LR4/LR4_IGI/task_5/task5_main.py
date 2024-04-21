@@ -3,25 +3,15 @@ import numpy as np
 
 
 def main():
-    # Создание объекта класса MatrixOperations
     matrix_operations = MatrixOperations(5, 5)
-
-    # Печать матрицы
     matrix_operations.print_matrix()
-
-    # Вычисление и печать статистики
     matrix_operations.calculate_statistics()
-
-    # Поиск и печать минимальных элементов и их индексов
     matrix_operations.find_min_elements()
-
-    # Вычисление и печать стандартного отклонения
     matrix_operations.calculate_std_dev()
 
     # Создание массива с помощью функций array() и arange()
     arr = np.array([1, 2, 3, 4, 5])
     print("Array created using np.array():\n", arr)
-
     arr = np.arange(0, 10, 2)
     print("\nArray created using np.arange():\n", arr)
 
