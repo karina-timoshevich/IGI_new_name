@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Employee, Product, ProductType, Order, Client, Manufacturer
+from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure
 
 
 # Register your models here.
@@ -26,6 +26,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ('name', 'price')
     pass
 
+
 class ProductsInstanceInline(admin.TabularInline):
     model = Product
     extra = 0
@@ -51,4 +52,9 @@ class OrderAdmin(admin.ModelAdmin):
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
     list_display = ('first_name', 'last_name', 'email')
+    pass
+
+
+@admin.register(UnitOfMeasure)
+class UnitOfMeasureAdmin(admin.ModelAdmin):
     pass
