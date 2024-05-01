@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+}
+
+.sidebar {
+  width: 20%;
+}
+
+.content {
+  width: 80%;
+}
+
+.sidebar-nav {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar-nav li {
+  padding: 10px 0;
+}
+
+.sidebar-nav li a {
+  text-decoration: none;
+}
