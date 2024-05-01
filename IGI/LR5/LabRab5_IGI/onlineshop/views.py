@@ -17,3 +17,13 @@ def index(request):
         'index.html',
         context={'num_products':num_products,'num_manufacturers':num_manufacturers},
     )
+
+from django.views import generic
+
+class ProductListView(generic.ListView):
+    model = Product
+
+
+
+class ProductDetailView(generic.DetailView):
+    model = Product
