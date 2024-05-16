@@ -22,7 +22,7 @@ admin.site.register(Employee, EmpoyeeAdmin)
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'product_type', 'manufacturer')
+    list_display = ('name', 'price', 'product_type', 'manufacturer', 'unit_of_measure')
     list_filter = ('name', 'price')
     pass
 

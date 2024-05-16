@@ -1,5 +1,11 @@
 from django.db import models
 from django.urls import reverse
+# import "D:\3 SEM\253503_TIMOSHEVICH_25\IGI\LR5\LabRab5_IGI\.venv\Lib\site-packages\PIL"
+# from PIL import Image
+# import image
+import sys
+
+sys.path.append('D:\\3 SEM\\253503_TIMOSHEVICH_25\\IGI\\LR5\\LabRab5_IGI\\.venv\\Lib\\site-packages')
 
 
 class Employee(models.Model):
@@ -26,12 +32,16 @@ class Manufacturer(models.Model):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('manufacturer-detail', args=[str(self.id)])
+
 
 class UnitOfMeasure(models.Model):
     name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
+
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
@@ -40,6 +50,8 @@ class Product(models.Model):
     product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
     manufacturer = models.ForeignKey("Manufacturer", on_delete=models.CASCADE, null=True)
     unit_of_measure = models.ForeignKey(UnitOfMeasure, on_delete=models.SET_NULL, null=True)
+
+    # image = models.ImageField(upload_to='products/', null=True, blank=True)
 
     def __str__(self):
         return self.name
