@@ -21,7 +21,7 @@
 
              {% if user.is_authenticated %}
                  <li>User: {{ user.get_username }}</li>
-                 <li>
+                  <li><a href="{% url 'my-ordered' %}">My Ordered</a></li>
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ request.path }}">

@@ -29,7 +29,7 @@ from django.views import generic
 
 class ProductListView(generic.ListView):
     model = Product
-    #paginate_by = 10  для постраничного отображения (надо обрабатывать в base_generic.html)
+    # paginate_by = 10  для постраничного отображения (надо обрабатывать в base_generic.html)
 
 
 class ProductDetailView(generic.DetailView):
@@ -45,14 +45,16 @@ class ManufacturerDetailView(generic.DetailView):
     model = Manufacturer
     pass
 
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-class OrderedProductsByUserListView(LoginRequiredMixin,generic.ListView):
+
+class OrderedProductsByUserListView(LoginRequiredMixin, generic.ListView):
     """
     Generic class-based view listing books on loan to current user.
     """
     model = ProductInstance
-    template_name ='onlineshop/productinstance_list_ordered_user.html'
+    template_name = 'onlineshop/productinstance_list_ordered_user.html'
     paginate_by = 10
 
     def get_queryset(self):
