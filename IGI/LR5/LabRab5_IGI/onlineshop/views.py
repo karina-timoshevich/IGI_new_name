@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure
+from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance
 
 
 # Create your views here.
@@ -44,3 +44,16 @@ class ManufacturerListView(generic.ListView):
 class ManufacturerDetailView(generic.DetailView):
     model = Manufacturer
     pass
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class OrderedProductsByUserListView(LoginRequiredMixin,generic.ListView):
+    """
+    Generic class-based view listing books on loan to current user.
+    """
+    model = ProductInstance
+    template_name ='onlineshop/productinstance_list_ordered_user.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return ProductInstance.objects.filter(customer=self.request.user)

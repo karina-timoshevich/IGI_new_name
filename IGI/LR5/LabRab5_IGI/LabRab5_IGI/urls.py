@@ -42,3 +42,13 @@ urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
 ]
+# from django.contrib.auth.views import LogoutView
+# from django.urls import path
+#
+# class LogoutViewWithGet(LogoutView):
+#     def get(self, request):
+#         return self.post(request)
+#
+# urlpatterns += [
+#     path('accounts/logout/', LogoutViewWithGet.as_view(), name='logout'),
+# ]

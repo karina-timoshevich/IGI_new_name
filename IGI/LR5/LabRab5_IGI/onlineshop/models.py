@@ -1,9 +1,10 @@
+import uuid
+
 from django.db import models
 from django.urls import reverse
-# import "D:\3 SEM\253503_TIMOSHEVICH_25\IGI\LR5\LabRab5_IGI\.venv\Lib\site-packages\PIL"
-# from PIL import Image
-# import image
+
 import sys
+from django.contrib.auth.models import User
 
 sys.path.append('D:\\3 SEM\\253503_TIMOSHEVICH_25\\IGI\\LR5\\LabRab5_IGI\\.venv\\Lib\\site-packages')
 
@@ -81,3 +82,19 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order {self.id} by {self.client}"
+
+
+class ProductInstance(models.Model):
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                          help_text="Unique ID for this particular book across whole library")
+    product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
+   # order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+
+    def __str__(self):
+        """
+        String for representing the Model object
+        """
+        return '%s (%s)' % (self.id, self.product.name)

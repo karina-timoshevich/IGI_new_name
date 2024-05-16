@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Ordered products</h1>
+
+    {% if productinstance_list %}
+    <ul>
+      {% for productinst in productinstance_list %}
+      <li>
+        <a href="{% url 'product-detail' productinst.product.pk %}">{{productinst.product.name}}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no products ordered.</p>
+    {% endif %}
+{% endblock %}

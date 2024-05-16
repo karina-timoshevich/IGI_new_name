@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure
+from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance
 
 
 # Register your models here.
@@ -58,3 +58,17 @@ class ClientAdmin(admin.ModelAdmin):
 @admin.register(UnitOfMeasure)
 class UnitOfMeasureAdmin(admin.ModelAdmin):
     pass
+
+@admin.register(ProductInstance)
+class ProductInstanceAdmin(admin.ModelAdmin):
+    list_display = ('product', 'quantity', 'customer', 'id')
+    # list_filter = ('status', 'due_back')
+
+    fieldsets = (
+        (None, {
+            'fields': ('product',  'id')
+        }),
+        ('Info', {
+            'fields': ('quantity', 'customer')
+        }),
+    )

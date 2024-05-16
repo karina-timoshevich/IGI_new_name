@@ -17,3 +17,6 @@ urlpatterns = [
     re_path(r'^manufacturers/$', views.ManufacturerListView.as_view(), name='manufacturers'),
     re_path(r'^manufacturers/(?P<pk>\d+)$', views.ManufacturerDetailView.as_view(), name='manufacturer-detail'),
 ]
+urlpatterns += [
+    re_path(r'^myproducts/$', views.OrderedProductsByUserListView.as_view(), name='my-ordered'),
+]
