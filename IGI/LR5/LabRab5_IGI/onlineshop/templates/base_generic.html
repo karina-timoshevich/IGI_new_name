@@ -21,7 +21,17 @@
 
              {% if user.is_authenticated %}
                  <li>User: {{ user.get_username }}</li>
-                  <li><a href="{% url 'my-ordered' %}">My Ordered</a></li>
+{#                  <li><a href="{% url 'my-ordered' %}">My Ordered</a></li>#}
+                 {% for group in user.groups.all %}
+                    {% if group.name == "Shop Members" %}
+                        <li><a href="{% url 'my-ordered' %}">My Orders</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% for group in user.groups.all %}
+                    {% if group.name == "Employees" %}
+                        <li><a href="{% url 'all-orders' %}">All Orders</a></li>
+                    {% endif %}
+                {% endfor %}
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ request.path }}">

@@ -93,6 +93,8 @@ class ProductInstance(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
+    class Meta:
+        permissions = (("can_mark_issued", "Set product as issued"),)
     def __str__(self):
         """
         String for representing the Model object

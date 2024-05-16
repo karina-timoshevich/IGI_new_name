@@ -20,3 +20,6 @@ urlpatterns = [
 urlpatterns += [
     re_path(r'^myproducts/$', views.OrderedProductsByUserListView.as_view(), name='my-ordered'),
 ]
+urlpatterns += [
+    re_path(r'^all-orders/$', views.AllOrdersForEmployeeView.as_view(), name='all-orders'),
+]
