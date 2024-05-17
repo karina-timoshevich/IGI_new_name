@@ -26,10 +26,16 @@
                     {% if group.name == "Shop Members" %}
                         <li><a href="{% url 'my-ordered' %}">My Orders</a></li>
                     {% endif %}
+
                 {% endfor %}
                 {% for group in user.groups.all %}
                     {% if group.name == "Employees" %}
                         <li><a href="{% url 'all-orders' %}">All Orders</a></li>
+                        {% if perms.onlineshop.can_mark_returned %}
+                            {% if order and order.id %}
+                                <li><a href="{% url 'change-status-employee' order.id %}">Change Order Status</a></li>
+                            {% endif %}
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
         <form action="{% url 'logout' %}" method="post">

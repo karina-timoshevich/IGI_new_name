@@ -23,3 +23,7 @@ urlpatterns += [
 urlpatterns += [
     re_path(r'^all-orders/$', views.AllOrdersForEmployeeView.as_view(), name='all-orders'),
 ]
+urlpatterns += [
+    re_path(r'^order/(?P<pk>[-\w]+)/change-status/$', views.change_status_employee, name='change-status-employee'),
+
+]

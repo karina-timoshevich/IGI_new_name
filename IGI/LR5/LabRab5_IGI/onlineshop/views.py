@@ -50,9 +50,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class OrderedProductsByUserListView(LoginRequiredMixin, generic.ListView):
-    """
-    Generic class-based view listing books on loan to current user.
-    """
+
     model = ProductInstance
     template_name = 'onlineshop/productinstance_list_ordered_user.html'
     paginate_by = 10
@@ -60,11 +58,13 @@ class OrderedProductsByUserListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return ProductInstance.objects.filter(customer=self.request.user)
 
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
 from .models import ProductInstance
+
 
 class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
     """
@@ -81,3 +81,36 @@ class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
 
     def get_queryset(self):
         return ProductInstance.objects.all()
+
+
+from django.contrib.auth.decorators import permission_required
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .forms import OrderStatusForm
+from .models import Order
+
+
+def change_status_employee(request, pk):
+    """
+    View function for changing the status of a specific Order by employee
+    """
+    order = get_object_or_404(Order, pk=pk)
+
+    # If this is a POST request then process the Form data
+    if request.method == 'POST':
+
+        # Create a form instance and populate it with data from the request (binding):
+        form = OrderStatusForm(request.POST, instance=order)
+
+        # Check if the form is valid:
+        if form.is_valid():
+            form.save()
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('all-orders'))
+
+    # If this is a GET (or any other method) create the default form.
+    else:
+        form = OrderStatusForm(instance=order)
+
+    return render(request, 'onlineshop/change_status_employee.html', {'form': form, 'order': order})
