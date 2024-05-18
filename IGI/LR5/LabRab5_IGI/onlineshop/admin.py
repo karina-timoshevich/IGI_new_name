@@ -54,7 +54,7 @@ class OrderAdmin(admin.ModelAdmin):
     client_username.short_description = 'Client Username'  # Sets column header in admin panel
 
     def save_model(self, request, obj, form, change):
-        obj.total_price = sum(product.price for product in obj.products.all())
+        obj.total_price = sum(product.product.price for product in obj.products.all())
         super().save_model(request, obj, form, change)
 
 

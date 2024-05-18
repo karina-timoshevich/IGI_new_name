@@ -107,6 +107,13 @@ class ProductInstance(models.Model):
         """
         return '%s (%s)' % (self.id, self.product.name)
 
+class PickupLocation(models.Model):
+    name = models.CharField(max_length=200)
+    address = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name
+
 
 class PromoCode(models.Model):
     code = models.CharField(max_length=10)
@@ -124,6 +131,7 @@ class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     promo_code = models.ForeignKey(PromoCode, on_delete=models.SET_NULL, null=True, blank=True)  # new field
+    pickup_location = models.ForeignKey(PickupLocation, on_delete=models.SET_NULL, null=True, blank=True)
 
     LOAN_STATUS = (
         ('p', 'Processing'),
@@ -180,9 +188,5 @@ class Cart(models.Model):
         self.save()
 
 
-class PickupLocation(models.Model):
-    name = models.CharField(max_length=200)
-    address = models.CharField(max_length=200)
 
-    def __str__(self):
-        return self.name
+

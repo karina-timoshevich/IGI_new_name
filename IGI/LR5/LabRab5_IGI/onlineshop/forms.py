@@ -28,9 +28,9 @@ class OrderForm(forms.ModelForm):
         model = Order
         fields = ['pickup_location']
         widgets = {
-            'pickup_location': forms.RadioSelect()
+            'pickup_location': forms.Select(attrs={'class': 'form-control'}),
         }
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['pickup_location'].queryset = PickupLocation.objects.all()
+        super(OrderForm, self).__init__(*args, **kwargs)
+        self.fields['pickup_location'].empty_label = None

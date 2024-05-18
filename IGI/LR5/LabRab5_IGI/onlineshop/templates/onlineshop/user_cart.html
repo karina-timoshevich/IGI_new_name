@@ -1,3 +1,4 @@
+
 {% extends "base_generic.html" %}
 
 {% block content %}
@@ -33,10 +34,12 @@
     </form>
 
     <p>Total price: {{ cart.total_price }}</p>
-    <form action="{% url 'create-order' %}" method="post">
+      <form method="post" action="{% url 'create-order' %}">
         {% csrf_token %}
-        <input type="submit" value="Оформить заказ">
-    </form>
+        <h2>Select a pickup location:</h2>
+        {{ form.as_p }}
+        <button type="submit">Place order</button>
+      </form>
     {% else %}
         <p>Your cart is empty.</p>
     {% endif %}

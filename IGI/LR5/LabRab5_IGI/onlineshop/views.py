@@ -133,7 +133,7 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import OrderStatusForm, RegisterForm
+from .forms import OrderStatusForm, RegisterForm, OrderForm
 from .models import Order
 
 
@@ -211,6 +211,11 @@ class CartView(LoginRequiredMixin, DetailView):
         cart, created = Cart.objects.get_or_create(client=client)
         return cart
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = OrderForm()
+        return context
+
 
 from django.shortcuts import redirect
 from .models import Order
@@ -240,17 +245,32 @@ def create_order(request):
     cart = Cart.objects.get(client=client)  # Get the cart from the database again
     total_price = cart.total_price  # Save the total_price before clearing the cart
     promo_code = cart.promo_code  # Save the promo code before clearing the cart
-    order = Order(client=client)
-    order.total_price = total_price  # Use the saved total_price
-    order.promo_code = promo_code  # Use the saved promo code
-    order.save()
-    for product_instance in cart.products.all():
-        order.products.add(product_instance)
-    cart.products.clear()
-    cart.update_total_price()  # Update the total_price in the cart after clearing the products
-    cart.promo_code = None  # Clear the promo code in the cart
-    cart.save()
-    return redirect('my-orders')
+    default_discount = PromoCode.objects.first()
+
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.client = client
+            order.total_price = total_price  # Use the saved total_price
+            if promo_code:
+                order.promo_code = promo_code  # Use the entered promo code
+            else:
+                order.discount = default_discount  # Use the default discount if no promo code was entered
+            order.save()
+            for product_instance in cart.products.all():
+                order.products.add(product_instance)
+            cart.products.clear()
+            cart.update_total_price()  # Update the total_price in the cart after clearing the products
+            cart.promo_code = None  # Clear the promo code in the cart
+            cart.save()
+            return redirect('my-orders')
+        else:
+            messages.error(request, 'Please select a pickup location.')
+    else:
+        form = OrderForm()
+
+    return render(request, 'onlineshop/user_cart.html', {'form': form, 'cart': cart})
 
 
 @login_required
