@@ -8,7 +8,7 @@
 
       {% for order in order_list %}
       <li>
-         <a href="{% url 'order-detail' order.id %}">Order {{ order.id }}</a> (Total price: {{ order.total_price }})
+       <a href="{% url 'order-detail' order.id %}">Order {{ order.order_date|date:"d.m.Y" }}</a> (Total price: {{ order.total_price }})
       </li>
       {% endfor %}
 

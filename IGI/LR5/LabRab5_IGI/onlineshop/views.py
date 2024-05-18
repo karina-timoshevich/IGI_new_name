@@ -89,7 +89,7 @@ class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
     """
     Generic class-based view listing all orders, accessible only to employees.
     """
-    model = ProductInstance
+    model = Order
     template_name = 'onlineshop/productinstance_list_all_orders.html'
     paginate_by = 10
 
@@ -99,7 +99,7 @@ class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        return ProductInstance.objects.all()
+        return Order.objects.all()
 
 
 from django.contrib.auth.decorators import permission_required
