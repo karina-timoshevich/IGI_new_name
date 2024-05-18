@@ -51,19 +51,25 @@ class ManufacturerDetailView(generic.DetailView):
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from django.shortcuts import get_object_or_404
+
 
 class OrderedProductsByUserListView(LoginRequiredMixin, generic.ListView):
-
     model = ProductInstance
-    template_name = 'onlineshop/productinstance_list_ordered_user.html'
+    template_name = 'onlineshop/order_detail.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return ProductInstance.objects.filter(customer=self.request.user)
+        self.order = get_object_or_404(Order, id=self.kwargs.get('order_id'), client__user=self.request.user)
+        return self.order.products.all()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['order'] = self.order
+        return context
 
 
 class OrdersByUserListView(LoginRequiredMixin, generic.ListView):
-
     model = Order
     template_name = 'onlineshop/orders_by_user.html'
     paginate_by = 10
@@ -141,3 +147,6 @@ class RegisterView(FormView):
         client = Client(user=user)
         client.save()
         return super().form_valid(form)
+
+
+

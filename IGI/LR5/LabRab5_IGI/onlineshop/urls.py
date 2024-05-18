@@ -30,3 +30,6 @@ urlpatterns += [
 urlpatterns += [
     re_path(r'^orders/$', views.OrdersByUserListView.as_view(), name='my-orders'),
 ]
+urlpatterns += [
+    re_path(r'^orders/(?P<order_id>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/$', views.OrderedProductsByUserListView.as_view(), name='order-detail'),
+]

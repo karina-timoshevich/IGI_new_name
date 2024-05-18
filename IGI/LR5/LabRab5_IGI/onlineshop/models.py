@@ -86,11 +86,29 @@ class Product(models.Model):
         return reverse('product-detail', args=[str(self.id)])
 
 
+class ProductInstance(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
+                          help_text="Unique ID for this particular product across whole shop")
+    product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
+    # order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    customer = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True)
+
+    class Meta:
+        permissions = (("can_mark_issued", "Set product as issued"),)
+
+    def __str__(self):
+        """
+        String for representing the Model object
+        """
+        return '%s (%s)' % (self.id, self.product.name)
+
+
 class Order(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,
                           help_text="Unique ID for this particular product across whole shop")
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
-    products = models.ManyToManyField(Product)
+    products = models.ManyToManyField(ProductInstance)
     order_date = models.DateTimeField(auto_now_add=True)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
     LOAN_STATUS = (
@@ -104,32 +122,15 @@ class Order(models.Model):
                               help_text='Status of the order')
 
     def save(self, *args, **kwargs):
-        self.total_price = sum(product.price for product in self.products.all())
+        self.total_price = sum(product_instance.product.price * product_instance.quantity for product_instance in self.products.all())
         super().save(*args, **kwargs)
+
     def __str__(self):
-         return f"Order {self.id} by {self.client}"
+        return f"Order {self.id} by {self.client}"
 
 
 @receiver(m2m_changed, sender=Order.products.through)
 def update_total_price(sender, instance, action, **kwargs):
     if action == "post_add" or action == "post_remove":
-        instance.total_price = sum(product.price for product in instance.products.all())
+        instance.total_price = sum(product_instance.product.price * product_instance.quantity for product_instance in instance.products.all())
         instance.save()
-
-
-class ProductInstance(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4,
-                          help_text="Unique ID for this particular product across whole shop")
-    product = models.ForeignKey('Product', on_delete=models.SET_NULL, null=True)
-    # order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
-    customer = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
-
-    class Meta:
-        permissions = (("can_mark_issued", "Set product as issued"),)
-
-    def __str__(self):
-        """
-        String for representing the Model object
-        """
-        return '%s (%s)' % (self.id, self.product.name)
