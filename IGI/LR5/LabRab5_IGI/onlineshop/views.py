@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic import FormView
 
-from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance
+from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance, Cart
 
 
 # Create your views here.
@@ -33,6 +33,7 @@ from django.views import generic
 from django.views import generic
 from .models import Product, ProductType
 
+
 class ProductListView(generic.ListView):
     model = Product
     paginate_by = 10
@@ -56,6 +57,7 @@ class ProductListView(generic.ListView):
         context = super().get_context_data(**kwargs)
         context['product_types'] = ProductType.objects.all()
         return context
+
 
 class ProductDetailView(generic.DetailView):
     model = Product
@@ -171,4 +173,34 @@ class RegisterView(FormView):
         return super().form_valid(form)
 
 
+from django.shortcuts import redirect, get_object_or_404
+from .models import Product, ProductInstance, Client
 
+
+def add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    client = get_object_or_404(Client, user=request.user)
+    product_instance, product_created = ProductInstance.objects.get_or_create(product=product, customer=client)
+    cart, cart_created = Cart.objects.get_or_create(client=client)
+    cart.save()
+    if not product_created:
+        product_instance.quantity += 1
+        product_instance.save()
+    else:
+        cart.products.add(product_instance)
+        cart.save()
+    cart.update_total_price()  # Обновляем общую стоимость в корзине
+    return redirect('products')
+
+
+from django.views.generic.detail import DetailView
+from django.shortcuts import get_object_or_404
+from .models import Cart
+
+
+class CartView(DetailView):
+    model = Cart
+    template_name = 'onlineshop/user_cart.html'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Cart, client=self.request.user.client)

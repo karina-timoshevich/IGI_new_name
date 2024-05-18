@@ -33,3 +33,11 @@ urlpatterns += [
 urlpatterns += [
     re_path(r'^orders/(?P<order_id>[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})/$', views.OrderedProductsByUserListView.as_view(), name='order-detail'),
 ]
+urlpatterns += [
+    # ... your other url patterns here ...
+
+    path('add_to_cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
+]
+urlpatterns += [
+    re_path(r'^cart/$', views.CartView.as_view(), name='cart'),
+]

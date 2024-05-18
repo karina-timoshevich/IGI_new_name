@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance
+from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance, Cart
 
 
 # Register your models here.
@@ -90,3 +90,9 @@ class ProductInstanceAdmin(admin.ModelAdmin):
             'fields': ('quantity', 'customer')
         }),
     )
+
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ('client', 'total_price')
+    pass

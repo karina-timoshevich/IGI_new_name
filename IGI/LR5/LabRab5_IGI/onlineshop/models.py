@@ -94,6 +94,9 @@ class ProductInstance(models.Model):
     quantity = models.PositiveIntegerField(default=1)
     customer = models.ForeignKey(Client, on_delete=models.SET_NULL, null=True, blank=True)
 
+    @property
+    def total_price(self):
+        return self.product.price * self.quantity
     class Meta:
         permissions = (("can_mark_issued", "Set product as issued"),)
 
@@ -122,7 +125,8 @@ class Order(models.Model):
                               help_text='Status of the order')
 
     def save(self, *args, **kwargs):
-        self.total_price = sum(product_instance.product.price * product_instance.quantity for product_instance in self.products.all())
+        self.total_price = sum(
+            product_instance.product.price * product_instance.quantity for product_instance in self.products.all())
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -132,5 +136,21 @@ class Order(models.Model):
 @receiver(m2m_changed, sender=Order.products.through)
 def update_total_price(sender, instance, action, **kwargs):
     if action == "post_add" or action == "post_remove":
-        instance.total_price = sum(product_instance.product.price * product_instance.quantity for product_instance in instance.products.all())
+        instance.total_price = sum(
+            product_instance.product.price * product_instance.quantity for product_instance in instance.products.all())
         instance.save()
+
+
+class Cart(models.Model):
+    client = models.ForeignKey(Client, on_delete=models.CASCADE)
+    products = models.ManyToManyField(ProductInstance)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+
+    def __str__(self):
+        return f"Cart for {self.client}"
+
+    def update_total_price(self):
+        self.total_price = sum(
+            product_instance.product.price * product_instance.quantity for product_instance in self.products.all())
+        self.save()
+
