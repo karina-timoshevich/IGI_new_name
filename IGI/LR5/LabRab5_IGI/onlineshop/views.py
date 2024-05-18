@@ -1,4 +1,7 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
+from django.views.generic import FormView
+
 from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance
 
 
@@ -58,6 +61,14 @@ class OrderedProductsByUserListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return ProductInstance.objects.filter(customer=self.request.user)
 
+class OrdersByUserListView(LoginRequiredMixin, generic.ListView):
+
+    model = Order
+    template_name = 'onlineshop/order_list_ordered_user.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return Order.objects.filter(customer=self.request.user)
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
@@ -87,7 +98,7 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .forms import OrderStatusForm
+from .forms import OrderStatusForm, RegisterForm
 from .models import Order
 
 
@@ -114,3 +125,17 @@ def change_status_employee(request, pk):
         form = OrderStatusForm(instance=order)
 
     return render(request, 'onlineshop/change_status_employee.html', {'form': form, 'order': order})
+
+
+class RegisterView(FormView):
+    model = User
+    form_class = RegisterForm
+    template_name = 'registration/sign_up.html'
+    success_url = '/'
+
+    def form_valid(self, form):
+        user = form.save()
+
+        client = Client(user=user)
+        client.save()
+        return super().form_valid(form)

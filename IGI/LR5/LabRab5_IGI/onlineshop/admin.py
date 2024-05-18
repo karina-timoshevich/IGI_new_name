@@ -51,13 +51,24 @@ class OrderAdmin(admin.ModelAdmin):
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
-    list_display = ('first_name', 'last_name', 'email')
-    pass
+    list_display = ('user_username', 'first_name', 'last_name', 'user_email')
+    search_fields = ('first_name', 'last_name', 'user_email')
+
+    def user_email(self, obj):
+        return obj.user.email
+
+    user_email.short_description = 'Email'  # Sets column header in admin panel
+
+    def user_username(self, obj):
+        return obj.user.username
+
+    user_username.short_description = 'Username'  # Sets column header in admin panel
 
 
 @admin.register(UnitOfMeasure)
 class UnitOfMeasureAdmin(admin.ModelAdmin):
     pass
+
 
 @admin.register(ProductInstance)
 class ProductInstanceAdmin(admin.ModelAdmin):
@@ -66,7 +77,7 @@ class ProductInstanceAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('product',  'id')
+            'fields': ('product', 'id')
         }),
         ('Info', {
             'fields': ('quantity', 'customer')

@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path
 from django.urls import include
 
+from onlineshop.views import RegisterView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
@@ -41,6 +43,9 @@ urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 # Add Django site authentication urls (for login, logout, password management)
 urlpatterns += [
     path('accounts/', include('django.contrib.auth.urls')),
+]
+urlpatterns += [
+    path('sign-up', RegisterView.as_view(), name='sign-up'),
 ]
 # from django.contrib.auth.views import LogoutView
 # from django.urls import path
