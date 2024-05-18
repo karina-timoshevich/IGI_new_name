@@ -27,3 +27,6 @@ urlpatterns += [
     re_path(r'^order/(?P<pk>[-\w]+)/change-status/$', views.change_status_employee, name='change-status-employee'),
 
 ]
+urlpatterns += [
+    re_path(r'^orders/$', views.OrdersByUserListView.as_view(), name='my-orders'),
+]

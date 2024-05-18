@@ -45,9 +45,16 @@ class ManufacturerAdmin(admin.ModelAdmin):
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
-    list_display = ('client', 'order_date')
-    pass
+    list_display = ('client_username', 'order_date', 'total_price', 'status')
 
+    def client_username(self, obj):
+        return obj.client.user.username
+
+    client_username.short_description = 'Client Username'  # Sets column header in admin panel
+
+    def save_model(self, request, obj, form, change):
+        obj.total_price = sum(product.price for product in obj.products.all())
+        super().save_model(request, obj, form, change)
 
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):

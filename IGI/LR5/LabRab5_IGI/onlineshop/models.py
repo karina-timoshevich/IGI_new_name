@@ -1,6 +1,8 @@
 import uuid
 
 from django.db import models
+from django.db.models.signals import m2m_changed
+from django.dispatch import receiver
 from django.urls import reverse
 
 import sys
@@ -29,9 +31,8 @@ class Client(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
 
-
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.user.username}"
 
     class Meta:
         ordering = ["last_name", "first_name"]
@@ -102,9 +103,18 @@ class Order(models.Model):
     status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='p',
                               help_text='Status of the order')
 
+    def save(self, *args, **kwargs):
+        self.total_price = sum(product.price for product in self.products.all())
+        super().save(*args, **kwargs)
+    def __str__(self):
+         return f"Order {self.id} by {self.client}"
 
-def __str__(self):
-    return f"Order {self.id} by {self.client}"
+
+@receiver(m2m_changed, sender=Order.products.through)
+def update_total_price(sender, instance, action, **kwargs):
+    if action == "post_add" or action == "post_remove":
+        instance.total_price = sum(product.price for product in instance.products.all())
+        instance.save()
 
 
 class ProductInstance(models.Model):

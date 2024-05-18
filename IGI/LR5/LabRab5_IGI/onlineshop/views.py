@@ -61,14 +61,16 @@ class OrderedProductsByUserListView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return ProductInstance.objects.filter(customer=self.request.user)
 
+
 class OrdersByUserListView(LoginRequiredMixin, generic.ListView):
 
     model = Order
-    template_name = 'onlineshop/order_list_ordered_user.html'
+    template_name = 'onlineshop/orders_by_user.html'
     paginate_by = 10
 
     def get_queryset(self):
-        return Order.objects.filter(customer=self.request.user)
+        return Order.objects.filter(client__user=self.request.user)
+
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect

@@ -24,7 +24,8 @@
 {#                  <li><a href="{% url 'my-ordered' %}">My Ordered</a></li>#}
                  {% for group in user.groups.all %}
                     {% if group.name == "Shop Members" %}
-                        <li><a href="{% url 'my-ordered' %}">My Orders</a></li>
+                        <li><a href="{% url 'my-orders' %}">My Orders</a></li>
+
                     {% endif %}
 
                 {% endfor %}
