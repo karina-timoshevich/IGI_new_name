@@ -12,6 +12,10 @@
       {% endfor %}
     </ul>
     <p>Total price: {{ cart.total_price }}</p>
+    <form action="{% url 'create-order' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Оформить заказ">
+    </form>
     {% else %}
         <p>Your cart is empty.</p>
     {% endif %}

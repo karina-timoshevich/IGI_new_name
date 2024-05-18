@@ -41,3 +41,6 @@ urlpatterns += [
 urlpatterns += [
     re_path(r'^cart/$', views.CartView.as_view(), name='cart'),
 ]
+urlpatterns += [
+    path('create-order/', views.create_order, name='create-order'),
+]

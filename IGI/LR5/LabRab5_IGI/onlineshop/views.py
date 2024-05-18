@@ -204,3 +204,18 @@ class CartView(DetailView):
 
     def get_object(self, queryset=None):
         return get_object_or_404(Cart, client=self.request.user.client)
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
+from .models import Order
+
+@login_required
+def create_order(request):
+    cart = get_object_or_404(Cart, client=request.user.client)
+    order = Order(client=request.user.client)
+    order.save()
+    for product_instance in cart.products.all():
+        order.products.add(product_instance)
+    cart.products.clear()
+    cart.save()
+    return redirect('my-orders')
