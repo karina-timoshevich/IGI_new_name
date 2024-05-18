@@ -219,3 +219,33 @@ def create_order(request):
     cart.products.clear()
     cart.save()
     return redirect('my-orders')
+
+@login_required
+def increase_quantity(request, product_instance_id):
+    product_instance = get_object_or_404(ProductInstance, id=product_instance_id)
+    product_instance.quantity += 1
+    product_instance.save()
+    cart = get_object_or_404(Cart, client=request.user.client)
+    cart.update_total_price()
+    cart.save()
+    return redirect('cart')
+
+@login_required
+def decrease_quantity(request, product_instance_id):
+    product_instance = get_object_or_404(ProductInstance, id=product_instance_id)
+    if product_instance.quantity > 1:
+        product_instance.quantity -= 1
+        product_instance.save()
+    cart = get_object_or_404(Cart, client=request.user.client)
+    cart.update_total_price()
+    cart.save()
+    return redirect('cart')
+
+@login_required
+def remove_from_cart(request, product_instance_id):
+    product_instance = get_object_or_404(ProductInstance, id=product_instance_id)
+    cart = get_object_or_404(Cart, client=request.user.client)
+    cart.products.remove(product_instance)
+    cart.update_total_price()
+    cart.save()
+    return redirect('cart')

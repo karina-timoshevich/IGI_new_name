@@ -44,3 +44,12 @@ urlpatterns += [
 urlpatterns += [
     path('create-order/', views.create_order, name='create-order'),
 ]
+
+urlpatterns += [
+    re_path(r'^increase-quantity/(?P<product_instance_id>[0-9a-f-]+)/$', views.increase_quantity,
+            name='increase-quantity'),
+    re_path(r'^decrease-quantity/(?P<product_instance_id>[0-9a-f-]+)/$', views.decrease_quantity,
+            name='decrease-quantity'),
+    re_path(r'^remove-from-cart/(?P<product_instance_id>[0-9a-f-]+)/$', views.remove_from_cart,
+            name='remove-from-cart'),
+]

@@ -7,7 +7,21 @@
     <ul>
       {% for product_instance in cart.products.all %}
       <li>
-            <a href="{% url 'product-detail' product_instance.product.id %}">{{ product_instance.product.name }}</a> (Quantity: {{ product_instance.quantity }}, Price: {{ product_instance.product.price }}, Total: {{ product_instance.total_price }})
+            <a href="{% url 'product-detail' product_instance.product.id %}">{{ product_instance.product.name }}</a> (Quantity: {{ product_instance.quantity }}, Price: {{ product_instance.product.price }}, Total: <span id="total-price-{{ product_instance.id }}">{{ product_instance.total_price }}</span>)
+            <div style="display: flex;">
+                <form action="{% url 'increase-quantity' product_instance.id %}" method="post" class="quantity-form" data-product-instance-id="{{ product_instance.id }}">
+                    {% csrf_token %}
+                    <input type="submit" value="+">
+                </form>
+                <form action="{% url 'decrease-quantity' product_instance.id %}" method="post" class="quantity-form" data-product-instance-id="{{ product_instance.id }}">
+                    {% csrf_token %}
+                    <input type="submit" value="-">
+                </form>
+                <form action="{% url 'remove-from-cart' product_instance.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Удалить из корзины">
+                </form>
+            </div>
       </li>
       {% endfor %}
     </ul>
