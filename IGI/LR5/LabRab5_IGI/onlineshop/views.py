@@ -5,6 +5,8 @@ from django.views.generic import FormView
 from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance, Cart
 
 from django.contrib.auth.decorators import login_required
+
+
 # Create your views here.
 
 def index(request):
@@ -196,8 +198,10 @@ from django.views.generic.detail import DetailView
 from django.shortcuts import get_object_or_404
 from .models import Cart
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class CartView(DetailView):
+
+class CartView(LoginRequiredMixin, DetailView):
     model = Cart
     template_name = 'onlineshop/user_cart.html'
 
@@ -207,6 +211,7 @@ class CartView(DetailView):
 
 from django.shortcuts import redirect
 from .models import Order
+
 
 @login_required
 def create_order(request):
@@ -219,6 +224,7 @@ def create_order(request):
     cart.save()
     return redirect('my-orders')
 
+
 @login_required
 def increase_quantity(request, product_instance_id):
     product_instance = get_object_or_404(ProductInstance, id=product_instance_id)
@@ -228,6 +234,7 @@ def increase_quantity(request, product_instance_id):
     cart.update_total_price()
     cart.save()
     return redirect('cart')
+
 
 @login_required
 def decrease_quantity(request, product_instance_id):
@@ -239,6 +246,7 @@ def decrease_quantity(request, product_instance_id):
     cart.update_total_price()
     cart.save()
     return redirect('cart')
+
 
 @login_required
 def remove_from_cart(request, product_instance_id):
