@@ -284,3 +284,16 @@ def remove_from_cart(request, product_instance_id):
     cart.update_total_price()
     cart.save()
     return redirect('cart')
+
+
+from django.views import generic
+from .models import PromoCode
+
+
+class PromoCodeListView(generic.ListView):
+    model = PromoCode
+    template_name = 'onlineshop/promo_code_list.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return super().get_queryset()[1:]  # Skip the first promo code

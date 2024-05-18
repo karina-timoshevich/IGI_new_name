@@ -55,7 +55,8 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    # ...
     path('onlineshop/cart/apply-promo-code/', views.apply_promo_code, name='apply-promo-code'),
-    # ...
+]
+urlpatterns += [
+    path('promo-codes/', views.PromoCodeListView.as_view(), name='promo-codes'),
 ]

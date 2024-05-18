@@ -18,6 +18,7 @@
             <li><a href="{% url 'index' %}">Home</a></li>
             <li><a href="{% url 'products' %}">All products</a></li>
             <li><a href="{% url 'manufacturers' %}">All manufacturers</a></li>
+            <li><a href="{% url 'promo-codes' %}">Promocodes</a></li>
 
              {% if user.is_authenticated %}
                  <li>User: {{ user.get_username }}</li>
