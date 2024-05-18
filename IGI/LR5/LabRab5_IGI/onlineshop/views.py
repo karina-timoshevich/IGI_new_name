@@ -206,21 +206,48 @@ class CartView(LoginRequiredMixin, DetailView):
     template_name = 'onlineshop/user_cart.html'
 
     def get_object(self, queryset=None):
-        return get_object_or_404(Cart, client=self.request.user.client)
+        client = get_object_or_404(Client, user=self.request.user)
+        cart, created = Cart.objects.get_or_create(client=client)
+        return cart
 
 
 from django.shortcuts import redirect
 from .models import Order
 
+from django.shortcuts import redirect
+from django.contrib import messages
+from .models import PromoCode
+
+
+def apply_promo_code(request):
+    promo_code = request.POST.get('promo_code')
+    try:
+        promo = PromoCode.objects.get(code=promo_code)
+        cart = Cart.objects.get(client=request.user.client)
+        cart.promo_code = promo  # save the promo code in the cart
+        cart.update_total_price()
+        cart.save()
+        messages.success(request, 'Promo code applied successfully!')
+    except PromoCode.DoesNotExist:
+        messages.error(request, 'Invalid promo code.')
+    return redirect('cart')
+
 
 @login_required
 def create_order(request):
-    cart = get_object_or_404(Cart, client=request.user.client)
-    order = Order(client=request.user.client)
+    client = get_object_or_404(Client, user=request.user)
+    cart = Cart.objects.get(client=client)  # Get the cart from the database again
+    total_price = cart.total_price  # Save the total_price before clearing the cart
+    promo_code = cart.promo_code  # Save the promo code before clearing the cart
+    order = Order(client=client)
+    order.total_price = total_price  # Use the saved total_price
+    order.promo_code = promo_code  # Use the saved promo code
     order.save()
     for product_instance in cart.products.all():
         order.products.add(product_instance)
     cart.products.clear()
+    cart.update_total_price()  # Update the total_price in the cart after clearing the products
+    cart.promo_code = None  # Clear the promo code in the cart
     cart.save()
     return redirect('my-orders')
 

@@ -53,3 +53,9 @@ urlpatterns += [
     re_path(r'^remove-from-cart/(?P<product_instance_id>[0-9a-f-]+)/$', views.remove_from_cart,
             name='remove-from-cart'),
 ]
+
+urlpatterns += [
+    # ...
+    path('onlineshop/cart/apply-promo-code/', views.apply_promo_code, name='apply-promo-code'),
+    # ...
+]

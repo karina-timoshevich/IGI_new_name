@@ -25,6 +25,13 @@
       </li>
       {% endfor %}
     </ul>
+         <!-- Promo code form -->
+    <form action="{% url 'apply-promo-code' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="promo_code" placeholder="Enter promo code">
+        <input type="submit" value="Apply Promo Code">
+    </form>
+
     <p>Total price: {{ cart.total_price }}</p>
     <form action="{% url 'create-order' %}" method="post">
         {% csrf_token %}

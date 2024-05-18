@@ -97,6 +97,7 @@ class ProductInstance(models.Model):
     @property
     def total_price(self):
         return self.product.price * self.quantity
+
     class Meta:
         permissions = (("can_mark_issued", "Set product as issued"),)
 
@@ -107,6 +108,14 @@ class ProductInstance(models.Model):
         return '%s (%s)' % (self.id, self.product.name)
 
 
+class PromoCode(models.Model):
+    code = models.CharField(max_length=10)
+    discount = models.DecimalField(max_digits=10, decimal_places=2)
+
+    def __str__(self):
+        return self.code
+
+
 class Order(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4,
                           help_text="Unique ID for this particular product across whole shop")
@@ -114,6 +123,8 @@ class Order(models.Model):
     products = models.ManyToManyField(ProductInstance)
     order_date = models.DateTimeField(auto_now_add=True)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    promo_code = models.ForeignKey(PromoCode, on_delete=models.SET_NULL, null=True, blank=True)  # new field
+
     LOAN_STATUS = (
         ('p', 'Processing'),
         ('s', 'Shipped'),
@@ -124,10 +135,22 @@ class Order(models.Model):
     status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='p',
                               help_text='Status of the order')
 
+
+
     def save(self, *args, **kwargs):
         self.total_price = sum(
             product_instance.product.price * product_instance.quantity for product_instance in self.products.all())
+        if self.promo_code:
+            self.total_price *= (1 - self.promo_code.discount / 100)
         super().save(*args, **kwargs)
+
+    def update_total_price(self):
+        total_price = sum(
+            product_instance.product.price * product_instance.quantity for product_instance in self.products.all())
+        if self.promo_code:
+            total_price *= (1 - self.promo_code.discount / 100)
+        self.total_price = total_price
+        self.save()
 
     def __str__(self):
         return f"Order {self.id} by {self.client}"
@@ -145,12 +168,15 @@ class Cart(models.Model):
     client = models.ForeignKey(Client, on_delete=models.CASCADE)
     products = models.ManyToManyField(ProductInstance)
     total_price = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
+    promo_code = models.ForeignKey(PromoCode, on_delete=models.SET_NULL, null=True, blank=True)  # new field
 
     def __str__(self):
         return f"Cart for {self.client}"
 
     def update_total_price(self):
-        self.total_price = sum(
+        total_price = sum(
             product_instance.product.price * product_instance.quantity for product_instance in self.products.all())
+        if self.promo_code:
+            total_price *= (1 - self.promo_code.discount / 100)
+        self.total_price = total_price
         self.save()
-

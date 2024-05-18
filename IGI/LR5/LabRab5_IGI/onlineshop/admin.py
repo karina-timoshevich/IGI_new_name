@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance, Cart
+from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance, Cart, \
+    PromoCode
 
 
 # Register your models here.
@@ -56,6 +57,7 @@ class OrderAdmin(admin.ModelAdmin):
         obj.total_price = sum(product.price for product in obj.products.all())
         super().save_model(request, obj, form, change)
 
+
 @admin.register(Client)
 class ClientAdmin(admin.ModelAdmin):
     list_display = ('user_username', 'first_name', 'last_name', 'user_email')
@@ -95,4 +97,10 @@ class ProductInstanceAdmin(admin.ModelAdmin):
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
     list_display = ('client', 'total_price')
+    pass
+
+
+@admin.register(PromoCode)
+class PromoCodeAdmin(admin.ModelAdmin):
+    list_display = ('code', 'discount')
     pass
