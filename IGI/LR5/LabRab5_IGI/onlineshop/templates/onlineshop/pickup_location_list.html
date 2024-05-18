@@ -1,0 +1,15 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Pickup Locations</h1>
+  <ul>
+    {% for location in object_list %}
+      <li>
+        <h2>{{ location.name }}</h2>
+        <p>Address: {{ location.address }}</p>
+      </li>
+    {% empty %}
+      <li>No pickup locations available.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

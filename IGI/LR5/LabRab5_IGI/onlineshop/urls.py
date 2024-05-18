@@ -60,3 +60,6 @@ urlpatterns += [
 urlpatterns += [
     path('promo-codes/', views.PromoCodeListView.as_view(), name='promo-codes'),
 ]
+urlpatterns += [
+    path('pickup-locations/', views.PickupLocationListView.as_view(), name='pickup-locations'),
+]

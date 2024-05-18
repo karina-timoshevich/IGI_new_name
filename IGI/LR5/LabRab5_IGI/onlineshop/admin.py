@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance, Cart, \
-    PromoCode
+    PromoCode, PickupLocation
 
 
 # Register your models here.
@@ -103,4 +103,10 @@ class CartAdmin(admin.ModelAdmin):
 @admin.register(PromoCode)
 class PromoCodeAdmin(admin.ModelAdmin):
     list_display = ('code', 'discount')
+    pass
+
+
+@admin.register(PickupLocation)
+class PickupLocationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'address')
     pass

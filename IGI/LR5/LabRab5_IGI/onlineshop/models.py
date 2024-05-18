@@ -135,8 +135,6 @@ class Order(models.Model):
     status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='p',
                               help_text='Status of the order')
 
-
-
     def save(self, *args, **kwargs):
         self.total_price = sum(
             product_instance.product.price * product_instance.quantity for product_instance in self.products.all())
@@ -180,3 +178,11 @@ class Cart(models.Model):
             total_price *= (1 - self.promo_code.discount / 100)
         self.total_price = total_price
         self.save()
+
+
+class PickupLocation(models.Model):
+    name = models.CharField(max_length=200)
+    address = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.name

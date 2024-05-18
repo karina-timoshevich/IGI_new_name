@@ -2,7 +2,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic import FormView
 
-from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance, Cart
+from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance, Cart, \
+    PickupLocation
 
 from django.contrib.auth.decorators import login_required
 
@@ -296,4 +297,8 @@ class PromoCodeListView(generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return super().get_queryset()[1:]  # Skip the first promo code
+        return super().get_queryset()[1:]
+
+class PickupLocationListView(generic.ListView):
+    model = PickupLocation
+    template_name = 'onlineshop/pickup_location_list.html'

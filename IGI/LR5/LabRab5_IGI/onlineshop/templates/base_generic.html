@@ -27,6 +27,7 @@
                     {% if group.name == "Shop Members" %}
                         <li><a href="{% url 'my-orders' %}">My Orders</a></li>
                         <li><a href="{% url 'cart' %}">My Cart</a></li>
+                        <li><a href="{% url 'pickup-locations' %}">Pick-up points</a></li>
                     {% endif %}
 
                 {% endfor %}
