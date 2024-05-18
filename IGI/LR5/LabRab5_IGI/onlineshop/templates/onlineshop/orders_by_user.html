@@ -5,13 +5,11 @@
 
     {% if order_list %}
     <ul>
-
       {% for order in order_list %}
       <li>
-       <a href="{% url 'order-detail' order.id %}">Order {{ order.order_date|date:"d.m.Y" }}</a> (Total price: {{ order.total_price }})
+       <a href="{% url 'order-detail' order.id %}">Order {{ order.order_date|date:"d.m.Y" }} - {{ order.get_status_display }}</a> (Total price: {{ order.total_price }})
       </li>
       {% endfor %}
-
     </ul>
     {% else %}
       <p>You have no orders.</p>

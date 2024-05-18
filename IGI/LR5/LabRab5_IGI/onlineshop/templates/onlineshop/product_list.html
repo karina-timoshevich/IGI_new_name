@@ -3,17 +3,31 @@
 {% block content %}
     <h1>Product List</h1>
 
+    <form method="GET">
+        <select name="product_type_id" onchange="this.form.submit()">
+            <option value="" {% if not request.GET.product_type_id %}selected{% endif %}>All types</option>
+            {% for product_type in product_types %}
+            <option value="{{ product_type.id }}" {% if request.GET.product_type_id == product_type.id|stringformat:"s" %}selected{% endif %}>{{ product_type.name }}</option>
+            {% endfor %}
+        </select>
+
+        <select name="price_order" onchange="this.form.submit()">
+            <option value="">Default</option>
+            <option value="asc" {% if request.GET.price_order == 'asc' %}selected{% endif %}>Price low to high</option>
+            <option value="desc" {% if request.GET.price_order == 'desc' %}selected{% endif %}>Price high to low</option>
+        </select>
+    </form>
+
     {% if product_list %}
     <ul>
-
       {% for product in product_list %}
       <li>
         <a href="{{ product.get_absolute_url }}">{{ product.name }}</a> ({{ product.price }})
       </li>
       {% endfor %}
-
     </ul>
     {% else %}
-      <p>There are no products in the online-shop.</p>
     {% endif %}
+        <p>There are no products in the online-shop.</p>
+
 {% endblock %}

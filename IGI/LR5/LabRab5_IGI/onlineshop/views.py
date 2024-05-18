@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import FormView
 
 from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance
@@ -29,11 +29,33 @@ def index(request):
 
 from django.views import generic
 
+# views.py
+from django.views import generic
+from .models import Product, ProductType
 
 class ProductListView(generic.ListView):
     model = Product
-    # paginate_by = 10  для постраничного отображения (надо обрабатывать в base_generic.html)
+    paginate_by = 10
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        product_type_id = self.request.GET.get('product_type_id')
+        price_order = self.request.GET.get('price_order')
+
+        if product_type_id:
+            queryset = queryset.filter(product_type_id=product_type_id)
+
+        if price_order == 'asc':
+            queryset = queryset.order_by('price')
+        elif price_order == 'desc':
+            queryset = queryset.order_by('-price')
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['product_types'] = ProductType.objects.all()
+        return context
 
 class ProductDetailView(generic.DetailView):
     model = Product
