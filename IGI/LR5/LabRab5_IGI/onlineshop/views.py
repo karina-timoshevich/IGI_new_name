@@ -4,7 +4,7 @@ from django.views.generic import FormView
 
 from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance, Cart
 
-
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 def index(request):
@@ -177,18 +177,17 @@ from django.shortcuts import redirect, get_object_or_404
 from .models import Product, ProductInstance, Client
 
 
+@login_required
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     client = get_object_or_404(Client, user=request.user)
     product_instance, product_created = ProductInstance.objects.get_or_create(product=product, customer=client)
     cart, cart_created = Cart.objects.get_or_create(client=client)
     cart.save()
-    if not product_created:
-        product_instance.quantity += 1
-        product_instance.save()
-    else:
-        cart.products.add(product_instance)
-        cart.save()
+    product_instance.quantity = 1  # Устанавливаем количество равным 1
+    product_instance.save()
+    cart.products.add(product_instance)
+    cart.save()
     cart.update_total_price()  # Обновляем общую стоимость в корзине
     return redirect('products')
 
@@ -205,7 +204,7 @@ class CartView(DetailView):
     def get_object(self, queryset=None):
         return get_object_or_404(Cart, client=self.request.user.client)
 
-from django.contrib.auth.decorators import login_required
+
 from django.shortcuts import redirect
 from .models import Order
 
@@ -246,6 +245,7 @@ def remove_from_cart(request, product_instance_id):
     product_instance = get_object_or_404(ProductInstance, id=product_instance_id)
     cart = get_object_or_404(Cart, client=request.user.client)
     cart.products.remove(product_instance)
+    product_instance.delete()  # Удаляем ProductInstance
     cart.update_total_price()
     cart.save()
     return redirect('cart')
