@@ -7,8 +7,7 @@
   <p><strong>Price:</strong> {{ product.price }}</p>
   <p><strong>Product type:</strong> {{ product.product_type }}</p>
     <p><strong>Unit of measure:</strong> {{ product.unit_of_measure }}</p>
-  <p><strong>Manufacturer:</strong> <a href="">{{ product.manufacturer }}</a></p>
-
+  <p><strong>Manufacturer:</strong> <a href="{% url 'manufacturer-detail' product.manufacturer.id %}">{{ product.manufacturer }}</a></p>
 
 {#  <div style="margin-left:20px;margin-top:20px">#}
 {#    <h4>Products</h4>#}
