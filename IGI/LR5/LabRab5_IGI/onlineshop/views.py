@@ -91,14 +91,15 @@ def index(request):
     dog_image = get_random_dog_image()
     if dog_image is None:
         logger.warning('Failed to retrieve dog image')
-
+    latest_article = Article.objects.latest('date_added')
     # Отрисовка HTML-шаблона index.html с данными внутри
     # переменной контекста context
     return render(
         request,
         'index.html',
         context={'num_books': num_products, 'num_authors': num_manufacturers,
-                 'num_visits': num_visits, 'cat_fact': cat_fact, 'dog_image': dog_image},
+                 'num_visits': num_visits, 'cat_fact': cat_fact, 'dog_image': dog_image,  'latest_article': latest_article},
+
     )
 
 

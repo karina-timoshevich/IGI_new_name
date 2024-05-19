@@ -207,11 +207,15 @@ class Review(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
 
+from django.utils import timezone
+
+
 class Article(models.Model):
     title = models.CharField(max_length=200)
     summary = models.CharField(max_length=200)
     image = models.ImageField(upload_to='articles/')
     content = models.TextField()
+    date_added = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.title

@@ -12,7 +12,7 @@
     <h2>Random Dog Image</h2>
     <img src="{{ dog_image.message }}" alt="Random dog image" style="max-width: 200px; height: 200px;">
 
-    <h2>Last news</h2>
-    <h2>"Meat and poultry"</h2>
-Meat and poultry contain protein, which is important for growth and development, and other nutrients your body needs, such as iodine, iron, zinc and vitamin B12.
+    <h2>Latest Article</h2>
+    <h3><a href="{% url 'article_detail' latest_article.id %}">{{ latest_article.title }}</a></h3>
+    <p>{{ latest_article.summary }}</p>
 {% endblock %}
