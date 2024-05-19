@@ -2,6 +2,8 @@ from django.urls import path
 from . import views
 from django.urls import re_path
 
+from .views import AllClientsForEmployeeView
+
 # urlpatterns = [
 #     path('', views.index, name='index'),
 #     path('products/', views.ProductListView.as_view(), name='products'),
@@ -62,4 +64,11 @@ urlpatterns += [
 ]
 urlpatterns += [
     path('pickup-locations/', views.PickupLocationListView.as_view(), name='pickup-locations'),
+]
+urlpatterns += [
+    path('clients/', views.client_list, name='clients'),
+]
+
+urlpatterns += [
+    path('clients/all/', views.AllClientsForEmployeeView.as_view(), name='all-clients'),
 ]

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import FormView
 
@@ -329,6 +330,43 @@ class PromoCodeListView(generic.ListView):
     def get_queryset(self):
         return super().get_queryset()[1:]
 
+
 class PickupLocationListView(generic.ListView):
     model = PickupLocation
     template_name = 'onlineshop/pickup_location_list.html'
+
+
+class AllClientsForEmployeeView(LoginRequiredMixin, generic.ListView):
+    """
+    Generic class-based view listing all clients, accessible only to employees.
+    """
+    model = User
+    template_name = 'onlineshop/client_list_for_employee.html'
+    paginate_by = 10
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Employees').exists():
+            return HttpResponseRedirect(reverse('index'))
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return User.objects.filter(groups__name='Shop Members').exclude(username='user').order_by('username')
+
+def client_list(request):
+    search_query = request.GET.get('search', '')
+    if search_query:
+        clients = Client.objects.filter(Q(user__username__icontains=search_query) | Q(user__email__icontains=search_query))
+    else:
+        clients = Client.objects.all().order_by('user__username')
+
+    return render(request, 'onlineshop/client_list_for_employee.html', {'object_list': clients})
+
+
+
+
+
+
+
+
+
+
