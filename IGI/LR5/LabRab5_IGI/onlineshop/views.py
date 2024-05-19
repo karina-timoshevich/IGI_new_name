@@ -123,7 +123,7 @@ class ProductListView(generic.ListView):
             queryset = queryset.order_by('-price')
 
         if search_query:
-            queryset = queryset.filter(Q(name__icontains=search_query) | Q(description__icontains=search_query))
+            queryset = queryset.filter(Q(name__istartswith=search_query))
         logger.info(
             f'Filtering products with product_type_id={product_type_id}, price_order={price_order}, search_query={search_query}')
         return queryset
