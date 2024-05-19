@@ -83,3 +83,8 @@ urlpatterns += [
     path('reviews/', ReviewListView.as_view(), name='reviews'),
     path('reviews/add/', ReviewCreateView.as_view(), name='add-review'),
 ]
+from .views import employee_stats
+
+urlpatterns += [
+    path('employee-stats/', employee_stats, name='employee-stats'),
+]

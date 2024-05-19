@@ -373,6 +373,7 @@ def client_list(request):
 from django.views import generic
 from .models import Employee
 
+
 class EmployeeListView(generic.ListView):
     model = Employee
     template_name = 'onlineshop/employee_list.html'
@@ -383,9 +384,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Review
 from .forms import ReviewForm
 
+
 class ReviewListView(ListView):
     model = Review
     template_name = 'onlineshop/reviews.html'  # update this to your template
+
 
 class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
@@ -396,3 +399,54 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+from django.db.models import Avg, Count, Sum, Q
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+from .models import Order, Product, Client
+import numpy as np
+from datetime import date
+from dateutil.relativedelta import relativedelta
+
+
+@login_required
+def employee_stats(request):
+    # Проверка, что пользователь - сотрудник
+
+
+    # Получение данных из базы данных
+    orders = Order.objects.all()
+    products = Product.objects.all()
+    clients = Client.objects.all()
+
+    # Вычисление статистических показателей
+    total_sales = orders.aggregate(Sum('total_price'))['total_price__sum']
+    avg_sales = orders.aggregate(Avg('total_price'))['total_price__avg']
+    sales_values = [order.total_price for order in orders]
+    median_sales = np.median(sales_values)
+    mode_sales = max(set(sales_values), key=sales_values.count)
+
+    # Вычисление возраста каждого клиента
+    client_ages = [(date.today() - client.date_of_birth).days // 365 for client in clients if client.date_of_birth]
+    avg_client_age = np.mean(client_ages)
+    median_age = np.median(client_ages)
+
+    popular_product_type = products.values('product_type__name').annotate(count=Count('product_type')).order_by(
+        '-count').first()
+    profitable_product_type = products.values('product_type__name').annotate(profit=Sum('price')).order_by(
+        '-profit').first()
+
+    # Передача показателей в шаблон
+    context = {
+        'total_sales': total_sales,
+        'avg_sales': avg_sales,
+        'median_sales': median_sales,
+        'mode_sales': mode_sales,
+        'avg_client_age': avg_client_age,
+        'median_age': median_age,
+        'popular_product_type': popular_product_type,
+        'profitable_product_type': profitable_product_type,
+    }
+
+    return render(request, 'onlineshop/employee_stats.html', context)

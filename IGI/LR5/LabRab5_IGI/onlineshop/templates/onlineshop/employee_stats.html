@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Employee Statistics</h1>
+
+    <h2>Sales Statistics</h2>
+    <p>Total Sales: {{ total_sales }}</p>
+    <p>Average Sales: {{ avg_sales }}</p>
+    <p>Median Sales: {{ median_sales }}</p>
+    <p>Mode Sales: {{ mode_sales }}</p>
+
+    <h2>Client Age Statistics</h2>
+    <p>Average Client Age: {{ avg_client_age }}</p>
+    <p>Median Client Age: {{ median_age }}</p>
+
+    <h2>Product Statistics</h2>
+    <p>Most Popular Product Type: {{ popular_product_type.product_type__name }}</p>
+    <p>Most Profitable Product Type: {{ profitable_product_type.product_type__name }}</p>
+
+{% endblock %}
