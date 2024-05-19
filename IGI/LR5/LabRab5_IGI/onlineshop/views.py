@@ -102,7 +102,7 @@ class OrdersByUserListView(LoginRequiredMixin, generic.ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        return Order.objects.filter(client__user=self.request.user)
+        return Order.objects.filter(client__user=self.request.user).order_by('-order_date')
 
 
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -126,7 +126,7 @@ class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
         return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        return Order.objects.all()
+        return Order.objects.all().order_by('-order_date')
 
 
 from django.contrib.auth.decorators import permission_required
