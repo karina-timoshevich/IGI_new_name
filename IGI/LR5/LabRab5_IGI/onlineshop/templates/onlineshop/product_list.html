@@ -4,6 +4,7 @@
     <h1>Product List</h1>
 
     <form method="GET">
+        <input type="text" name="search" placeholder="Search products" value="{{ request.GET.search|default:'' }}">
         <select name="product_type_id" onchange="this.form.submit()">
             <option value="" {% if not request.GET.product_type_id %}selected{% endif %}>All types</option>
             {% for product_type in product_types %}

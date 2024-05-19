@@ -46,14 +46,20 @@ class ProductListView(generic.ListView):
         queryset = super().get_queryset()
         product_type_id = self.request.GET.get('product_type_id')
         price_order = self.request.GET.get('price_order')
+        search_query = self.request.GET.get('search')
 
         if product_type_id:
             queryset = queryset.filter(product_type_id=product_type_id)
 
-        if price_order == 'asc':
+        if self.request.user.is_superuser or self.request.user.groups.filter(name='Employees').exists():
+            queryset = queryset.order_by('name')
+        elif price_order == 'asc':
             queryset = queryset.order_by('price')
         elif price_order == 'desc':
             queryset = queryset.order_by('-price')
+
+        if search_query:
+            queryset = queryset.filter(Q(name__icontains=search_query) | Q(description__icontains=search_query))
 
         return queryset
 
@@ -110,19 +116,18 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views import generic
-from .models import ProductInstance
-
+from .models import Order
 
 class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
     """
-    Generic class-based view listing all orders, accessible only to employees.
+    Generic class-based view listing all orders, accessible to employees and superusers.
     """
     model = Order
     template_name = 'onlineshop/productinstance_list_all_orders.html'
     paginate_by = 10
 
     def dispatch(self, request, *args, **kwargs):
-        if not request.user.groups.filter(name='Employees').exists():
+        if not request.user.is_superuser and not request.user.groups.filter(name='Employees').exists():
             return HttpResponseRedirect(reverse('index'))
         return super().dispatch(request, *args, **kwargs)
 

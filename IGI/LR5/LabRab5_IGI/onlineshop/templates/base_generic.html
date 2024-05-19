@@ -33,18 +33,30 @@
                     {% endif %}
 
                 {% endfor %}
-                {% for group in user.groups.all %}
-                    {% if group.name == "Employees" %}
-                        <li><a href="{% url 'all-orders' %}">All Orders</a></li>
-                        <li><a href="{% url 'clients' %}">All clients</a></li>
-                        <li><a href="{% url 'employee-stats' %}">All statistics</a></li>
-                        {% if perms.onlineshop.can_mark_returned %}
-                            {% if order and order.id %}
-                                <li><a href="{% url 'change-status-employee' order.id %}">Change Order Status</a></li>
-                            {% endif %}
+
+                {% if user.is_superuser %}
+                    <li><a href="{% url 'all-orders' %}">All Orders</a></li>
+                    <li><a href="{% url 'clients' %}">All clients</a></li>
+                    <li><a href="{% url 'employee-stats' %}">All statistics</a></li>
+                    {% if perms.onlineshop.can_mark_returned %}
+                        {% if order and order.id %}
+                            <li><a href="{% url 'change-status-employee' order.id %}">Change Order Status</a></li>
                         {% endif %}
                     {% endif %}
-                {% endfor %}
+                {% else %}
+                    {% for group in user.groups.all %}
+                        {% if group.name == "Employees" %}
+                            <li><a href="{% url 'all-orders' %}">All Orders</a></li>
+                            <li><a href="{% url 'clients' %}">All clients</a></li>
+                            <li><a href="{% url 'employee-stats' %}">All statistics</a></li>
+                            {% if perms.onlineshop.can_mark_returned %}
+                                {% if order and order.id %}
+                                    <li><a href="{% url 'change-status-employee' order.id %}">Change Order Status</a></li>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
         <form action="{% url 'logout' %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ request.path }}">
