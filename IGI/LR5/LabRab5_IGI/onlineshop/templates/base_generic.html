@@ -19,6 +19,8 @@
             <li><a href="{% url 'products' %}">All products</a></li>
             <li><a href="{% url 'manufacturers' %}">All manufacturers</a></li>
             <li><a href="{% url 'promo-codes' %}">Promocodes</a></li>
+            <li><a href="{% url 'contacts' %}">Our employees</a></li>
+            <li><a href="{% url 'reviews' %}">Reviews</a></li>
 
              {% if user.is_authenticated %}
                  <li>User: {{ user.get_username }}</li>

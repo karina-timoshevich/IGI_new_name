@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Contacts</h1>
+
+  {% for employee in object_list %}
+    <div>
+      {% if employee.photo %}
+        <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" width="200">
+      {% endif %}
+      <h2>{{ employee.first_name }} {{ employee.last_name }}</h2>
+      <p>{{ employee.position }}</p>
+      {% if employee.job_description %}
+        <p>{{ employee.job_description }}</p>
+      {% endif %}
+      {% if employee.phone %}
+        <p>Phone: {{ employee.phone }}</p>
+      {% endif %}
+      {% if employee.email %}
+        <p>Email: <a href="mailto:{{ employee.email }}">{{ employee.email }}</a></p>
+      {% endif %}
+    </div>
+  {% empty %}
+    <p>No employees found.</p>
+  {% endfor %}
+{% endblock %}

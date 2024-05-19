@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Reviews</h1>
+
+  {% for review in object_list %}
+    <div>
+      <h2>{{ review.user.username }}</h2>
+      <p>Rating: {{ review.rating }}</p>
+      <p>{{ review.text }}</p>
+      <p>Date: {{ review.date }}</p>
+    </div>
+  {% empty %}
+    <p>No reviews found.</p>
+  {% endfor %}
+
+  {% if user.is_authenticated %}
+    <a href="{% url 'add-review' %}">Add a review</a>
+  {% else %}
+    <a href="{% url 'login' %}">Log in to add a review</a>
+  {% endif %}
+{% endblock %}

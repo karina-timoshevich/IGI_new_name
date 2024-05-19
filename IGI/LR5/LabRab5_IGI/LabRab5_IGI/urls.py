@@ -47,13 +47,11 @@ urlpatterns += [
 urlpatterns += [
     path('sign-up', RegisterView.as_view(), name='sign-up'),
 ]
-# from django.contrib.auth.views import LogoutView
-# from django.urls import path
-#
-# class LogoutViewWithGet(LogoutView):
-#     def get(self, request):
-#         return self.post(request)
-#
-# urlpatterns += [
-#     path('accounts/logout/', LogoutViewWithGet.as_view(), name='logout'),
-# ]
+from django.conf import settings
+from django.conf.urls.static import static
+
+# ... your existing urlpatterns ...
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

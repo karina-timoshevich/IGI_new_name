@@ -352,21 +352,41 @@ class AllClientsForEmployeeView(LoginRequiredMixin, generic.ListView):
     def get_queryset(self):
         return User.objects.filter(groups__name='Shop Members').exclude(username='user').order_by('username')
 
+
 def client_list(request):
     search_query = request.GET.get('search', '')
     if search_query:
-        clients = Client.objects.filter(Q(user__username__icontains=search_query) | Q(user__email__icontains=search_query))
+        clients = Client.objects.filter(
+            Q(user__username__icontains=search_query) | Q(user__email__icontains=search_query))
     else:
         clients = Client.objects.all().order_by('user__username')
 
     return render(request, 'onlineshop/client_list_for_employee.html', {'object_list': clients})
 
 
+from django.views import generic
+from .models import Employee
+
+class EmployeeListView(generic.ListView):
+    model = Employee
+    template_name = 'onlineshop/employee_list.html'
 
 
+from django.views.generic import ListView, CreateView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import Review
+from .forms import ReviewForm
 
+class ReviewListView(ListView):
+    model = Review
+    template_name = 'onlineshop/reviews.html'  # update this to your template
 
+class ReviewCreateView(LoginRequiredMixin, CreateView):
+    model = Review
+    form_class = ReviewForm
+    template_name = 'onlineshop/add_review.html'  # update this to your template
+    success_url = '/onlineshop/reviews/'
 
-
-
-
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)

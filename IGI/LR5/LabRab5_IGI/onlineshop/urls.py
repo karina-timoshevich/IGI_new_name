@@ -72,3 +72,14 @@ urlpatterns += [
 urlpatterns += [
     path('clients/all/', views.AllClientsForEmployeeView.as_view(), name='all-clients'),
 ]
+from .views import EmployeeListView
+
+urlpatterns += [
+    path('contacts/', EmployeeListView.as_view(), name='contacts'),
+]
+from .views import ReviewListView, ReviewCreateView
+
+urlpatterns += [
+    path('reviews/', ReviewListView.as_view(), name='reviews'),
+    path('reviews/add/', ReviewCreateView.as_view(), name='add-review'),
+]
