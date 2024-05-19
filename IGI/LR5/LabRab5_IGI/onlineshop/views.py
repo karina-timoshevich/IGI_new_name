@@ -415,10 +415,14 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 
 
+from django.db.models import Count
+from matplotlib import pyplot as plt
+import base64
+from io import BytesIO
+
 @login_required
 def employee_stats(request):
     # Проверка, что пользователь - сотрудник
-
 
     # Получение данных из базы данных
     orders = Order.objects.all()
@@ -442,6 +446,22 @@ def employee_stats(request):
     profitable_product_type = products.values('product_type__name').annotate(profit=Sum('price')).order_by(
         '-profit').first()
 
+    # Создание круговой диаграммы
+    product_types = Product.objects.values('product_type__name').annotate(
+        count=Count('productinstance__order')).order_by('-count')
+    fig, ax = plt.subplots()
+    ax.pie([pt['count'] for pt in product_types], labels=[pt['product_type__name'] for pt in product_types],
+           autopct='%1.1f%%')
+    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+    # Сохранение диаграммы в формате PNG
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    plt.close(fig)
+
+    # Кодирование изображения в base64 и декодирование в строку
+    image_string = base64.b64encode(buf.getvalue()).decode()
+
     # Передача показателей в шаблон
     context = {
         'total_sales': total_sales,
@@ -452,6 +472,8 @@ def employee_stats(request):
         'median_age': median_age,
         'popular_product_type': popular_product_type,
         'profitable_product_type': profitable_product_type,
+        'pie_chart': image_string,
     }
 
     return render(request, 'onlineshop/employee_stats.html', context)
+

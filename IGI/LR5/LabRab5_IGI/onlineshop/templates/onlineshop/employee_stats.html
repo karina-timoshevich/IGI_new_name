@@ -17,4 +17,7 @@
     <p>Most Popular Product Type: {{ popular_product_type.product_type__name }}</p>
     <p>Most Profitable Product Type: {{ profitable_product_type.product_type__name }}</p>
 
+    <h2>Product Type Distribution in Orders</h2>
+    <img src="data:image/png;base64,{{ pie_chart }}" alt="Product type distribution in orders">
+
 {% endblock %}
