@@ -1,11 +1,6 @@
-
 {% extends "base_generic.html" %}
 
 {% block content %}
-
-{% if form.errors %}
-  <p>Your username and password didn't match. Please try again.</p>
-{% endif %}
 
 <form method="post" action="{% url 'sign-up' %}">
 {% csrf_token %}
@@ -14,24 +9,41 @@
 <tr>
   <td>{{ form.username.label_tag }}</td>
   <td>{{ form.username }}</td>
+  <td>{{ form.username.errors }}</td>
 </tr>
 
 <tr>
   <td>{{ form.email.label_tag }}</td>
   <td>{{ form.email }}</td>
+  <td>{{ form.email.errors }}</td>
 </tr>
 
 <tr>
   <td>{{ form.password1.label_tag }}</td>
   <td>{{ form.password1 }}</td>
+  <td>{{ form.password1.errors }}</td>
 </tr>
 
 <tr>
   <td>{{ form.password2.label_tag }}</td>
   <td>{{ form.password2 }}</td>
+  <td>{{ form.password2.errors }}</td>
 </tr>
+
+<!-- Add date of birth field here -->
+<tr>
+  <td>{{ form.date_of_birth.label_tag }}</td>
+  <td>{{ form.date_of_birth }}</td>
+  <td>{{ form.date_of_birth.errors }}</td>
+</tr>
+    
+<tr>
+  <td>{{ form.phone_number.label_tag }}</td>
+  <td>{{ form.phone_number }}</td>
+  <td>{{ form.phone_number.errors }}</td>
+</tr>
+    
 </table>
-{{ form.errors }}
 <input type="submit" value="sign up" />
 </form>
 
