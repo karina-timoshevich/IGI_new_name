@@ -10,12 +10,10 @@ from django.contrib.auth.models import User, Group
 
 sys.path.append('D:\\3 SEM\\253503_TIMOSHEVICH_25\\IGI\\LR5\\LabRab5_IGI\\.venv\\Lib\\site-packages')
 
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
 
 
 class Employee(models.Model):
@@ -217,3 +215,17 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+
+from django.db import models
+
+
+class CompanyInfo(models.Model):
+    text = models.TextField()
+    video = models.FileField(upload_to='company_info/')
+    logo = models.ImageField(upload_to='company_info/')
+    history = models.TextField()
+    details = models.TextField()
+
+    def __str__(self):
+        return "Company Information"

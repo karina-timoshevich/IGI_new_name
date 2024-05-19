@@ -98,3 +98,6 @@ urlpatterns += [
     path('news/', views.news, name='news'),
     path('news/<int:article_id>/', views.article_detail, name='article_detail'),
 ]
+urlpatterns += [
+    path('about/', views.about, name='about'),
+]

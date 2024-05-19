@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>О компании</h1>
+    <img src="{{ info.logo.url }}" alt="Company Logo" height=200px width=200px>
+    <p>{{ info.text }}</p>
+    <video width="320" height="240" controls>
+        <source src="{{ info.video.url }}" type="video/mp4">
+    </video>
+    <h2>История</h2>
+    <p>{{ info.history }}</p>
+    <h2>Реквизиты</h2>
+    <p>{{ info.details }}</p>
+{% endblock %}

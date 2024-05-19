@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance, Cart, \
-    PromoCode, PickupLocation, Review, Article
+    PromoCode, PickupLocation, Review, Article, CompanyInfo
 
 
 # Register your models here.
@@ -121,4 +121,9 @@ class ReviewAdmin(admin.ModelAdmin):
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'summary')
+    pass
+
+
+@admin.register(CompanyInfo)
+class CompanyInfoAdmin(admin.ModelAdmin):
     pass

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic import FormView
 from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance, Cart, \
-    PickupLocation
+    PickupLocation, PromoCode, CompanyInfo, Article
 from django.contrib.auth.decorators import login_required
 import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -20,7 +20,6 @@ from django.shortcuts import get_object_or_404
 from .models import Cart
 from django.shortcuts import redirect
 from django.contrib import messages
-from .models import PromoCode
 from django.db.models import Avg, Count, Sum, Q
 from django.shortcuts import render
 import numpy as np
@@ -490,9 +489,6 @@ def privacy_policy(request):
     return render(request, 'onlineshop/privacy_policy.html')
 
 
-from .models import Article
-
-
 def news(request):
     articles = Article.objects.all()
     return render(request, 'onlineshop/news.html', {'articles': articles})
@@ -501,3 +497,8 @@ def news(request):
 def article_detail(request, article_id):
     article = get_object_or_404(Article, pk=article_id)
     return render(request, 'onlineshop/article_detail.html', {'article': article})
+
+
+def about(request):
+    info = CompanyInfo.objects.first()
+    return render(request, 'onlineshop/about.html', {'info': info})
