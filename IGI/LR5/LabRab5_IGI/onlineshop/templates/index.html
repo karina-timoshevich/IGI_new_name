@@ -11,7 +11,27 @@
 
     <h2>Random Dog Image</h2>
     <img src="{{ dog_image.message }}" alt="Random dog image" style="max-width: 200px; height: 200px;">
-
+    <p>Current time: {{ current_date_formatted }}</p>
+    <p>Current data: {{ calendar_text }}</p>
+    <table>
+    <tr>
+        <th>Пн</th>
+        <th>Вт</th>
+        <th>Ср</th>
+        <th>Чт</th>
+        <th>Пт</th>
+        <th>Сб</th>
+        <th>Вс</th>
+    </tr>
+    {% for week in month_calendar %}
+        <tr>
+            {% for day in week %}
+                <td>{% if day != 0 %}{{ day }}{% endif %}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+</table>
     <h2>Latest Article</h2>
     <h3><a href="{% url 'article_detail' latest_article.id %}">{{ latest_article.title }}</a></h3>
     <p>{{ latest_article.summary }}</p>

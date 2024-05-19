@@ -73,6 +73,22 @@ def get_random_dog_image():
         return None
 
 
+from django.utils import timezone
+
+
+def get_user_time():
+    current_time = timezone.localtime(timezone.now())
+    user_time_data = {
+        "user_timezone": str(timezone.get_current_timezone()),
+        "current_date_formatted": current_time.strftime("%d.%m.%Y %H:%M:%S"),
+        "calendar_text": current_time.strftime("%B %Y"),
+    }
+    return user_time_data
+
+
+import calendar
+
+
 def index(request):
     """
     Функция отображения для домашней страницы сайта.
@@ -92,14 +108,32 @@ def index(request):
     if dog_image is None:
         logger.warning('Failed to retrieve dog image')
     latest_article = Article.objects.latest('date_added')
+    current_user_time_data = get_user_time()
+    user_timezone = current_user_time_data["user_timezone"]
+    current_date_formatted = current_user_time_data["current_date_formatted"]
+    calendar_text = current_user_time_data["calendar_text"]
+
+    # Получение текущего часового пояса
+    current_timezone = timezone.get_current_timezone_name()
+
+    # Получение текущего месяца и года
+    now = timezone.now()
+    year, month = now.year, now.month
+
+    # Получение календаря для текущего месяца
+    month_calendar = calendar.monthcalendar(year, month)
+
     # Отрисовка HTML-шаблона index.html с данными внутри
     # переменной контекста context
     return render(
         request,
         'index.html',
         context={'num_books': num_products, 'num_authors': num_manufacturers,
-                 'num_visits': num_visits, 'cat_fact': cat_fact, 'dog_image': dog_image,  'latest_article': latest_article},
-
+                 'num_visits': num_visits, 'cat_fact': cat_fact, 'dog_image': dog_image,
+                 'latest_article': latest_article,
+                 'current_date_formatted': current_date_formatted, 'calendar_text': calendar_text,
+                 'current_timezone': current_timezone, 'month_calendar': month_calendar},
+        # добавляем календарь в контекст
     )
 
 
