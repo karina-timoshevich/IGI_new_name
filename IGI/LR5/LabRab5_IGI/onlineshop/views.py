@@ -1,15 +1,73 @@
 from django.contrib.auth.models import User
-from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import FormView
-
 from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance, Cart, \
     PickupLocation
-
 from django.contrib.auth.decorators import login_required
+import requests
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.views import generic
+from django.contrib.auth.decorators import permission_required
+from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from .forms import OrderStatusForm, RegisterForm, OrderForm
+from django.views.generic.detail import DetailView
+from django.shortcuts import get_object_or_404
+from .models import Cart
+from django.shortcuts import redirect
+from django.contrib import messages
+from .models import PromoCode
+from django.db.models import Avg, Count, Sum, Q
+from django.shortcuts import render
+import numpy as np
+from datetime import date
+from dateutil.relativedelta import relativedelta
+from matplotlib import pyplot as plt
+import base64
+from io import BytesIO
+from django.views.generic import ListView, CreateView
+from .models import Review
+from .forms import ReviewForm
+import logging
+
+# Создание логгера
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# Создание обработчика, который записывает логи в файл
+handler = logging.FileHandler('app.log')
+handler.setLevel(logging.INFO)
+
+# Создание форматтера
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+# Добавление форматтера к обработчику
+handler.setFormatter(formatter)
+
+# Добавление обработчика к логгеру
+logger.addHandler(handler)
 
 
-# Create your views here.
+def get_cat_fact():
+    response = requests.get('https://catfact.ninja/fact')
+    if response.status_code == 200:
+        logger.info('Successfully retrieved cat fact')
+        return response.json()
+    else:
+        logger.warning('Failed to retrieve cat fact')
+        return None
+
+
+def get_random_dog_image():
+    response = requests.get('https://dog.ceo/api/breeds/image/random')
+    if response.status_code == 200:
+        return response.json()
+    else:
+        return None
+
 
 def index(request):
     """
@@ -21,21 +79,23 @@ def index(request):
     # Number of visits to this view, as counted in the session variable.
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
+
+    # Получение данных от API
+    cat_fact = get_cat_fact()
+    if cat_fact is None:
+        logger.warning('Failed to retrieve cat fact')
+    dog_image = get_random_dog_image()
+    if dog_image is None:
+        logger.warning('Failed to retrieve dog image')
+
     # Отрисовка HTML-шаблона index.html с данными внутри
     # переменной контекста context
     return render(
         request,
         'index.html',
         context={'num_books': num_products, 'num_authors': num_manufacturers,
-                 'num_visits': num_visits},  # num_visits appended
+                 'num_visits': num_visits, 'cat_fact': cat_fact, 'dog_image': dog_image},
     )
-
-
-from django.views import generic
-
-# views.py
-from django.views import generic
-from .models import Product, ProductType
 
 
 class ProductListView(generic.ListView):
@@ -60,7 +120,8 @@ class ProductListView(generic.ListView):
 
         if search_query:
             queryset = queryset.filter(Q(name__icontains=search_query) | Q(description__icontains=search_query))
-
+        logger.info(
+            f'Filtering products with product_type_id={product_type_id}, price_order={price_order}, search_query={search_query}')
         return queryset
 
     def get_context_data(self, **kwargs):
@@ -81,11 +142,6 @@ class ManufacturerListView(generic.ListView):
 class ManufacturerDetailView(generic.DetailView):
     model = Manufacturer
     pass
-
-
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-from django.shortcuts import get_object_or_404
 
 
 class OrderedProductsByUserListView(LoginRequiredMixin, generic.ListView):
@@ -112,12 +168,6 @@ class OrdersByUserListView(LoginRequiredMixin, generic.ListView):
         return Order.objects.filter(client__user=self.request.user).order_by('-order_date')
 
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.views import generic
-from .models import Order
-
 class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
     """
     Generic class-based view listing all orders, accessible to employees and superusers.
@@ -135,36 +185,22 @@ class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
         return Order.objects.all().order_by('-order_date')
 
 
-from django.contrib.auth.decorators import permission_required
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from .forms import OrderStatusForm, RegisterForm, OrderForm
-from .models import Order
-
-
 def change_status_employee(request, pk):
     """
     View function for changing the status of a specific Order by employee
     """
     order = get_object_or_404(Order, pk=pk)
 
-    # If this is a POST request then process the Form data
     if request.method == 'POST':
-
-        # Create a form instance and populate it with data from the request (binding):
         form = OrderStatusForm(request.POST, instance=order)
 
-        # Check if the form is valid:
         if form.is_valid():
             form.save()
-            # redirect to a new URL:
+            logger.info(f'Order {pk} status changed')
             return HttpResponseRedirect(reverse('all-orders'))
 
-    # If this is a GET (or any other method) create the default form.
     else:
         form = OrderStatusForm(instance=order)
-
     return render(request, 'onlineshop/change_status_employee.html', {'form': form, 'order': order})
 
 
@@ -188,10 +224,6 @@ class RegisterView(FormView):
         return super().form_valid(form)
 
 
-from django.shortcuts import redirect, get_object_or_404
-from .models import Product, ProductInstance, Client
-
-
 @login_required
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
@@ -205,15 +237,9 @@ def add_to_cart(request, product_id):
         product_instance = ProductInstance.objects.create(product=product, customer=client, quantity=1)
         cart.products.add(product_instance)
     cart.save()
+    logger.info(f'Product {product_id} added to cart')
     cart.update_total_price()  # Обновляем общую стоимость в корзине
     return redirect('products')
-
-
-from django.views.generic.detail import DetailView
-from django.shortcuts import get_object_or_404
-from .models import Cart
-
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class CartView(LoginRequiredMixin, DetailView):
@@ -231,14 +257,6 @@ class CartView(LoginRequiredMixin, DetailView):
         return context
 
 
-from django.shortcuts import redirect
-from .models import Order
-
-from django.shortcuts import redirect
-from django.contrib import messages
-from .models import PromoCode
-
-
 def apply_promo_code(request):
     promo_code = request.POST.get('promo_code')
     try:
@@ -247,6 +265,7 @@ def apply_promo_code(request):
         cart.promo_code = promo  # save the promo code in the cart
         cart.update_total_price()
         cart.save()
+        logger.info(f'Promo code {promo_code} applied')
         messages.success(request, 'Promo code applied successfully!')
     except PromoCode.DoesNotExist:
         messages.error(request, 'Invalid promo code.')
@@ -272,6 +291,7 @@ def create_order(request):
             else:
                 order.discount = default_discount  # Use the default discount if no promo code was entered
             order.save()
+            logger.info(f'Order {order.id} created')
             for product_instance in cart.products.all():
                 # Create a new product instance for each product in the cart
                 new_product_instance = ProductInstance.objects.create(
@@ -292,14 +312,13 @@ def create_order(request):
 
     return render(request, 'onlineshop/user_cart.html', {'form': form, 'cart': cart})
 
-    return render(request, 'onlineshop/user_cart.html', {'form': form, 'cart': cart})
-
 
 @login_required
 def increase_quantity(request, product_instance_id):
     product_instance = get_object_or_404(ProductInstance, id=product_instance_id)
     product_instance.quantity += 1
     product_instance.save()
+    logger.info(f'Quantity of product instance {product_instance_id} increased')
     cart = get_object_or_404(Cart, client=request.user.client)
     cart.update_total_price()
     cart.save()
@@ -312,6 +331,7 @@ def decrease_quantity(request, product_instance_id):
     if product_instance.quantity > 1:
         product_instance.quantity -= 1
         product_instance.save()
+        logger.info(f'Quantity of product instance {product_instance_id} decreased')
     cart = get_object_or_404(Cart, client=request.user.client)
     cart.update_total_price()
     cart.save()
@@ -323,14 +343,11 @@ def remove_from_cart(request, product_instance_id):
     product_instance = get_object_or_404(ProductInstance, id=product_instance_id)
     cart = get_object_or_404(Cart, client=request.user.client)
     cart.products.remove(product_instance)
-    product_instance.delete()  # Удаляем ProductInstance
+    product_instance.delete()
+    logger.info(f'Product instance {product_instance_id} removed from cart')
     cart.update_total_price()
     cart.save()
     return redirect('cart')
-
-
-from django.views import generic
-from .models import PromoCode
 
 
 class PromoCodeListView(generic.ListView):
@@ -375,19 +392,9 @@ def client_list(request):
     return render(request, 'onlineshop/client_list_for_employee.html', {'object_list': clients})
 
 
-from django.views import generic
-from .models import Employee
-
-
 class EmployeeListView(generic.ListView):
     model = Employee
     template_name = 'onlineshop/employee_list.html'
-
-
-from django.views.generic import ListView, CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import Review
-from .forms import ReviewForm
 
 
 class ReviewListView(ListView):
@@ -406,25 +413,9 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-from django.db.models import Avg, Count, Sum, Q
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-from .models import Order, Product, Client
-import numpy as np
-from datetime import date
-from dateutil.relativedelta import relativedelta
-
-
-from django.db.models import Count
-from matplotlib import pyplot as plt
-import base64
-from io import BytesIO
-
 @login_required
 def employee_stats(request):
-    # Проверка, что пользователь - сотрудник
 
-    # Получение данных из базы данных
     orders = Order.objects.all()
     products = Product.objects.all()
     clients = Client.objects.all()
@@ -445,6 +436,8 @@ def employee_stats(request):
         '-count').first()
     profitable_product_type = products.values('product_type__name').annotate(profit=Sum('price')).order_by(
         '-profit').first()
+    logger.info(
+        f'Calculated employee stats: total_sales={total_sales}, avg_sales={avg_sales}, median_sales={median_sales}, mode_sales={mode_sales}, avg_client_age={avg_client_age}, median_age={median_age}, popular_product_type={popular_product_type}, profitable_product_type={profitable_product_type}')
 
     # Создание круговой диаграммы
     product_types = Product.objects.values('product_type__name').annotate(
@@ -476,4 +469,3 @@ def employee_stats(request):
     }
 
     return render(request, 'onlineshop/employee_stats.html', context)
-

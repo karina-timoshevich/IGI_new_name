@@ -1,27 +1,16 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<h1>Online Shop Home</h1>
+    <h1>Welcome to our shop!</h1>
 
-  <p>Welcome to <em>Online Shop </em>, a very basic Django website developed as a tutorial example on the Mozilla Developer Network.</p>
+    <!-- Ваш код... -->
 
-<h2>Dynamic content</h2>
+    <h2>Cat Fact of the Day</h2>
+    <p>{{ cat_fact.fact }}</p>
 
-<p>The library has the following record counts:</p>
-<ul>
-  <li><strong>Products:</strong> {{ num_products }}</li>
-  <li><strong>Manufacturers:</strong> {{ num_manufacturers }}</li>
-</ul>
 
-<p>
-  You have visited this page {{ num_visits }}{% if num_visits == 1 %} time
-    {%else %} times{% endif %}.
-</p>
+    <h2>Random Dog Image</h2>
+    <img src="{{ dog_image.message }}" alt="Random dog image" style="max-width: 200px; height: 200px;">
 
-{#  <p>The online-shop has the following record counts:</p>#}
-{#  <ul>#}
-{#    <li><strong>Products:</strong> {{ num_products }}</li>#}
-{#    <li><strong>Manufacturers:</strong> {{ num_manufacturers }}</li>#}
-{#  </ul>#}
 
 {% endblock %}
