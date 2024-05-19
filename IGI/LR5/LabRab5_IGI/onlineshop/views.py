@@ -1,3 +1,4 @@
+from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic import FormView
@@ -7,8 +8,8 @@ from django.contrib.auth.decorators import login_required
 import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.views import generic
+from django.urls import reverse, reverse_lazy
+from django.views import generic, View
 from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
@@ -32,14 +33,18 @@ from django.views.generic import ListView, CreateView
 from .models import Review
 from .forms import ReviewForm
 import logging
+import os
+
+log_level_name = os.getenv('LOG_LEVEL', 'INFO')  # Значение по умолчанию - 'INFO'
+log_level = getattr(logging, log_level_name.upper(), logging.INFO)
 
 # Создание логгера
 logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
+logger.setLevel(log_level)
 
 # Создание обработчика, который записывает логи в файл
 handler = logging.FileHandler('app.log')
-handler.setLevel(logging.INFO)
+handler.setLevel(log_level)
 
 # Создание форматтера
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -415,7 +420,6 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
 
 @login_required
 def employee_stats(request):
-
     orders = Order.objects.all()
     products = Product.objects.all()
     clients = Client.objects.all()
@@ -469,3 +473,18 @@ def employee_stats(request):
     }
 
     return render(request, 'onlineshop/employee_stats.html', context)
+
+
+class LogoutView(View):
+    success_url = reverse_lazy('index')
+
+    def get(self, request):
+        logout(request)
+
+        logger.info(f'User logged out')
+
+        return redirect(self.success_url)
+
+
+def privacy_policy(request):
+    return render(request, 'onlineshop/privacy_policy.html')

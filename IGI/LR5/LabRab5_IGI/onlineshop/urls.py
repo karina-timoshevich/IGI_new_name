@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 from django.urls import re_path
 
-from .views import AllClientsForEmployeeView
+from .views import AllClientsForEmployeeView, LogoutView
 
 # urlpatterns = [
 #     path('', views.index, name='index'),
@@ -87,4 +87,10 @@ from .views import employee_stats
 
 urlpatterns += [
     path('employee-stats/', employee_stats, name='employee-stats'),
+]
+urlpatterns += [
+    path('logout/', LogoutView.as_view(), name='logout'),
+]
+urlpatterns += [
+    path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
 ]
