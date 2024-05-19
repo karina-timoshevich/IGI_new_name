@@ -94,3 +94,7 @@ urlpatterns += [
 urlpatterns += [
     path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
 ]
+urlpatterns += [
+    path('news/', views.news, name='news'),
+    path('news/<int:article_id>/', views.article_detail, name='article_detail'),
+]

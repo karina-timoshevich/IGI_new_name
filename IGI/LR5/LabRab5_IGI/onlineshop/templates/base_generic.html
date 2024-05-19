@@ -22,6 +22,7 @@
             <li><a href="{% url 'contacts' %}">Our employees</a></li>
             <li><a href="{% url 'reviews' %}">Reviews</a></li>
             <li><a href="{% url 'privacy_policy' %}">Privacy policy</a></li>
+            <li><a href="{% url 'news' %}">News</a></li>
 
              {% if user.is_authenticated %}
                  <li>User: {{ user.get_username }}</li>

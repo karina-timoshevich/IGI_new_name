@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>News</h1>
+    {% for article in articles %}
+        <div>
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.summary }}</p>
+            <img src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;">
+            <a href="{% url 'article_detail' article.id %}">Read more</a>
+        </div>
+    {% endfor %}
+{% endblock %}

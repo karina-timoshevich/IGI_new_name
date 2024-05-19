@@ -1,0 +1,7 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>{{ article.title }}</h1>
+    <img src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;">
+    <p>{{ article.content }}</p>
+{% endblock %}

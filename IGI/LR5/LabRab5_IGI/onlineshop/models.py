@@ -207,3 +207,13 @@ class Review(models.Model):
     rating = models.IntegerField()
     text = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
+
+
+class Article(models.Model):
+    title = models.CharField(max_length=200)
+    summary = models.CharField(max_length=200)
+    image = models.ImageField(upload_to='articles/')
+    content = models.TextField()
+
+    def __str__(self):
+        return self.title

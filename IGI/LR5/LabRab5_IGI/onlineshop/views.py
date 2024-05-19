@@ -273,6 +273,8 @@ def apply_promo_code(request):
         logger.info(f'Promo code {promo_code} applied')
         messages.success(request, 'Promo code applied successfully!')
     except PromoCode.DoesNotExist:
+        logger.warning(f'Invalid promo code {promo_code}')
+        logger.exception('Invalid promo code')
         messages.error(request, 'Invalid promo code.')
     return redirect('cart')
 
@@ -480,11 +482,22 @@ class LogoutView(View):
 
     def get(self, request):
         logout(request)
-
         logger.info(f'User logged out')
-
         return redirect(self.success_url)
 
 
 def privacy_policy(request):
     return render(request, 'onlineshop/privacy_policy.html')
+
+
+from .models import Article
+
+
+def news(request):
+    articles = Article.objects.all()
+    return render(request, 'onlineshop/news.html', {'articles': articles})
+
+
+def article_detail(request, article_id):
+    article = get_object_or_404(Article, pk=article_id)
+    return render(request, 'onlineshop/article_detail.html', {'article': article})
