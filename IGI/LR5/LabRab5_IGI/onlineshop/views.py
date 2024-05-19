@@ -184,12 +184,14 @@ from .models import Product, ProductInstance, Client
 def add_to_cart(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     client = get_object_or_404(Client, user=request.user)
-    product_instance, product_created = ProductInstance.objects.get_or_create(product=product, customer=client)
     cart, cart_created = Cart.objects.get_or_create(client=client)
     cart.save()
-    product_instance.quantity = 1  # Устанавливаем количество равным 1
-    product_instance.save()
-    cart.products.add(product_instance)
+    # Проверяем, есть ли уже в корзине продукт с таким же именем
+    product_in_cart = cart.products.filter(product__name=product.name).first()
+    if not product_in_cart:
+        # Если такого продукта еще нет, создаем новый экземпляр продукта
+        product_instance = ProductInstance.objects.create(product=product, customer=client, quantity=1)
+        cart.products.add(product_instance)
     cart.save()
     cart.update_total_price()  # Обновляем общую стоимость в корзине
     return redirect('products')
@@ -259,7 +261,13 @@ def create_order(request):
                 order.discount = default_discount  # Use the default discount if no promo code was entered
             order.save()
             for product_instance in cart.products.all():
-                order.products.add(product_instance)
+                # Create a new product instance for each product in the cart
+                new_product_instance = ProductInstance.objects.create(
+                    product=product_instance.product,
+                    quantity=product_instance.quantity,
+                    customer=client
+                )
+                order.products.add(new_product_instance)
             cart.products.clear()
             cart.update_total_price()  # Update the total_price in the cart after clearing the products
             cart.promo_code = None  # Clear the promo code in the cart
@@ -269,6 +277,8 @@ def create_order(request):
             messages.error(request, 'Please select a pickup location.')
     else:
         form = OrderForm()
+
+    return render(request, 'onlineshop/user_cart.html', {'form': form, 'cart': cart})
 
     return render(request, 'onlineshop/user_cart.html', {'form': form, 'cart': cart})
 
