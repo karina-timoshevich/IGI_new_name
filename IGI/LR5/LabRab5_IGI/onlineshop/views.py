@@ -93,14 +93,11 @@ def index(request):
     """
     Функция отображения для домашней страницы сайта.
     """
-    # Генерация "количеств" некоторых главных объектов
     num_products = Product.objects.all().count()
-    num_manufacturers = Manufacturer.objects.count()  # Метод 'all()' применён по умолчанию.
-    # Number of visits to this view, as counted in the session variable.
+    num_manufacturers = Manufacturer.objects.count()
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
 
-    # Получение данных от API
     cat_fact = get_cat_fact()
     if cat_fact is None:
         logger.warning('Failed to retrieve cat fact')
@@ -113,18 +110,13 @@ def index(request):
     current_date_formatted = current_user_time_data["current_date_formatted"]
     calendar_text = current_user_time_data["calendar_text"]
 
-    # Получение текущего часового пояса
     current_timezone = timezone.get_current_timezone_name()
 
-    # Получение текущего месяца и года
     now = timezone.now()
     year, month = now.year, now.month
 
-    # Получение календаря для текущего месяца
     month_calendar = calendar.monthcalendar(year, month)
 
-    # Отрисовка HTML-шаблона index.html с данными внутри
-    # переменной контекста context
     return render(
         request,
         'index.html',
@@ -133,7 +125,7 @@ def index(request):
                  'latest_article': latest_article,
                  'current_date_formatted': current_date_formatted, 'calendar_text': calendar_text,
                  'current_timezone': current_timezone, 'month_calendar': month_calendar},
-        # добавляем календарь в контекст
+
     )
 
 
@@ -208,9 +200,7 @@ class OrdersByUserListView(LoginRequiredMixin, generic.ListView):
 
 
 class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
-    """
-    Generic class-based view listing all orders, accessible to employees and superusers.
-    """
+
     model = Order
     template_name = 'onlineshop/productinstance_list_all_orders.html'
     paginate_by = 10
@@ -225,9 +215,7 @@ class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
 
 
 def change_status_employee(request, pk):
-    """
-    View function for changing the status of a specific Order by employee
-    """
+
     order = get_object_or_404(Order, pk=pk)
 
     if request.method == 'POST':
@@ -269,15 +257,15 @@ def add_to_cart(request, product_id):
     client = get_object_or_404(Client, user=request.user)
     cart, cart_created = Cart.objects.get_or_create(client=client)
     cart.save()
-    # Проверяем, есть ли уже в корзине продукт с таким же именем
+
     product_in_cart = cart.products.filter(product__name=product.name).first()
     if not product_in_cart:
-        # Если такого продукта еще нет, создаем новый экземпляр продукта
+
         product_instance = ProductInstance.objects.create(product=product, customer=client, quantity=1)
         cart.products.add(product_instance)
     cart.save()
     logger.info(f'Product {product_id} added to cart')
-    cart.update_total_price()  # Обновляем общую стоимость в корзине
+    cart.update_total_price()
     return redirect('products')
 
 
@@ -316,9 +304,9 @@ def apply_promo_code(request):
 @login_required
 def create_order(request):
     client = get_object_or_404(Client, user=request.user)
-    cart = Cart.objects.get(client=client)  # Get the cart from the database again
-    total_price = cart.total_price  # Save the total_price before clearing the cart
-    promo_code = cart.promo_code  # Save the promo code before clearing the cart
+    cart = Cart.objects.get(client=client)
+    total_price = cart.total_price
+    promo_code = cart.promo_code
     default_discount = PromoCode.objects.first()
 
     if request.method == 'POST':
@@ -326,15 +314,15 @@ def create_order(request):
         if form.is_valid():
             order = form.save(commit=False)
             order.client = client
-            order.total_price = total_price  # Use the saved total_price
+            order.total_price = total_price
             if promo_code:
-                order.promo_code = promo_code  # Use the entered promo code
+                order.promo_code = promo_code
             else:
-                order.discount = default_discount  # Use the default discount if no promo code was entered
+                order.discount = default_discount
             order.save()
             logger.info(f'Order {order.id} created')
             for product_instance in cart.products.all():
-                # Create a new product instance for each product in the cart
+
                 new_product_instance = ProductInstance.objects.create(
                     product=product_instance.product,
                     quantity=product_instance.quantity,
@@ -342,8 +330,8 @@ def create_order(request):
                 )
                 order.products.add(new_product_instance)
             cart.products.clear()
-            cart.update_total_price()  # Update the total_price in the cart after clearing the products
-            cart.promo_code = None  # Clear the promo code in the cart
+            cart.update_total_price()
+            cart.promo_code = None
             cart.save()
             return redirect('my-orders')
         else:
@@ -406,9 +394,7 @@ class PickupLocationListView(generic.ListView):
 
 
 class AllClientsForEmployeeView(LoginRequiredMixin, generic.ListView):
-    """
-    Generic class-based view listing all clients, accessible only to employees.
-    """
+
     model = User
     template_name = 'onlineshop/client_list_for_employee.html'
     paginate_by = 10
@@ -440,13 +426,12 @@ class EmployeeListView(generic.ListView):
 
 class ReviewListView(ListView):
     model = Review
-    template_name = 'onlineshop/reviews.html'  # update this to your template
-
+    template_name = 'onlineshop/reviews.html'
 
 class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     form_class = ReviewForm
-    template_name = 'onlineshop/add_review.html'  # update this to your template
+    template_name = 'onlineshop/add_review.html'
     success_url = '/onlineshop/reviews/'
 
     def form_valid(self, form):
@@ -460,14 +445,14 @@ def employee_stats(request):
     products = Product.objects.all()
     clients = Client.objects.all()
 
-    # Вычисление статистических показателей
+
     total_sales = orders.aggregate(Sum('total_price'))['total_price__sum']
     avg_sales = orders.aggregate(Avg('total_price'))['total_price__avg']
     sales_values = [order.total_price for order in orders]
     median_sales = np.median(sales_values)
     mode_sales = max(set(sales_values), key=sales_values.count)
 
-    # Вычисление возраста каждого клиента
+
     client_ages = [(date.today() - client.date_of_birth).days // 365 for client in clients if client.date_of_birth]
     avg_client_age = np.mean(client_ages)
     median_age = np.median(client_ages)
@@ -479,23 +464,21 @@ def employee_stats(request):
     logger.info(
         f'Calculated employee stats: total_sales={total_sales}, avg_sales={avg_sales}, median_sales={median_sales}, mode_sales={mode_sales}, avg_client_age={avg_client_age}, median_age={median_age}, popular_product_type={popular_product_type}, profitable_product_type={profitable_product_type}')
 
-    # Создание круговой диаграммы
+
     product_types = Product.objects.values('product_type__name').annotate(
         count=Count('productinstance__order')).order_by('-count')
     fig, ax = plt.subplots()
     ax.pie([pt['count'] for pt in product_types], labels=[pt['product_type__name'] for pt in product_types],
            autopct='%1.1f%%')
-    ax.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    ax.axis('equal')
 
-    # Сохранение диаграммы в формате PNG
+
     buf = BytesIO()
     plt.savefig(buf, format='png')
     plt.close(fig)
-
-    # Кодирование изображения в base64 и декодирование в строку
     image_string = base64.b64encode(buf.getvalue()).decode()
 
-    # Передача показателей в шаблон
+
     context = {
         'total_sales': total_sales,
         'avg_sales': avg_sales,

@@ -322,12 +322,8 @@ class GetCatFactTest(TestCase):
         mock_response.status_code = 200
         mock_response.json.return_value = {'fact': 'Cats are cute.'}
 
-        # Вызываем функцию, которую тестируем
         response = get_cat_fact()
 
-        # Проверяем, что функция возвращает ожидаемый результат
         self.assertEqual(response, {'fact': 'Cats are cute.'})
-
-        # Проверяем, что был сделан запрос к правильному URL
         mock_get.assert_called_once_with('https://catfact.ninja/fact')
 
