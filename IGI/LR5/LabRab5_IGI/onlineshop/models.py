@@ -217,9 +217,6 @@ class Article(models.Model):
         return self.title
 
 
-from django.db import models
-
-
 class CompanyInfo(models.Model):
     text = models.TextField()
     video = models.FileField(upload_to='company_info/')
@@ -229,3 +226,20 @@ class CompanyInfo(models.Model):
 
     def __str__(self):
         return "Company Information"
+
+
+class FAQ(models.Model):
+    question = models.TextField()
+    answer = models.TextField()
+    date_added = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return self.question
+
+
+class Job(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.title

@@ -101,3 +101,9 @@ urlpatterns += [
 urlpatterns += [
     path('about/', views.about, name='about'),
 ]
+urlpatterns += [
+    path('faq/', views.faq, name='faq'),
+]
+urlpatterns += [
+    path('jobs/', views.jobs, name='jobs'),
+]

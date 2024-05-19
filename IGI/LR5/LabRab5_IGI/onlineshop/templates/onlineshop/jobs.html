@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Jobs</h1>
+    {% for job in jobs %}
+        <div>
+            <h2>{{ job.title }}</h2>
+            <p>{{ job.description }}</p>
+        </div>
+    {% empty %}
+        <p>There are no jobs</p>
+    {% endfor %}
+{% endblock %}

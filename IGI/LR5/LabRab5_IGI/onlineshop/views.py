@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.views.generic import FormView
 from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance, Cart, \
-    PickupLocation, PromoCode, CompanyInfo, Article
+    PickupLocation, PromoCode, CompanyInfo, Article, FAQ, Job
 from django.contrib.auth.decorators import login_required
 import requests
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -502,3 +502,13 @@ def article_detail(request, article_id):
 def about(request):
     info = CompanyInfo.objects.first()
     return render(request, 'onlineshop/about.html', {'info': info})
+
+
+def faq(request):
+    faqs = FAQ.objects.all()
+    return render(request, 'onlineshop/faq.html', {'faqs': faqs})
+
+
+def jobs(request):
+    jobs = Job.objects.all()
+    return render(request, 'onlineshop/jobs.html', {'jobs': jobs})
