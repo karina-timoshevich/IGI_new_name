@@ -1,7 +1,7 @@
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
-from django.views.generic import FormView
+from django.views.generic import FormView, TemplateView
 from .models import Employee, Product, ProductType, Order, Client, Manufacturer, UnitOfMeasure, ProductInstance, Cart, \
     PickupLocation, PromoCode, CompanyInfo, Article, FAQ, Job
 from django.contrib.auth.decorators import login_required
@@ -11,7 +11,6 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views import generic, View
 from django.contrib.auth.decorators import permission_required
-from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import OrderStatusForm, RegisterForm, OrderForm
@@ -33,25 +32,17 @@ from .models import Review
 from .forms import ReviewForm
 import logging
 import os
+import calendar
 
-log_level_name = os.getenv('LOG_LEVEL', 'INFO')  # Значение по умолчанию - 'INFO'
+log_level_name = os.getenv('LOG_LEVEL', 'INFO')
 log_level = getattr(logging, log_level_name.upper(), logging.INFO)
-
-# Создание логгера
 logger = logging.getLogger(__name__)
 logger.setLevel(log_level)
-
 # Создание обработчика, который записывает логи в файл
 handler = logging.FileHandler('app.log')
 handler.setLevel(log_level)
-
-# Создание форматтера
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-
-# Добавление форматтера к обработчику
 handler.setFormatter(formatter)
-
-# Добавление обработчика к логгеру
 logger.addHandler(handler)
 
 
@@ -86,13 +77,7 @@ def get_user_time():
     return user_time_data
 
 
-import calendar
-
-
 def index(request):
-    """
-    Функция отображения для домашней страницы сайта.
-    """
     num_products = Product.objects.all().count()
     num_manufacturers = Manufacturer.objects.count()
     num_visits = request.session.get('num_visits', 0)
@@ -111,10 +96,8 @@ def index(request):
     calendar_text = current_user_time_data["calendar_text"]
 
     current_timezone = timezone.get_current_timezone_name()
-
     now = timezone.now()
     year, month = now.year, now.month
-
     month_calendar = calendar.monthcalendar(year, month)
 
     return render(
@@ -125,7 +108,6 @@ def index(request):
                  'latest_article': latest_article,
                  'current_date_formatted': current_date_formatted, 'calendar_text': calendar_text,
                  'current_timezone': current_timezone, 'month_calendar': month_calendar},
-
     )
 
 
@@ -200,7 +182,6 @@ class OrdersByUserListView(LoginRequiredMixin, generic.ListView):
 
 
 class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
-
     model = Order
     template_name = 'onlineshop/productinstance_list_all_orders.html'
     paginate_by = 10
@@ -215,7 +196,6 @@ class AllOrdersForEmployeeView(LoginRequiredMixin, generic.ListView):
 
 
 def change_status_employee(request, pk):
-
     order = get_object_or_404(Order, pk=pk)
 
     if request.method == 'POST':
@@ -239,12 +219,8 @@ class RegisterView(FormView):
 
     def form_valid(self, form):
         user = form.save()
-
-        # Get the additional fields from the form
         dob = form.cleaned_data.get('date_of_birth')
         phone = form.cleaned_data.get('phone_number')
-
-        # Create a new Client object and save the additional fields
         client = Client(user=user, date_of_birth=dob, phone_number=phone)
         client.save()
 
@@ -260,7 +236,6 @@ def add_to_cart(request, product_id):
 
     product_in_cart = cart.products.filter(product__name=product.name).first()
     if not product_in_cart:
-
         product_instance = ProductInstance.objects.create(product=product, customer=client, quantity=1)
         cart.products.add(product_instance)
     cart.save()
@@ -289,7 +264,7 @@ def apply_promo_code(request):
     try:
         promo = PromoCode.objects.get(code=promo_code)
         cart = Cart.objects.get(client=request.user.client)
-        cart.promo_code = promo  # save the promo code in the cart
+        cart.promo_code = promo
         cart.update_total_price()
         cart.save()
         logger.info(f'Promo code {promo_code} applied')
@@ -322,7 +297,6 @@ def create_order(request):
             order.save()
             logger.info(f'Order {order.id} created')
             for product_instance in cart.products.all():
-
                 new_product_instance = ProductInstance.objects.create(
                     product=product_instance.product,
                     quantity=product_instance.quantity,
@@ -394,7 +368,6 @@ class PickupLocationListView(generic.ListView):
 
 
 class AllClientsForEmployeeView(LoginRequiredMixin, generic.ListView):
-
     model = User
     template_name = 'onlineshop/client_list_for_employee.html'
     paginate_by = 10
@@ -428,6 +401,7 @@ class ReviewListView(ListView):
     model = Review
     template_name = 'onlineshop/reviews.html'
 
+
 class ReviewCreateView(LoginRequiredMixin, CreateView):
     model = Review
     form_class = ReviewForm
@@ -445,13 +419,11 @@ def employee_stats(request):
     products = Product.objects.all()
     clients = Client.objects.all()
 
-
     total_sales = orders.aggregate(Sum('total_price'))['total_price__sum']
     avg_sales = orders.aggregate(Avg('total_price'))['total_price__avg']
     sales_values = [order.total_price for order in orders]
     median_sales = np.median(sales_values)
     mode_sales = max(set(sales_values), key=sales_values.count)
-
 
     client_ages = [(date.today() - client.date_of_birth).days // 365 for client in clients if client.date_of_birth]
     avg_client_age = np.mean(client_ages)
@@ -464,20 +436,18 @@ def employee_stats(request):
     logger.info(
         f'Calculated employee stats: total_sales={total_sales}, avg_sales={avg_sales}, median_sales={median_sales}, mode_sales={mode_sales}, avg_client_age={avg_client_age}, median_age={median_age}, popular_product_type={popular_product_type}, profitable_product_type={profitable_product_type}')
 
-
     product_types = Product.objects.values('product_type__name').annotate(
-        count=Count('productinstance__order')).order_by('-count')
-    fig, ax = plt.subplots()
+        count=Count('productinstance__order')).order_by(
+        '-count')  # группируем продукты по типу и считаем количество заказов
+    fig, ax = plt.subplots()  # создаем фигуру для графика
     ax.pie([pt['count'] for pt in product_types], labels=[pt['product_type__name'] for pt in product_types],
-           autopct='%1.1f%%')
-    ax.axis('equal')
+           autopct='%1.1f%%')  # для круговой диаграммы, точность 1 знак посл ,
+    ax.axis('equal')  # делаем кругляшком
 
-
-    buf = BytesIO()
+    buf = BytesIO()  # создаем буфер чтобы не в файл кидать
     plt.savefig(buf, format='png')
     plt.close(fig)
-    image_string = base64.b64encode(buf.getvalue()).decode()
-
+    image_string = base64.b64encode(buf.getvalue()).decode()  # переводим в строку прежде кодируя в base64
 
     context = {
         'total_sales': total_sales,
@@ -494,13 +464,9 @@ def employee_stats(request):
     return render(request, 'onlineshop/employee_stats.html', context)
 
 
-class LogoutView(View):
-    success_url = reverse_lazy('index')
+class LogoutView(TemplateView):
+    template = 'registration/logout.html'
 
-    def get(self, request):
-        logout(request)
-        logger.info(f'User logged out')
-        return redirect(self.success_url)
 
 
 def privacy_policy(request):
