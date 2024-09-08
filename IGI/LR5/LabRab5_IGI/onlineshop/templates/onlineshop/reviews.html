@@ -3,21 +3,21 @@
 {% block content %}
   <article>
     <header>
-      <h1>News</h1>
+      <h1>Reviews</h1>
     </header>
 
     <section>
       {% for review in object_list %}
         <article>
           <header>
-            <h2>{{ review.user.username }}</h2>
+            <h2 translate="no">{{ review.user.username }}</h2>
             <time datetime="{{ review.date.isoformat }}">{{ review.date }}</time>
           </header>
           <p><mark><strong>Rating:</strong> {{ review.rating }}</mark></p>
-          <p>{{ review.text }}</p>
+          <p dir="auto">{{ review.text }}</p>
         </article>
       {% empty %}
-          <p>No reviews found.</p>
+                    <p>No reviews found.</p>
       {% endfor %}
     </section>
 

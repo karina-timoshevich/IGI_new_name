@@ -7,7 +7,13 @@
 
   <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}  <!-- This will render all form fields as paragraph -->
+    {% for field in form %}
+      {% if field.label == "Text" %}
+        <p>{{ field.label_tag }}<br><textarea name="{{ field.name }}" spellcheck="true">{{ field.value|default_if_none:"" }}</textarea></p>
+      {% else %}
+        <p>{{ field.label_tag }}<br>{{ field }}</p>
+      {% endif %}
+    {% endfor %}
     <button type="submit">Submit</button>
   </form>
 {% endblock %}

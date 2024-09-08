@@ -1,21 +1,21 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <article>
+  <article itemscope itemtype="https://schema.org/NewsArticle">
     <header>
-      <h1>News</h1>
+      <h1 translate="no" itemprop="headline">News</h1>
     </header>
 
     <section>
       {% for article in articles %}
-        <article>
+        <article itemscope itemtype="http://schema.org/NewsArticle">
           <header>
-            <h2>{{ article.title }}</h2>
+            <h2 translate="yes" itemprop="headline">{{ article.title }}</h2>
           </header>
-          <p>{{ article.summary }}</p>
-          <img src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;">
+          <p itemprop="description">{{ article.summary }}</p>
+          <img src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;" itemprop="image">
           <footer>
-            <a href="{% url 'article_detail' article.id %}">Read more</a>
+            <a href="{% url 'article_detail' article.id %}" itemprop="url">Read more</a>
           </footer>
         </article>
       {% endfor %}

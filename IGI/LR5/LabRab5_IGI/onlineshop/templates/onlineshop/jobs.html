@@ -3,21 +3,21 @@
     <meta name="description" content="Open vacancies in shop">
 {% endblock %}
 {% block content %}
-    <article>
+     <article itemscope itemtype="https://schema.org/JobPosting">
         <header>
-            <h1>Jobs</h1>
+            <h1 itemprop="title">Jobs</h1>
         </header>
         <section>
             {% for job in jobs %}
-                <article>
+                <article itemscope itemtype="https://schema.org/JobPosting">
                     <header>
-                        <h2>{{ job.title }}</h2>
+                        <h2 itemprop="title">{{ job.title }}</h2>
                     </header>
-                    <p>{{ job.description }}</p>
+                    <p itemprop="description">{{ job.description }}</p>
                 </article>
             {% empty %}
-                <p>There are no jobs</p>
             {% endfor %}
+                <p>There are no jobs</p>
         </section>
     </article>
 {% endblock %}

@@ -1,7 +1,7 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Product List</h1>
+    <h1 itemprop="name">Product List</h1>
 
     <form method="GET">
         <input type="text" name="search" placeholder="Search products" value="{{ request.GET.search|default:'' }}">
@@ -18,12 +18,11 @@
             <option value="desc" {% if request.GET.price_order == 'desc' %}selected{% endif %}>Price high to low</option>
         </select>
     </form>
-
     {% if product_list %}
-    <ul>
+    <ul itemscope itemtype="https://schema.org/Product">
       {% for product in product_list %}
       <li>
-        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a> ({{ product.price }})
+        <a href="{{ product.get_absolute_url }}" itemprop="url"><span itemprop="name">{{ product.name }}</span></a> (<span itemprop="priceCurrency">USD</span> <span itemprop="price">{{ product.price }}</span>)
       </li>
       {% endfor %}
     </ul>
