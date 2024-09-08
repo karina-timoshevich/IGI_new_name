@@ -1,14 +1,31 @@
 {% extends "base_generic.html" %}
-
+{% block head %}
+    <meta name="description" content="Information about company">
+    <meta name="keywords" content="company, history, logo, video">
+{% endblock %}
 {% block content %}
-    <h1>О компании</h1>
+    <h1>About company</h1>
     <img src="{{ info.logo.url }}" alt="Company Logo" height=200px width=200px>
     <p>{{ info.text }}</p>
     <video width="320" height="240" controls>
         <source src="{{ info.video.url }}" type="video/mp4">
     </video>
-    <h2>История</h2>
+    <h2>History</h2>
     <p>{{ info.history }}</p>
-    <h2>Реквизиты</h2>
+    <h2>Banking Details</h2>
     <p>{{ info.details }}</p>
+
+<h2>Certificate</h2>
+<div>
+    <h3>UNIFIED REGISTRY OF ONLINE STORES</h3>
+    <p><strong>Certificate</strong></p>
+    <p>on the entry of information</p>
+    <p>Minsk, September 8, 2024</p>
+    <p><strong>Limited Liability Company "Happy Shop"</strong></p>
+    <p>(TIN 12345678998)</p>
+    <p>Registration number: 2005</p>
+    <p>Timoshevich K.S.</p>
+    <p>Director of the Association "Online Stores Association"</p>
+    <p>Stamp</p>
+</div>
 {% endblock %}

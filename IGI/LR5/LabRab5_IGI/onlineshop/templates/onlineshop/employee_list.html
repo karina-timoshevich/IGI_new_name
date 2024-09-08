@@ -1,26 +1,34 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Contacts</h1>
+  <article>
+    <header>
+      <h1>Contacts</h1>
+    </header>
 
-  {% for employee in object_list %}
-    <div>
-      {% if employee.photo %}
-        <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" width="200">
-      {% endif %}
-      <h2>{{ employee.first_name }} {{ employee.last_name }}</h2>
-      <p>{{ employee.position }}</p>
-      {% if employee.job_description %}
-        <p>{{ employee.job_description }}</p>
-      {% endif %}
-      {% if employee.phone %}
-        <p>Phone: {{ employee.phone }}</p>
-      {% endif %}
-      {% if employee.email %}
-        <p>Email: <a href="mailto:{{ employee.email }}">{{ employee.email }}</a></p>
-      {% endif %}
-    </div>
-  {% empty %}
-    <p>No employees found.</p>
-  {% endfor %}
+    <section>
+      {% for employee in object_list %}
+        <article>
+          <header>
+            {% if employee.photo %}
+              <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }} {{ employee.last_name }}" width="200">
+            {% endif %}
+            <h2><u>{{ employee.first_name }} {{ employee.last_name }}</u></h2>
+            <p><strong>Position:</strong> {{ employee.position }}</p>
+          </header>
+          {% if employee.job_description %}
+            <p>{{ employee.job_description }}</p>
+          {% endif %}
+          {% if employee.phone %}
+            <p><strong>Phone:</strong> {{ employee.phone }}</p>
+          {% endif %}
+          {% if employee.email %}
+            <p><strong>Email:</strong> <a href="mailto:{{ employee.email }}">{{ employee.email }}</a></p>
+          {% endif %}
+        </article>
+      {% empty %}
+        <p>No employees found.</p>
+      {% endfor %}
+    </section>
+  </article>
 {% endblock %}

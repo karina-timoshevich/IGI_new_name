@@ -1,13 +1,23 @@
 {% extends "base_generic.html" %}
-
+{% block head %}
+    <meta name="description" content="Open vacancies in shop">
+{% endblock %}
 {% block content %}
-    <h1>Jobs</h1>
-    {% for job in jobs %}
-        <div>
-            <h2>{{ job.title }}</h2>
-            <p>{{ job.description }}</p>
-        </div>
-    {% empty %}
-        <p>There are no jobs</p>
-    {% endfor %}
+    <article>
+        <header>
+            <h1>Jobs</h1>
+        </header>
+        <section>
+            {% for job in jobs %}
+                <article>
+                    <header>
+                        <h2>{{ job.title }}</h2>
+                    </header>
+                    <p>{{ job.description }}</p>
+                </article>
+            {% empty %}
+                <p>There are no jobs</p>
+            {% endfor %}
+        </section>
+    </article>
 {% endblock %}

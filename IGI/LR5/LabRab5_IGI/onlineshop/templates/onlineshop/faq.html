@@ -1,12 +1,23 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>FAQ</h1>
-    {% for faq in faqs %}
-        <div>
+  <article>
+    <header>
+      <h1>FAQ</h1>
+    </header>
+
+    <section>
+      {% for faq in faqs %}
+        <article>
+          <header>
             <h2>{{ faq.question }}</h2>
-            <p>{{ faq.answer }}</p>
-            <p>Date added: {{ faq.date_added }}</p>
-        </div>
-    {% endfor %}
+          </header>
+          <p>{{ faq.answer }}</p>
+          <footer>
+            <p><strong>Date added:</strong> {{ faq.date_added }}</p>
+          </footer>
+        </article>
+      {% endfor %}
+    </section>
+  </article>
 {% endblock %}

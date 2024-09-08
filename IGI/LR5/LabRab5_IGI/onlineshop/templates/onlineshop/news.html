@@ -1,13 +1,24 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>News</h1>
-    {% for article in articles %}
-        <div>
+  <article>
+    <header>
+      <h1>News</h1>
+    </header>
+
+    <section>
+      {% for article in articles %}
+        <article>
+          <header>
             <h2>{{ article.title }}</h2>
-            <p>{{ article.summary }}</p>
-            <img src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;">
+          </header>
+          <p>{{ article.summary }}</p>
+          <img src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;">
+          <footer>
             <a href="{% url 'article_detail' article.id %}">Read more</a>
-        </div>
-    {% endfor %}
+          </footer>
+        </article>
+      {% endfor %}
+    </section>
+  </article>
 {% endblock %}
