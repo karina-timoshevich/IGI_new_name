@@ -12,21 +12,16 @@ urlpatterns = [
 urlpatterns += [
     path('onlineshop/', include('onlineshop.urls')),
 ]
-
-# Добавьте URL соотношения, чтобы перенаправить запросы с корневого URL, на URL приложения
 from django.views.generic import RedirectView
 
 urlpatterns += [
     path('', RedirectView.as_view(url='/onlineshop/', permanent=True)),
 ]
 
-# Используйте static() чтобы добавить соотношения для статических файлов
-# Только на период разработки
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-# Add Django site authentication urls (for login, logout, password management)
 urlpatterns += [
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('accounts/', include('django.contrib.auth.urls')),

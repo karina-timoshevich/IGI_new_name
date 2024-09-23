@@ -1,21 +1,26 @@
 {% extends "base_generic.html" %}
 {% block head %}
-    <meta name="description" content="List of all manufacturers of online-shop">
 {% endblock %}
 {% block content %}
     <h1>Manufacturer List</h1>
 
     {% if manufacturer_list %}
     <ul>
-
       {% for manufacturer in manufacturer_list %}
       <li>
-        <a href="{{ manufacturer.get_absolute_url }}">{{ manufacturer.name }}</a> ({{ manufacturer.phone }})
+        <a href="{{ manufacturer.get_absolute_url }}">
+          {% if manufacturer.logo %}
+            <img src="{{ manufacturer.logo.url }}" alt="{{ manufacturer.name }}" style="width: 50px; height: auto;">
+          {% endif %}
+          {{ manufacturer.name }}
+        </a>
+        ({{ manufacturer.phone }})
+        <a href="{{ manufacturer.website }}" target="_blank">Visit Website</a>
       </li>
       {% endfor %}
-
     </ul>
     {% else %}
-      <p>There are no manufacturers in the online-shop.</p>
+         <p>There are no manufacturers in the online-shop.</p>
     {% endif %}
+    <meta name="description" content="List of all manufacturers of online-shop">
 {% endblock %}
