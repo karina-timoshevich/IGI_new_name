@@ -107,7 +107,7 @@ def index(request):
         'index.html',
         context={'num_books': num_products, 'info': info, 'num_authors': num_manufacturers,
                  'num_visits': num_visits, 'cat_fact': cat_fact, 'dog_image': dog_image,
-                 'latest_article': latest_article,
+                 'latest_article': latest_article,'now': timezone.now(),
                  'current_date_formatted': current_date_formatted, 'calendar_text': calendar_text,
                  'current_timezone': current_timezone, 'month_calendar': month_calendar},
     )
@@ -469,12 +469,15 @@ def employee_stats(request):
 class LogoutView(TemplateView):
     template = 'registration/logout.html'
 
+
 from django.shortcuts import render
 from .models import CompanyInfo
+
 
 def privacy_policy(request):
     info = CompanyInfo.objects.first()  # получаем первый (и, возможно, единственный) экземпляр модели
     return render(request, 'onlineshop/privacy_policy.html', {'info': info})
+
 
 def news(request):
     articles = Article.objects.all()
@@ -499,5 +502,3 @@ def faq(request):
 def jobs(request):
     jobs = Job.objects.all()
     return render(request, 'onlineshop/jobs.html', {'jobs': jobs})
-
-

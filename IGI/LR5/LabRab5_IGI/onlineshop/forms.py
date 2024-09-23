@@ -48,6 +48,7 @@ class RegisterForm(UserCreationForm):
             raise forms.ValidationError('You must be at least 18 years old to register.')
         return dob
 
+
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
@@ -60,13 +61,15 @@ class OrderForm(forms.ModelForm):
         super(OrderForm, self).__init__(*args, **kwargs)
         self.fields['pickup_location'].empty_label = None
 
+
 from django import forms
 from .models import Review
 
-class ReviewForm(forms.ModelForm):
-    RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]  # Choices from 1 to 5
 
-    rating = forms.ChoiceField(choices=RATING_CHOICES, widget=forms.Select(), required=True)
+class ReviewForm(forms.ModelForm):
+    RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]
+
+    rating = forms.ChoiceField(choices=RATING_CHOICES, widget=forms.Select(), required=True, initial=5)
 
     class Meta:
         model = Review
