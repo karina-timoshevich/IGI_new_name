@@ -1,6 +1,16 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+  <aside>
+    <nav>
+      <ul>
+        {% for article in articles %}
+          <li><a href="#{{ article.title | slugify }}">{{ article.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </aside>
+
   <article itemscope itemtype="https://schema.org/NewsArticle">
     <header>
       <h1 translate="no" itemprop="headline">News</h1>
@@ -8,13 +18,14 @@
 
     <section>
       {% for article in articles %}
-        <article itemscope itemtype="http://schema.org/NewsArticle">
+        <article id="{{ article.title | slugify }}" itemscope itemtype="http://schema.org/NewsArticle">
           <header>
             <h2 translate="yes" itemprop="headline">{{ article.title }}</h2>
           </header>
           <p itemprop="description">{{ article.summary }}</p>
-          <img src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;" itemprop="image">
-          <footer>
+          <a href="{% url 'article_detail' article.id %}">
+  <img class="news-image" src="{{ article.image.url }}" alt="{{ article.title }}" itemprop="image" border="0" width="500">
+</a> <footer>
             <a href="{% url 'article_detail' article.id %}" itemprop="url">Read more</a>
           </footer>
         </article>

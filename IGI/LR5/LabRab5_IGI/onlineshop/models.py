@@ -231,6 +231,8 @@ class CompanyInfo(models.Model):
     banner2 = models.ImageField(upload_to='company_info/', null=True, blank=True)
     privacy_policy = models.FileField(upload_to='employee_photos/policies/', null=True, blank=True)
 
+    audio = models.FileField(upload_to='company_info/', null=True, blank=True)
+
     history = models.TextField()
     details = models.TextField()
 

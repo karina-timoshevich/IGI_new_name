@@ -7,6 +7,11 @@
     <video width="320" height="240" controls>
         <source src="{{ info.video.url }}" type="video/mp4">
     </video>
+    <br>
+    <audio controls>
+        <source src="{{ info.audio.url }}" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
     <h2>History</h2>
     <p>{{ info.history }}</p>
     <h2>Banking Details</h2>
@@ -25,4 +30,5 @@
     <p>Director of the Association "Online Stores Association"</p>
     <p>Stamp</p>
 </div>
+     <p>If you have any questions, you can <a href="mailto:milana03tima@gmail.com?subject=Question">email us</a> or <a href="tel:+375292568820">call us</a>.</p>
 {% endblock %}

@@ -14,8 +14,9 @@
                     <p itemprop="description">{{ job.description }}</p>
                 </article>
             {% empty %}
+                  <p>There are no jobs</p>
             {% endfor %}
-                <p>There are no jobs</p>
+
         </section>
     </article>
 {% endblock %}
