@@ -22,9 +22,9 @@ class Employee(models.Model):
     last_name = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
     photo = models.ImageField(upload_to='', null=True, blank=True)
-    job_description = models.TextField(default='')  # new field
-    phone = models.CharField(max_length=20, default='')  # new field
-    email = models.EmailField(default='default@email.com')  # new field
+    job_description = models.TextField(default='')
+    phone = models.CharField(max_length=20, default='')
+    email = models.EmailField(default='default@email.com')
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -39,8 +39,8 @@ class Client(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=2)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    date_of_birth = models.DateField(null=True, blank=True)  # new field
-    phone_number = models.CharField(max_length=20, default='', blank=True)  #
+    date_of_birth = models.DateField(null=True, blank=True)
+    phone_number = models.CharField(max_length=20, default='', blank=True)
 
     def __str__(self):
         return f"{self.user.username}"

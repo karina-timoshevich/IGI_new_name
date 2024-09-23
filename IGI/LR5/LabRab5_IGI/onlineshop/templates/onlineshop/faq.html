@@ -8,15 +8,15 @@
 
     <section>
       {% for faq in faqs %}
-        <article>
-          <header>
+        <details>
+          <summary>
             <h2>{{ faq.question }}</h2>
-          </header>
+          </summary>
           <p>{{ faq.answer }}</p>
           <footer>
             <p><strong>Date added:</strong> {{ faq.date_added }}</p>
           </footer>
-        </article>
+        </details>
       {% endfor %}
     </section>
   </article>
