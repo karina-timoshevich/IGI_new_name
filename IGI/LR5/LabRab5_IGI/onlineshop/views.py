@@ -278,6 +278,48 @@ def apply_promo_code(request):
     return redirect('cart')
 
 
+# @login_required
+# def create_order(request):
+#     client = get_object_or_404(Client, user=request.user)
+#     cart = Cart.objects.get(client=client)
+#     total_price = cart.total_price
+#     promo_code = cart.promo_code
+#     default_discount = PromoCode.objects.first()
+#
+#     if request.method == 'POST':
+#         form = OrderForm(request.POST)
+#         if form.is_valid():
+#             order = form.save(commit=False)
+#             order.client = client
+#             order.total_price = total_price
+#             if promo_code:
+#                 order.promo_code = promo_code
+#             else:
+#                 order.discount = default_discount
+#             order.save()
+#             logger.info(f'Order {order.id} created')
+#             for product_instance in cart.products.all():
+#                 new_product_instance = ProductInstance.objects.create(
+#                     product=product_instance.product,
+#                     quantity=product_instance.quantity,
+#                     customer=client
+#                 )
+#                 order.products.add(new_product_instance)
+#             cart.products.clear()
+#             cart.update_total_price()
+#             cart.promo_code = None
+#             cart.save()
+#             return redirect('my-orders')
+#         else:
+#             messages.error(request, 'Please select a pickup location.')
+#     else:
+#         form = OrderForm()
+#
+#     return render(request, 'onlineshop/user_cart.html', {'form': form, 'cart': cart})
+from django.urls import reverse
+from yookassa import Configuration, Payment
+import uuid
+
 @login_required
 def create_order(request):
     client = get_object_or_404(Client, user=request.user)
@@ -286,38 +328,57 @@ def create_order(request):
     promo_code = cart.promo_code
     default_discount = PromoCode.objects.first()
 
+    Configuration.account_id = '464127'
+    Configuration.secret_key = 'test_A5adiPpK94uk8ZQXzJJkJ_z3D8X4xslgleMod3njZF4'
+
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
-            order = form.save(commit=False)
-            order.client = client
-            order.total_price = total_price
+            temp_order = form.save(commit=False)
+            temp_order.client = client
+            temp_order.total_price = total_price
             if promo_code:
-                order.promo_code = promo_code
+                temp_order.promo_code = promo_code
             else:
-                order.discount = default_discount
-            order.save()
-            logger.info(f'Order {order.id} created')
-            for product_instance in cart.products.all():
-                new_product_instance = ProductInstance.objects.create(
-                    product=product_instance.product,
-                    quantity=product_instance.quantity,
-                    customer=client
-                )
-                order.products.add(new_product_instance)
-            cart.products.clear()
-            cart.update_total_price()
-            cart.promo_code = None
-            cart.save()
-            return redirect('my-orders')
+                temp_order.discount = default_discount
+
+            return_url = request.build_absolute_uri(reverse('my-orders'))
+
+            payment = Payment.create({
+                "amount": {
+                    "value": str(total_price),
+                    "currency": "RUB"
+                },
+                "confirmation": {
+                    "type": "redirect",
+                    "return_url": return_url
+                },
+                "capture": True,
+                "description": f"Order #{temp_order.id}"
+            }, uuid.uuid4())
+
+            if payment.status == 'waiting_for_capture':
+                temp_order.save()
+                logger.info(f'Order {temp_order.id} created')
+                for product_instance in cart.products.all():
+                    new_product_instance = ProductInstance.objects.create(
+                        product=product_instance.product,
+                        quantity=product_instance.quantity,
+                        customer=client
+                    )
+                    temp_order.products.add(new_product_instance)
+                cart.products.clear()
+                cart.update_total_price()
+                cart.promo_code = None
+                cart.save()
+
+            return redirect(payment.confirmation.confirmation_url)
         else:
             messages.error(request, 'Please select a pickup location.')
     else:
         form = OrderForm()
 
     return render(request, 'onlineshop/user_cart.html', {'form': form, 'cart': cart})
-
-
 @login_required
 def increase_quantity(request, product_instance_id):
     product_instance = get_object_or_404(ProductInstance, id=product_instance_id)
@@ -475,7 +536,7 @@ from .models import CompanyInfo
 
 
 def privacy_policy(request):
-    info = CompanyInfo.objects.first()  # получаем первый (и, возможно, единственный) экземпляр модели
+    info = CompanyInfo.objects.first()
     return render(request, 'onlineshop/privacy_policy.html', {'info': info})
 
 

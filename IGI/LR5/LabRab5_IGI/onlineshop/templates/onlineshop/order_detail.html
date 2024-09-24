@@ -6,8 +6,8 @@
   <p><strong>Date:</strong> {{ order.order_date }}</p>
   <p><strong>Total Price:</strong> {{ order.total_price }}</p>
   <p><strong>Status:</strong> {{ order.get_status_display }}</p>
-  <p><strong>Pickup Location:</strong> {{ order.pickup_location.name }}</p>  <!-- Change this line -->
-  <p><strong>Pickup Address:</strong> {{ order.pickup_location.address }}</p>  <!-- Add this line -->
+  <p><strong>Pickup Location:</strong> {{ order.pickup_location.name }}</p>
+  <p><strong>Pickup Address:</strong> {{ order.pickup_location.address }}</p>
 
   <h2>Products:</h2>
   {% if order.products.all %}
