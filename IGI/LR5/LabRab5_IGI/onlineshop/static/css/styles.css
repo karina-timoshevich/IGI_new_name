@@ -15,7 +15,7 @@
 }
 
 .content {
-    margin-left: 15%;
+    margin-left: 12%;
     padding: 15px; /* Добавляем отступы для контента */
 }
 
@@ -26,6 +26,7 @@
 }
 
 .sidebar-nav li {
+  margin-left: 7%;
   padding: 10px 0;
 }
 
@@ -103,7 +104,7 @@
 }
 
 .news-item {
-    width: calc(33.333% - 20px);
+    width: calc(50% - 20px);
     border: 1px solid #ddd;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -237,10 +238,11 @@ body {
 /* Стили для контейнера статей */
 .articles-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Автоматическое заполнение колонок */
+    grid-template-columns: 1fr 1fr; /* Две колонки одинаковой ширины */
     gap: 20px; /* Отступы между элементами */
     padding: 20px; /* Внутренние отступы */
 }
+
 
 /* Стили для отдельной статьи */
 .article-item {
@@ -249,4 +251,21 @@ body {
     padding: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+}
+
+.btn-emerald {
+    width: auto; /* Автоматическая ширина */
+    padding: 0.375rem 0.5rem; /* Уменьшенные внутренние отступы */
+    margin-left: 5%; /* Отступ слева 15% */
+    background-color: #50C878; /* Изумрудный цвет */
+    color: #fff; /* Белый цвет текста */
+    border-color: #50C878; /* Изумрудный цвет границы */
+     border-radius: 0.5rem; /* Немного скругленные углы */
+    opacity: 1; /* Полная непрозрачность */
+}
+
+.btn-emerald:hover {
+    background-color: #3CA66A; /* Темнее изумрудный цвет при наведении */
+    border-color: #3CA66A; /* Темнее изумрудный цвет границы при наведении */
+    opacity: 1; /* Полная непрозрачность при наведении */
 }

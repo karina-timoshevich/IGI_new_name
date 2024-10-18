@@ -19,7 +19,7 @@
       <div class="sidebar">
         {% block sidebar %}
           <ul class="sidebar-nav itim-regular" >
-            <li ><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'index' %}">Home</a></li>
             <li><a href="{% url 'products' %}">All products</a></li>
             <li><a href="{% url 'manufacturers' %}">All manufacturers</a></li>
             <li><a href="{% url 'promo-codes' %}">Promocodes</a></li>
@@ -64,11 +64,11 @@
                         {% endif %}
                     {% endfor %}
                 {% endif %}
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="next" value="{% url 'logout' %}">
-            <button type="submit">Logout</button>
-        </form>
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{% url 'logout' %}">
+    <button type="submit" class="btn btn-emerald">Logout</button>
+</form>
     </li>
              {% else %}
                  <li><a href="{% url 'login'%}?next={% url 'index' %}">Login</a></li>
