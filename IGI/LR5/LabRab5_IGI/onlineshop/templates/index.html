@@ -115,7 +115,22 @@
 </p>
 <p>Это длинное слово: supercalifragilisticexpialidocious</p>
     <p>А это с <wbr>тегом: ииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииии super<wbr>califragilistic<wbr>expialidocious</p>
-
+<b>Bold text</b>
+          <em>Emphasized text</em>
+          <i>Italic text</i>
+          <s>Strikethrough text</s>
+          <strong>Strong text</strong>
+          <u>Underlined text</u>
+          <small>Small text</small>
+          <sub>Subscript text</sub>
+          <sup>Superscript text</sup>
+          <var>переменная (курсив)</var>
+          <samp>результат работы программы</samp>
+          <kbd>ввод пользователя</kbd>
+          <abbr title="abbreviation">abbr</abbr>
+          <dfn title="definition">dfn</dfn>
+          <mark>Marked text</mark>
+            <p>Это <span style="color: red;">красный</span> текст.</p>
     <div class="container">
     <h2>Container Title</h2>
     <p>This is some text inside a container.</p>
@@ -146,6 +161,41 @@
     <form>
     <input type="range" id="testRange" name="testRange" min="0" max="100">
 </form>
+     <form action="/submit_form" method="POST">
+
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" name="username" placeholder="Введите имя" required>
+        <br><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Введите email" required>
+        <br><br>
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" placeholder="Введите пароль" required>
+        <br><br>
+
+        <label>Пол:</label>
+        <input type="radio" id="male" name="gender" value="male" checked>
+        <label for="male">Мужской</label>
+        <input type="radio" id="female" name="gender" value="female">
+        <label for="female">Женский</label>
+        <br><br>
+
+        <label for="country">Страна:</label>
+        <select id="country" name="country">
+            <option value="belarus">Беларусь</option>
+            <option value="russia">Россия</option>
+            <option value="ukraine">Украина</option>
+        </select>
+        <br><br>
+
+        <label for="comment">Комментарий:</label><br>
+        <textarea id="comment" name="comment" rows="4" cols="50" placeholder="Введите ваш комментарий"></textarea>
+        <br><br>
+
+        <input type="submit" value="Отправить">
+    </form>
     <h2>Latest Article</h2>
     <h3><a href="{% url 'article_detail' latest_article.id %}">{{ latest_article.title }}</a></h3>
     <p>{{ latest_article.summary }}</p>
