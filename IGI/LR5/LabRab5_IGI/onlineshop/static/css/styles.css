@@ -313,3 +313,59 @@ details footer {
     color: #666;
     margin-top: 10px;
 }
+
+/* Стили для контейнера сотрудников */
+.employee-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+       width: 100%;
+
+    margin: 0 auto; /* Центрирование контейнера */
+
+}
+
+/* Стили для каждого элемента сотрудника */
+.employee-item {
+    flex: 1 1 calc(30% - 20px); /* Три элемента в строке */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.employee-item img {
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+/* Стили для увеличения карточки сотрудника при наведении */
+.employee-item:hover {
+    transform: scale(1.05); /* Увеличение на 5% */
+    transition: transform 0.3s ease; /* Плавный переход */
+}
+.employee-item h2 {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+
+.employee-item p {
+    margin: 5px 0;
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+    .employee-item {
+        flex: 1 1 calc(50% - 20px); /* Два элемента в строке */
+    }
+}
+
+@media (max-width: 480px) {
+    .employee-item {
+        flex: 1 1 100%; /* Один элемент в строке */
+    }
+}
