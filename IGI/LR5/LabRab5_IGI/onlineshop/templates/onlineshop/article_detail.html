@@ -2,7 +2,9 @@
 
 {% block content %}
     <h1 class="itim-regular">{{ article.title }}</h1>
-    <img src="{{ article.image.url }}" alt="{{ article.title }}" style="max-width:300px; max-height:300px;">
+    <div style="text-align: center;">
+        <img src="{{ article.image.url }}" alt="{{ article.title }}" style="width: 100%; height: auto;">
+    </div>
     <div class="article-content">
         <p>{{ article.content }}</p>
     </div>
