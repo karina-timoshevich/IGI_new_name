@@ -1,202 +1,39 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Welcome to our shop!</h1>
-     <figure>
-  <img src="{{ info.logo.url }}" alt="Company Logo" style="display: block; width: 15%; height: auto;">
-  <figcaption>Company Logo</figcaption>
-     </figure>
+    <h1 class="itim-regular">Welcome to our shop!</h1>
+    <figure>
+        <img src="{{ info.logo.url }}" alt="Company Logo" style="display: block; width: 15%; height: auto;">
+        <figcaption>Company Logo</figcaption>
+    </figure>
     <img src="{{ info.banner1.url }}" alt="Company Banner 1" style="width: 50%; height: auto;">
     <img src="{{ info.banner2.url }}" alt="Company Banner 2" style="width: 50%; height: auto;">
 
-    <h2>Cat Fact of the Day</h2>
+    <h2 class="itim-regular">Cat Fact of the Day</h2>
     <p contenteditable="true">{{ cat_fact.fact }}</p>
 
-    <h2>Random Dog Image</h2>
+    <h2 class="itim-regular">Random Dog Image</h2>
     <img src="{{ dog_image.message }}" alt="Random dog image" style="max-width: 200px; height: 200px;">
     <p>Current time: {{ current_date_formatted }}</p>
     <p>Current data: {{ calendar_text }}</p>
-    <table>
-    <tr>
-        <th>Пн</th>
-        <th>Вт</th>
-        <th>Ср</th>
-        <th>Чт</th>
-        <th>Пт</th>
-        <th>Сб</th>
-        <th>Вс</th>
-    </tr>
-    {% for week in month_calendar %}
-        <tr>
-            {% for day in week %}
-                <td>{% if day != 0 %}{{ day }}{% endif %}</td>
-            {% endfor %}
-        </tr>
-    {% endfor %}
-</table>
-<table border="1" bordercolor="purple" bgcolor="#f5deb3">   <caption>Table example</caption>
-  <tr>
-    <th id="header1">Header 1</th>
-    <th id="header2">Header 2</th>
-    <th id="header3">Header 3</th>
-  </tr>
-  <tr>
-    <td headers="header1">1</td>
-    <td headers="header2">2</td>
-    <td headers="header3">3</td>
-  </tr>
-  <tr>
-    <td headers="header1">4</td>
-    <td colspan="2" rowspan="2" headers="header2 header3">LabRab1_STRWEB</td>
-  </tr>
-  <tr>
-    <td headers="header1">5</td>
-  </tr>
-  <tr>
-    <td headers="header1">6</td>
-    <td headers="header2">7</td>
-    <td headers="header3">8</td>
-  </tr>
-<tfoot>
-        <tr>
-            <td colspan="3">*****Footer information*****</td>
-        </tr>
-    </tfoot>
-</table>
-<br>
-    <table border="3">
-  <tr>
-    <td></td><td>❤️</td><td></td><td>❤️</td><td></td>
-  </tr>
-  <tr>
-    <td>❤️</td><td>❤️</td><td>❤️</td><td>❤️</td><td>❤️</td>
-  </tr>
-  <tr>
-    <td></td><td>❤️</td><td>❤️</td><td>❤️</td><td></td>
-  </tr>
-  <tr>
-    <td></td><td></td><td>❤️</td><td></td><td></td>
-  </tr>
-</table>
-
-<figure>
-  <figcaption>Example of a Python function</figcaption>
-  <pre>
-    <code>
-      def hello_world():
-        print("Hello, world!")
-    </code>
-  </pre>
-</figure>
-
-    <p>The <abbr title="World Health Organization">WHO</abbr> was founded in 1948.</p>
-
-    <blockquote cite="https://harrypotter.fandom.com/wiki/Harry_Potter">
-      <p>Harry James Potter (b. 31 July 1980) was an English half-blood wizard, and one of the most famous wizards of modern times. The only child and son of James and Lily Potter (née Evans).</p>
-    </blockquote>
-
-    <p>Current date and time: <time datetime="{{ now.isoformat }}">{{ now }}</time></p>
-
-    <p>
-  Let me not to the marriage of true minds<br>
-  Admit impediments. Love is not love<br>
-  Which alters when it alteration finds,<br>
-  Or bends with the remover to remove:<br>
-  <br>
-  O no! it is an ever-fixed mark<br>
-  That looks on tempests and is never shaken;<br>
-  It is the star to every wandering bark,<br>
-  Whose worth's unknown, although his height be taken.<br>
-  <br>
-  Love's not Time's fool, though rosy lips and cheeks<br>
-  Within his bending sickle's compass come:<br>
-  Love alters not with his brief hours and weeks,<br>
-  But bears it out even to the edge of doom.
-</p>
-<p>Это длинное слово: supercalifragilisticexpialidocious</p>
-    <p>А это с <wbr>тегом: ииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииииии super<wbr>califragilistic<wbr>expialidocious</p>
-<b>Bold text</b>
-          <em>Emphasized text</em>
-          <i>Italic text</i>
-          <s>Strikethrough text</s>
-          <strong>Strong text</strong>
-          <u>Underlined text</u>
-          <small>Small text</small>
-          <sub>Subscript text</sub>
-          <sup>Superscript text</sup>
-          <var>переменная (курсив)</var>
-          <samp>результат работы программы</samp>
-          <kbd>ввод пользователя</kbd>
-          <abbr title="abbreviation">abbr</abbr>
-          <dfn title="definition">dfn</dfn>
-          <mark>Marked text</mark>
-            <p>Это <span style="color: red;">красный</span> текст.</p>
-    <div class="container">
-    <h2>Container Title</h2>
-    <p>This is some text inside a container.</p>
+<h2 class="itim-regular">Partner Companies</h2>
+<div class="partner-blocks">
+    {% for manufacturer in manufacturer_list %}
+    <div class="itim-regular">
+        <div class="partner-block">
+            {% if manufacturer.logo %}
+                <img src="{{ manufacturer.logo.url }}" alt="{{ manufacturer.name }}" class="partner-logo">
+            {% endif %}
+        </div>
+        <p class="partner-name">{{ manufacturer.name }}</p>
     </div>
+    {% endfor %}
+</div>
 
-    <br>
-    <br>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/xANOlWiWERo?si=j9jnLsGIdoUWJN1v" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <br>
-     <br>
-<form>
-    <input type="radio" id="choice1" name="choice" value="1">
-    <label for="choice1">First</label><br>
-    <input type="radio" id="choice2" name="choice" value="2">
-    <label for="choice2">Second</label><br>
-    <input type="radio" id="choice3" name="choice" value="3">
-    <label for="choice3">Third</label>
-</form>
 
-<form>
-    <input type="checkbox" id="box1" name="box1" value="1">
-    <label for="box1">First</label><br>
-    <input type="checkbox" id="box2" name="box2" value="2">
-    <label for="box2">Second</label><br>
-    <input type="checkbox" id="box3" name="box3" value="3">
-    <label for="box3">Third</label>
-</form>
-    <form>
-    <input type="range" id="testRange" name="testRange" min="0" max="100">
-</form>
-     <form action="/submit_form" method="POST">
-
-        <label for="username">Имя пользователя:</label>
-        <input type="text" id="username" name="username" placeholder="Введите имя" required>
-        <br><br>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="Введите email" required>
-        <br><br>
-
-        <label for="password">Пароль:</label>
-        <input type="password" id="password" name="password" placeholder="Введите пароль" required>
-        <br><br>
-
-        <label>Пол:</label>
-        <input type="radio" id="male" name="gender" value="male" checked>
-        <label for="male">Мужской</label>
-        <input type="radio" id="female" name="gender" value="female">
-        <label for="female">Женский</label>
-        <br><br>
-
-        <label for="country">Страна:</label>
-        <select id="country" name="country">
-            <option value="belarus">Беларусь</option>
-            <option value="russia">Россия</option>
-            <option value="ukraine">Украина</option>
-        </select>
-        <br><br>
-
-        <label for="comment">Комментарий:</label><br>
-        <textarea id="comment" name="comment" rows="4" cols="50" placeholder="Введите ваш комментарий"></textarea>
-        <br><br>
-
-        <input type="submit" value="Отправить">
-    </form>
-    <h2>Latest Article</h2>
-    <h3><a href="{% url 'article_detail' latest_article.id %}">{{ latest_article.title }}</a></h3>
-    <p>{{ latest_article.summary }}</p>
+    <h2 class="itim-regular">Latest Article</h2>
+    <div class="latest-article">
+        <h3><a href="{% url 'article_detail' latest_article.id %}">{{ latest_article.title }}</a></h3>
+        <p>{{ latest_article.summary }}</p>
+    </div>
 {% endblock %}

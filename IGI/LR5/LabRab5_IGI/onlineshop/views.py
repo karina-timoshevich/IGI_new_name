@@ -101,7 +101,7 @@ def index(request):
     now = timezone.now()
     year, month = now.year, now.month
     month_calendar = calendar.monthcalendar(year, month)
-
+    manufacturer_list = Manufacturer.objects.all()
     return render(
         request,
         'index.html',
@@ -109,7 +109,7 @@ def index(request):
                  'num_visits': num_visits, 'cat_fact': cat_fact, 'dog_image': dog_image,
                  'latest_article': latest_article,'now': timezone.now(),
                  'current_date_formatted': current_date_formatted, 'calendar_text': calendar_text,
-                 'current_timezone': current_timezone, 'month_calendar': month_calendar},
+                 'current_timezone': current_timezone, 'month_calendar': month_calendar, 'manufacturer_list': manufacturer_list},
     )
 
 

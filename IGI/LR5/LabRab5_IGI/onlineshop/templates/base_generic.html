@@ -1,22 +1,25 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
   {% load static %}
-    {% block title %}<title>Online Shop</title>{% endblock %}
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="Karina Timoshevich" />
-    <meta name="description" content="Welcome to Online Shop, your go-to destination for high-quality food products. Discover our wide range of fresh and organic items, and enjoy our excellent customer service and fast delivery." />
-    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
-  </head>
+  {% block title %}<title>Online Shop</title>{% endblock %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Karina Timoshevich" />
+  <meta name="description" content="Welcome to Online Shop, your go-to destination for high-quality food products. Discover our wide range of fresh and organic items, and enjoy our excellent customer service and fast delivery." />
+  <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+</head>
 
   <body>
     <div class="container">
       <div class="sidebar">
         {% block sidebar %}
-          <ul class="sidebar-nav">
-            <li><a href="{% url 'index' %}">Home</a></li>
+          <ul class="sidebar-nav itim-regular" >
+            <li ><a href="{% url 'index' %}">Home</a></li>
             <li><a href="{% url 'products' %}">All products</a></li>
             <li><a href="{% url 'manufacturers' %}">All manufacturers</a></li>
             <li><a href="{% url 'promo-codes' %}">Promocodes</a></li>
@@ -30,15 +33,12 @@
 
              {% if user.is_authenticated %}
                  <li>User: {{ user.get_username }}</li>
-{#                  <li><a href="{% url 'my-ordered' %}">My Ordered</a></li>#}
                  {% for group in user.groups.all %}
                     {% if group.name == "Shop Members" %}
                         <li><a href="{% url 'my-orders' %}">My Orders</a></li>
                         <li><a href="{% url 'cart' %}">My Cart</a></li>
                         <li><a href="{% url 'pickup-locations' %}">Pick-up points</a></li>
-
                     {% endif %}
-
                 {% endfor %}
 
                 {% if user.is_superuser %}
