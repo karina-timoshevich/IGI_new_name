@@ -16,19 +16,19 @@
     <img src="{{ dog_image.message }}" alt="Random dog image" style="max-width: 200px; height: 200px;">
     <p>Current time: {{ current_date_formatted }}</p>
     <p>Current data: {{ calendar_text }}</p>
-<h2 class="itim-regular">Partner Companies</h2>
-<div class="partner-blocks">
-    {% for manufacturer in manufacturer_list %}
-    <div class="itim-regular">
-        <div class="partner-block">
-            {% if manufacturer.logo %}
-                <img src="{{ manufacturer.logo.url }}" alt="{{ manufacturer.name }}" class="partner-logo">
-            {% endif %}
+    <h2 class="itim-regular">Partner Companies</h2>
+    <div class="partner-blocks">
+        {% for manufacturer in manufacturer_list %}
+        <div class="itim-regular">
+            <div class="partner-block">
+                {% if manufacturer.logo %}
+                    <img src="{{ manufacturer.logo.url }}" alt="{{ manufacturer.name }}" class="partner-logo">
+                {% endif %}
+            </div>
+            <p class="partner-name">{{ manufacturer.name }}</p>
         </div>
-        <p class="partner-name">{{ manufacturer.name }}</p>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 
 
     <h2 class="itim-regular">Latest Article</h2>

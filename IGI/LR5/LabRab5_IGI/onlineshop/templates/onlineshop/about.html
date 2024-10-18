@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>About company</h1>
-    <img src="{{ info.logo.url }}" alt="Company Logo" height=200px width=200px>
+    <img src="{{ info.logo.url }}" alt="Company Logo" height=200px width=200px class="logo-transform">
     <p>{{ info.text }}</p>
     <video width="320" height="240" controls>
         <source src="{{ info.video.url }}" type="video/mp4">
