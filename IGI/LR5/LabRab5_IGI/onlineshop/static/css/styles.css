@@ -94,3 +94,152 @@
 .logo-transform {
     transform: rotate(15deg); /* Поворачивает логотип на 15 градусов */
 }
+
+/* Основные стили для страницы новостей */
+.news-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.news-item {
+    width: calc(33.333% - 20px);
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.news-image {
+    width: 100%;
+    height: auto;
+}
+
+/* Основные стили для страницы новостей */
+.news-summary {
+    overflow: hidden; /* Скрывает переполнение */
+    text-overflow: ellipsis; /* Добавляет многоточие при переполнении */
+    display: -webkit-box; /* Использует flexbox для ограничения строк */
+    -webkit-line-clamp: 2; /* Ограничивает количество строк */
+    -webkit-box-orient: vertical; /* Вертикальная ориентация */
+    max-height: 3.6em; /* Ограничивает высоту строки */
+    margin-bottom: 10px;
+}
+
+.read-more {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.read-more:hover {
+    background-color: #0056b3;
+}
+
+/* Многоколоночный макет для текста статьи */
+.article-content {
+    column-count: 2;
+    column-gap: 20px;
+}
+
+/* Подключение шрифтов */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Медиа-запросы */
+@media (max-width: 768px) {
+    .news-item {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .news-item {
+        width: 100%;
+    }
+}
+
+/* Настройка заднего фона сайта */
+body {
+    background-color: #f0f0f0;
+}
+
+/* Стили для контейнера контента */
+.content-container {
+    display: flex;
+    flex-wrap: nowrap; /* Запрещаем перенос строк */
+    overflow-x: hidden; /* Убираем горизонтальную прокрутку */
+}
+
+/* Стили для основного контента */
+.main-content {
+    flex-grow: 1; /* Занимает оставшееся пространство */
+    margin-right: 20px; /* Отступ справа */
+    min-width: 0; /* Предотвращает переполнение */
+}
+
+/* Стили для правой колонки */
+.right-column {
+    width: 400px; /* Ширина правой колонки */
+    flex-shrink: 0; /* Запрещаем сжатие */
+}
+
+/* Стили для навигационного меню */
+.right-column nav {
+    background-color: #f8f9fa; /* Светлый фон */
+    padding: 10px; /* Внутренние отступы */
+    border-radius: 5px; /* Скругленные углы */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень */
+}
+
+/* Стили для списка навигации */
+.right-column nav ul {
+    list-style-type: none; /* Убираем маркеры списка */
+    padding: 0; /* Убираем отступы */
+    margin: 0; /* Убираем отступы */
+}
+
+/* Стили для элементов списка */
+.right-column nav ul li {
+    margin-bottom: 5px; /* Отступ между элементами */
+}
+
+/* Стили для ссылок */
+.right-column nav ul li a {
+    text-decoration: none; /* Убираем подчеркивание */
+    color: #007bff; /* Цвет ссылок */
+    padding: 5px 10px; /* Внутренние отступы */
+    display: block; /* Блочный элемент */
+    border-radius: 3px; /* Скругленные углы */
+    transition: background-color 0.3s; /* Плавный переход фона */
+}
+
+/* Стили для ссылок при наведении */
+.right-column nav ul li a:hover {
+    background-color: #e2e6ea; /* Фон при наведении */
+    color: #0056b3; /* Цвет текста при наведении */
+}
+
+/* Стили для контейнера статей */
+.articles-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Автоматическое заполнение колонок */
+    gap: 20px; /* Отступы между элементами */
+    padding: 20px; /* Внутренние отступы */
+}
+
+/* Стили для отдельной статьи */
+.article-item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}

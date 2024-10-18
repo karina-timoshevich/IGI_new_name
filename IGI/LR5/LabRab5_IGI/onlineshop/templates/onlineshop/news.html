@@ -1,35 +1,34 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <aside>
-    <nav>
-      <ul>
+  <div class="content-container">
+    <div class="main-content">
+      <div class="articles-container">
         {% for article in articles %}
-          <li><a href="#{{ article.title | slugify }}">{{ article.title }}</a></li>
+          <div class="article-item" id="{{ article.title | slugify }}" itemscope itemtype="http://schema.org/NewsArticle">
+            <header>
+              <h2 translate="yes" itemprop="headline">{{ article.title }}</h2>
+            </header>
+            <p class="news-summary" itemprop="description">{{ article.summary }}</p>
+            <a href="{% url 'article_detail' article.id %}">
+              <img class="news-image" src="{{ article.image.url }}" alt="{{ article.title }}" itemprop="image" border="0" width="500">
+            </a>
+            <footer>
+              <a href="{% url 'article_detail' article.id %}" itemprop="url">Read more</a>
+            </footer>
+          </div>
         {% endfor %}
-      </ul>
-    </nav>
-  </aside>
+      </div>
+    </div>
 
-  <article itemscope itemtype="https://schema.org/NewsArticle">
-    <header>
-      <h1 translate="no" itemprop="headline">News</h1>
-    </header>
-
-    <section>
-      {% for article in articles %}
-        <article id="{{ article.title | slugify }}" itemscope itemtype="http://schema.org/NewsArticle">
-          <header>
-            <h2 translate="yes" itemprop="headline">{{ article.title }}</h2>
-          </header>
-          <p itemprop="description">{{ article.summary }}</p>
-          <a href="{% url 'article_detail' article.id %}">
-  <img class="news-image" src="{{ article.image.url }}" alt="{{ article.title }}" itemprop="image" border="0" width="500">
-</a> <footer>
-            <a href="{% url 'article_detail' article.id %}" itemprop="url">Read more</a>
-          </footer>
-        </article>
-      {% endfor %}
-    </section>
-  </article>
+    <div class="right-column">
+      <nav>
+        <ul>
+          {% for article in articles %}
+            <li class="itim-regular"><a href="#{{ article.title | slugify }}">{{ article.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </div>
 {% endblock %}
