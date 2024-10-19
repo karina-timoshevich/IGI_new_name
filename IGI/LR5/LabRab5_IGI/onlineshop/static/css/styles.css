@@ -243,7 +243,17 @@ body {
     padding: 20px; /* Внутренние отступы */
 }
 
-
+/* Выделение первой буквы текста абзаца в статье */
+.article-content p::first-letter {
+    font-size: 2em;
+    font-weight: bold;
+    color: #50C199;
+}
+/* Изменение стиля при выделении текста */
+::selection {
+    background: #218142;
+    color: white;
+}
 /* Стили для отдельной статьи */
 .article-item {
     background-color: #fff;
@@ -260,8 +270,9 @@ body {
     background-color: #50C878; /* Изумрудный цвет */
     color: #fff; /* Белый цвет текста */
     border-color: #50C878; /* Изумрудный цвет границы */
-     border-radius: 0.5rem; /* Немного скругленные углы */
+    border-radius: 0.5rem; /* Немного скругленные углы */
     opacity: 1; /* Полная непрозрачность */
+    cursor: pointer; /* Изменение курсора при наведении */
 }
 
 .btn-emerald:hover {
@@ -319,8 +330,7 @@ details footer {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-       width: 100%;
-
+    width: 100%;
     margin: 0 auto; /* Центрирование контейнера */
 
 }
@@ -355,6 +365,7 @@ details footer {
 
 .employee-item p {
     margin: 5px 0;
+    text-indent: 0; /* Отступ первой строки */
 }
 
 /* Медиа-запросы для адаптивности */
@@ -368,4 +379,106 @@ details footer {
     .employee-item {
         flex: 1 1 100%; /* Один элемент в строке */
     }
+}
+
+/* политика конфиденциальности */
+
+/* Оформление фрагмента текста капителью */
+.capitalized {
+    font-variant: small-caps;
+}
+
+/* Настройка переноса и разрыва слов */
+p {
+    word-wrap: break-word;
+    hyphens: auto;
+    word-spacing: 2px;/* Настройка интервала между словами и символами */
+    letter-spacing: 1px;
+    line-height: 1.2;
+  text-indent: 30px; /* Отступ первой строки */
+
+}
+/* Оформление заголовков с помощью text-transform */
+h1, h2, h3, h4, h5, h6 {
+    text-transform: uppercase;
+    font-size: 1.2em;
+}
+/* Настройка шрифтов, выравнивания текста и позиционирования блоков */
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: justify;
+}
+
+
+.privacy-container {
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+      width: 100%;
+    text-align: justify; /* Для равномерного распределения текста */
+    padding-left: 20px; /* Для отступа с левой стороны */
+}
+
+/* Стили для навигации */
+nav {
+    margin-bottom: 20px;
+}
+
+nav a {
+    margin: 0 5px;
+    text-decoration: none;
+    color: #000;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+/* Оформление списка маркерами – символами юникода */
+.privacy-container ul.custom-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.privacy-container ul.custom-list li::before {
+    content: "\25AA"; /* Юникод символа маркера */
+    color: #218142;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+/* Общий стиль для всех списков */
+ul, ol {
+    margin-left: 20px; /* Отступ слева */
+    padding-left: 20px; /* Внутренний отступ слева */
+}
+.highlight::before {
+    content: "Начало контекста: ";
+    font-weight: bold;
+    font-size: small;
+    color: gray;
+}
+
+.highlight::after {
+    content: " (конец контекста)";
+    font-weight: bold;
+    font-size: small;
+    color: gray;
+}
+.btn-download {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #50C878; /* Изумрудный цвет */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+     cursor: pointer;
+}
+
+.btn-download:hover {
+    background-color: #3CA66A; /* Темнее изумрудный цвет при наведении */
 }
