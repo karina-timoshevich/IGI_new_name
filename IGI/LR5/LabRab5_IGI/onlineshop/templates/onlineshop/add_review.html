@@ -1,17 +1,16 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Add a Review</h1>
+  <h1 class="itim-regular">Add a Review</h1>
 
-  <form method="post">
+  <form method="post" class="review-form">
     {% csrf_token %}
     {% for field in form %}
-      {% if field.label == "Text" %}
-        <p>{{ field.label_tag }}<br><textarea name="{{ field.name }}" spellcheck="true">{{ field.value|default_if_none:"" }}</textarea></p>
-      {% else %}
-        <p>{{ field.label_tag }}<br>{{ field }}</p>
-      {% endif %}
+      <div class="form-group">
+        <label class="itim-regular" for="{{ field.id_for_label }}">{{ field.label }}:</label><br>
+        {{ field }}
+      </div>
     {% endfor %}
-    <button type="submit">Submit</button>
+    <button type="submit" class="btn-emerald">Submit</button>
   </form>
 {% endblock %}

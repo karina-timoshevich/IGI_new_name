@@ -525,3 +525,57 @@ ul, ol {
     clear: both;
 }
 
+/* Селекторы классов */
+.review-form {
+  width: 100%;
+  max-width: 800px; /* Увеличенный размер формы */
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fafafa;
+}
+
+/* Селектор потомков: стили для всех input, textarea и select внутри формы */
+.review-form input,
+.review-form textarea,
+.review-form select {
+  width: 250px; /* Одинаковая ширина для всех полей */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  font-family: 'Arial', sans-serif;
+}
+/* Селектор атрибутов: для обязательных элементов формы (required) */
+.review-form input[required],
+.review-form textarea[required] {
+  border: 2px solid #ec4aa4; /* Обязательные элементы выделены красным */
+}
+/* Стили для кнопки отправки */
+.review-form .btn-emerald {
+  background-color: #50C878; /* Изумрудный цвет */
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  display: block; /* Блочный элемент для выравнивания */
+  width: fit-content; /* Ширина по содержимому */
+  margin-left: 0; /* Выровнять по левому краю */
+}
+.review-form .btn-emerald:hover {
+  background-color: #3CA66A; /* Темнее изумрудный цвет при наведении */
+}
+/* Псевдоклассы для элементов в фокусе */
+.review-form input:focus,
+.review-form textarea:focus,
+.review-form select:focus {
+  border: 2px solid #00ff00; /* Зеленая рамка при фокусе */
+  outline: none; /* Убирает стандартное выделение */
+}
+
+.review-form textarea {
+  height: 300px; /* Фиксированная высота */
+    width: 600px;
+}
