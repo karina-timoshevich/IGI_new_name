@@ -19,7 +19,6 @@
     padding: 15px; /* Добавляем отступы для контента */
 }
 
-
 .sidebar-nav {
   list-style-type: none;
   padding: 0;
@@ -54,6 +53,8 @@
     flex-shrink: 0;
     position: relative;
     overflow: hidden;
+    flex-direction: column; /* Вертикальное расположение элементов */
+
 }
 
 .partner-logo {
@@ -69,6 +70,8 @@
     letter-spacing: 0.5px;
     text-align: center;
     margin-top: 10px; /* Больше отступа сверху, чтобы текст не прилипал */
+    width: 100%; /* Ширина 100% для центрирования */
+    margin-left: -12px;
 }
 
 /* Позиционирование для отображения инфо о последней статье */
@@ -157,8 +160,11 @@
 /* Подключение шрифтов */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+/* Определение семейства шрифтов в CSS */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', 'Open Sans', sans-serif;
 }
 
 /* Медиа-запросы */
@@ -291,8 +297,7 @@ details {
 }
 
 summary {
-    font-size: 1.2em;
-    font-weight: bold;
+    font-size: 1.0em;
     cursor: pointer;
     padding: 5px;
     border-bottom: 1px solid #ddd;
@@ -486,7 +491,6 @@ ul, ol {
     margin: 20px 0;
     padding: 0;
     list-style-type: none;
-    font-family: 'Arial', sans-serif; /* Убедиться, что используется тот же шрифт */
     background-color: rgba(0, 0, 0, 0.07); /* Полупрозрачный фон */
     border-radius: 10px; /* Скругленные углы */
 }
@@ -495,7 +499,7 @@ ul, ol {
     margin-top: 10px;
     font-variant: normal;
     color: rgba(0, 0, 0, 0.6); /* Полупрозрачный цвет */
-    text-transform: none; 
+    text-transform: none;
 }
 
 .definition-list dd {
@@ -503,3 +507,21 @@ ul, ol {
     margin-bottom: 10px;
     font-style: normal;
 }
+
+/* Стили для плавающих блоков и очистки */
+.job-posting {
+    float: left;
+    width: 85%;
+    margin: 2.5%;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: rgba(80, 200, 120, 0.07); /* Полупрозрачный изумрудный фон */
+    border-radius: 10px; /* Скругленные углы */
+    border: 1px solid rgba(80, 200, 120, 0.5); /* Полупрозрачная изумрудная граница */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+.clear {
+    clear: both;
+}
+
