@@ -1,15 +1,18 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Promo Codes</h1>
-  <ul>
-    {% for promo_code in object_list %}
-      <li>
-        <h2>{{ promo_code.code }}</h2>
-        <p>Discount: {{ promo_code.discount }}%</p>
-      </li>
-    {% empty %}
-      <li>No promo codes available.</li>
-    {% endfor %}
-  </ul>
+  <div class="promo-code-page">
+    <h1 class="itim-regular">Promo Codes</h1>
+    <p>To use a promo code, enter it at checkout. Only one promo code can be used per order.</p>
+    <ul>
+      {% for promo_code in object_list %}
+        <li>
+          <h2>{{ promo_code.code }}</h2>
+          <p>Discount: {{ promo_code.discount }}%</p>
+        </li>
+      {% empty %}
+           <li>No promo codes available.</li>
+      {% endfor %}
+    </ul>
+  </div>
 {% endblock %}

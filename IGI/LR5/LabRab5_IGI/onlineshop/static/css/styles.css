@@ -617,9 +617,8 @@ header h1 {
   max-height: 400px; /* Ограничение максимальной высоты отзыва */
   background-color: rgba(255, 255, 255, 0.8);
   padding: 15px;
-      border: 1px solid #3b6e22; /* Легкая окантовка */
-
-    scrollbar-width: none;
+  border: 1px solid #3b6e22; /* Легкая окантовка */
+  scrollbar-width: none;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   flex-shrink: 0; /* Предотвращаем сжатие отзывов */
@@ -689,5 +688,61 @@ footer .btn-emerald {
   border: none; /* Убираем границу */
   border-radius: 5px; /* Скругленные углы */
   text-align: center; /* Выравнивание текста по центру */
+}
 
+/* Стили для страницы промокодов */
+.promo-code-page {
+  max-width: 800px;
+    margin-left: 230px;
+  padding: 20px;
+  background-color: #f9f9f9; /* Светлый фон */
+  border-radius: 10px; /* Скругленные углы */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */
+}
+
+/* Стили для заголовков */
+.promo-code-page h1 {
+  font-size: 2em;
+  color: #333; /* Темный цвет текста */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.promo-code-page h2 {
+  font-size: 1.5em;
+  color: #1e5922; /* Темно-зеленый цвет */
+  margin-bottom: 10px;
+}
+
+/* Стили для текста */
+.promo-code-page p {
+  font-size: 1.2em;
+  color: #555; /* Средний серый цвет текста */
+  margin-bottom: 20px;
+}
+
+/* Стили для списка промокодов */
+.promo-code-page ul {
+  list-style-type: none; /* Убираем маркеры списка */
+  padding: 0;
+}
+
+.promo-code-page li {
+  background-color: #e0f7e9; /* Светло-зеленый фон */
+  padding: 15px;
+  border: 1px solid #2e7d32; /* Темно-зеленая граница */
+  border-radius: 5px; /* Скругленные углы */
+  margin-bottom: 10px;
+}
+
+.promo-code-page li h2 {
+  margin: 0 0 10px 0;
+}
+
+.promo-code-page li p {
+  margin: 0;
+}
+.promo-code-page li:hover {
+    transform: scale(1.02); /* Увеличение на 5% */
+    transition: transform 0.3s ease; /* Плавный переход */
 }
