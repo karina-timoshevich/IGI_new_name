@@ -746,3 +746,86 @@ footer .btn-emerald {
     transform: scale(1.02); /* Увеличение на 5% */
     transition: transform 0.3s ease; /* Плавный переход */
 }
+/* Стили для строки поиска и выпадающих списков */
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+     font-family: 'Itim', cursive; /* Ваш шрифт */
+    width: 1380px;
+    margin-left: 20px;
+}
+
+.search-container input[type="text"] {
+  width: 60%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+ font-family: 'Itim', cursive; /* Ваш шрифт */
+}
+
+.search-container select {
+  width: 18%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+     font-family: 'Itim', cursive; /* Ваш шрифт */
+}
+
+/* Подсветка элементов выпадающего списка при наведении */
+.search-container select option:hover {
+  background-color: #bee8ef; /* Голубой цвет при наведении */
+}
+
+/* Подсветка выбранного элемента выпадающего списка */
+.search-container select option:checked {
+  background-color:  #50C878; /* Зеленый цвет при выборе */
+}
+/* Стили для каталога товаров */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+}
+.product-item h2 {
+  font-size: 1.0em;
+  margin: 5px 0; /* Уменьшить отступ между названием и ценой */
+}
+.product-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.product-image {
+  width: 100%; /* Ширина изображения заполняет контейнер */
+  height: 200px; /* Высота изображения */
+  object-fit: cover; /* Обрезка изображения для заполнения контейнера */
+  border-radius: 5px;
+  margin: 5px 0;
+}
+.product-item a {
+  text-decoration: none; /* Убираем подчеркивание */
+  color: inherit; /* Наследуем цвет текста */
+}
+
+.product-item a:visited {
+  color: inherit; /* Наследуем цвет текста после посещения */
+}
+.product-price {
+  font-size: 1.0em;
+  font-weight: bold;
+  color: #333;
+  margin: 5px 0;
+text-indent: 0;
+    text-align: center;
+}

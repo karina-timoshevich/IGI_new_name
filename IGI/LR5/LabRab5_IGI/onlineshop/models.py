@@ -89,7 +89,7 @@ class Product(models.Model):
     product_type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
     manufacturer = models.ForeignKey("Manufacturer", on_delete=models.CASCADE, null=True)
     unit_of_measure = models.ForeignKey(UnitOfMeasure, on_delete=models.SET_NULL, null=True)
-
+    image = models.ImageField(upload_to='product_images/', blank=True, null=True)
     # image = models.ImageField(upload_to='products/', null=True, blank=True)
 
     def __str__(self):

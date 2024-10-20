@@ -1,9 +1,9 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1 itemprop="name">Product List</h1>
+    <h1 itemprop="name" class="itim-regular" style="text-align: center;">Product List</h1>
 
-    <form method="GET">
+    <form method="GET" class="search-container">
         <input type="text" name="search" placeholder="Search products" value="{{ request.GET.search|default:'' }}">
         <select name="product_type_id" onchange="this.form.submit()">
             <option value="" {% if not request.GET.product_type_id %}selected{% endif %}>All types</option>
@@ -19,16 +19,19 @@
         </select>
     </form>
     {% if product_list %}
-    <ul itemscope itemtype="https://schema.org/Product">
+    <div class="product-grid">
       {% for product in product_list %}
-      <li>
-        <a href="{{ product.get_absolute_url }}" itemprop="url"><span itemprop="name">{{ product.name }}</span></a> (<span itemprop="priceCurrency">USD</span> <span itemprop="price">{{ product.price }}</span>)
-      </li>
+      <div class="product-item" itemscope itemtype="https://schema.org/Product">
+        <a href="{{ product.get_absolute_url }}" itemprop="url">
+          <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image" itemprop="image">
+          <h2 itemprop="name" class="itim-regular">{{ product.name }}</h2>
+        </a>
+        <p class="product-price" itemprop="priceCurrency" content="USD">Price: $<span itemprop="price">{{ product.price }}</span></p>
+      </div>
       {% endfor %}
-    </ul>
+    </div>
     {% else %}
         <p>There are no products in the online-shop.</p>
-
     {% endif %}
 
 {% endblock %}

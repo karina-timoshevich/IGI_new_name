@@ -107,9 +107,10 @@ def index(request):
         'index.html',
         context={'num_books': num_products, 'info': info, 'num_authors': num_manufacturers,
                  'num_visits': num_visits, 'cat_fact': cat_fact, 'dog_image': dog_image,
-                 'latest_article': latest_article,'now': timezone.now(),
+                 'latest_article': latest_article, 'now': timezone.now(),
                  'current_date_formatted': current_date_formatted, 'calendar_text': calendar_text,
-                 'current_timezone': current_timezone, 'month_calendar': month_calendar, 'manufacturer_list': manufacturer_list},
+                 'current_timezone': current_timezone, 'month_calendar': month_calendar,
+                 'manufacturer_list': manufacturer_list},
     )
 
 
@@ -126,15 +127,16 @@ class ProductListView(generic.ListView):
         if product_type_id:
             queryset = queryset.filter(product_type_id=product_type_id)
 
-        if self.request.user.is_superuser or self.request.user.groups.filter(name='Employees').exists():
-            queryset = queryset.order_by('name')
-        elif price_order == 'asc':
+        if search_query:
+            queryset = queryset.filter(Q(name__icontains=search_query))
+
+        if price_order == 'asc':
             queryset = queryset.order_by('price')
         elif price_order == 'desc':
             queryset = queryset.order_by('-price')
+        else:
+            queryset = queryset.order_by('name')
 
-        if search_query:
-            queryset = queryset.filter(Q(name__istartswith=search_query))
         logger.info(
             f'Filtering products with product_type_id={product_type_id}, price_order={price_order}, search_query={search_query}')
         return queryset
@@ -320,6 +322,7 @@ from django.urls import reverse
 from yookassa import Configuration, Payment
 import uuid
 
+
 @login_required
 def create_order(request):
     client = get_object_or_404(Client, user=request.user)
@@ -379,6 +382,8 @@ def create_order(request):
         form = OrderForm()
 
     return render(request, 'onlineshop/user_cart.html', {'form': form, 'cart': cart})
+
+
 @login_required
 def increase_quantity(request, product_instance_id):
     product_instance = get_object_or_404(ProductInstance, id=product_instance_id)
