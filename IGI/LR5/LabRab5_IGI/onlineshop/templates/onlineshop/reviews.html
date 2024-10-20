@@ -3,29 +3,33 @@
 {% block content %}
   <article>
     <header>
-      <h1>Reviews</h1>
+      <h1 class="itim-regular">Reviews</h1>
+      <h1 class="itim-regular">What Our Customers Say</h1>
     </header>
 
-    <section>
-      {% for review in object_list %}
-        <article>
-          <header>
-            <h2 translate="no">{{ review.user.username }}</h2>
-            <time datetime="{{ review.date.isoformat }}">{{ review.date }}</time>
-          </header>
-          <p><mark><strong>Rating:</strong> {{ review.rating }}</mark></p>
-          <p dir="auto">{{ review.text }}</p>
-        </article>
-      {% empty %}
-                    <p>No reviews found.</p>
-      {% endfor %}
+    <section class="review-container-wrapper">
+      <div class="review-container">
+        {% for review in object_list %}
+          <article class="review">
+            <header>
+              <h2 translate="no">{{ review.user.username }}</h2>
+              <time datetime="{{ review.date.isoformat }}">{{ review.date }}</time>
+            </header>
+            <p><mark><strong>Rating:</strong> {{ review.rating }}</mark></p>
+            <p dir="auto">{{ review.text }}</p>
+          </article>
+        {% empty %}
+          <p>No reviews found.</p>
+        {% endfor %}
+      </div>
     </section>
 
     <footer>
+      <p>Would you like to leave a review?</p>
       {% if user.is_authenticated %}
-        <a href="{% url 'add-review' %}">Add a review</a>
+        <a class="btn-emerald" href="{% url 'add-review' %}">Add a review</a>
       {% else %}
-          <a href="{% url 'login' %}">Log in to add a review</a>
+        <a class="btn-emerald" href="{% url 'login' %}">Log in to add a review</a>
       {% endif %}
     </footer>
   </article>

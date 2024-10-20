@@ -182,7 +182,7 @@ body {
 
 /* Настройка заднего фона сайта */
 body {
-    background-color: #f0f0f0;
+    background-color: #fffefe;
 }
 
 /* Стили для контейнера контента */
@@ -279,6 +279,7 @@ body {
     border-radius: 0.5rem; /* Немного скругленные углы */
     opacity: 1; /* Полная непрозрачность */
     cursor: pointer; /* Изменение курсора при наведении */
+    text-decoration: none;
 }
 
 .btn-emerald:hover {
@@ -337,7 +338,6 @@ details footer {
     gap: 20px;
     width: 100%;
     margin: 0 auto; /* Центрирование контейнера */
-
 }
 
 /* Стили для каждого элемента сотрудника */
@@ -470,21 +470,7 @@ ul, ol {
     font-size: small;
     color: gray;
 }
-.btn-download {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #50C878; /* Изумрудный цвет */
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-     cursor: pointer;
-}
 
-.btn-download:hover {
-    background-color: #3CA66A; /* Темнее изумрудный цвет при наведении */
-}
 
 /* Стили для списка понятий и определений */
 .definition-list {
@@ -554,19 +540,12 @@ ul, ol {
 }
 /* Стили для кнопки отправки */
 .review-form .btn-emerald {
-  background-color: #50C878; /* Изумрудный цвет */
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  display: block; /* Блочный элемент для выравнивания */
   width: fit-content; /* Ширина по содержимому */
   margin-left: 0; /* Выровнять по левому краю */
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
 }
-.review-form .btn-emerald:hover {
-  background-color: #3CA66A; /* Темнее изумрудный цвет при наведении */
-}
+
 /* Псевдоклассы для элементов в фокусе */
 .review-form input:focus,
 .review-form textarea:focus,
@@ -578,4 +557,137 @@ ul, ol {
 .review-form textarea {
   height: 300px; /* Фиксированная высота */
     width: 600px;
+}
+
+/* Стили для заголовков и текста отзывов */
+.review header h2 {
+  font-size: 1.5em;
+  color: #333;
+}
+
+.review time {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.review p {
+  font-size: 1.1em;
+  color: #444;
+  margin: 10px 0;
+}
+/* Обёртка для контейнера с отзывами */
+.review-container-wrapper {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1380px;
+  padding: 15px;
+  overflow-x: auto; /* Оставляем возможность прокрутки */
+  scrollbar-width: none; /* Скрытие прокрутки для Firefox */
+}
+
+/* Скрытие полосы прокрутки для Webkit браузеров (Chrome, Safari, Edge) */
+.review-container-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+/* Стили для горизонтальной прокрутки отзывов */
+.review-container {
+  display: flex;
+  gap: 15px;
+  white-space: nowrap;
+  padding: 15px;
+}
+
+/* Стили для заголовка "What Our Customers Say" */
+header h1 {
+  font-size: 2em;
+  color: #333;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.review p mark {
+  background-color: #e0f7e9; /* Светло-зеленый фон */
+  color: #2e7d32; /* Темно-зеленый текст */
+  padding: 2px 4px; /* Внутренние отступы */
+  border-radius: 3px; /* Скругленные углы */
+}
+/* Стили для блоков отзывов */
+.review {
+  width: 300px; /* Фиксированная ширина для отзывов */
+  max-height: 400px; /* Ограничение максимальной высоты отзыва */
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 15px;
+      border: 1px solid #3b6e22; /* Легкая окантовка */
+
+    scrollbar-width: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0; /* Предотвращаем сжатие отзывов */
+  overflow: auto; /* Прокрутка, если текст превышает высоту блока */
+  white-space: normal; /* Разрешаем перенос строк */
+}
+
+/* Стили для заголовков отзывов */
+.review header h2 {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 1.5em;
+  color: #333;
+
+}
+
+/* Перенос времени на следующую строку */
+.review header time {
+  display: block;
+  font-size: 0.9em;
+  color: #777; /* Цвет для времени */
+}
+
+/* Стили для предложения оставить отзыв */
+footer p {
+  font-size: 1.2em;
+  color: #333;
+  text-align: center;
+  margin-top: 20px;
+}
+
+
+/* Стили для заголовков отзывов */
+.review header h2 {
+  background-color: rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block;
+  font-size: 1.5em;
+  color: #333;
+  margin-bottom: 5px; /* Добавляем отступ для переноса времени на следующую строку */
+}
+
+/* Перенос времени на следующую строку */
+.review header time {
+  display: block; /* Отображаем блоком для переноса на новую строку */
+  font-size: 0.9em; /* Уменьшаем размер шрифта для времени */
+  color: #777; /* Цвет для текста времени */
+}
+
+/* Стили для предложения оставить отзыв */
+footer p {
+  font-size: 1.2em;
+  color: #333;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Стили для кнопки оставить отзыв */
+footer .btn-emerald {
+  display: block; /* Блочный элемент */
+  margin-left: 509px;
+  padding: 10px 10px; /* Внутренние отступы */
+  width: 400px;
+  border: none; /* Убираем границу */
+  border-radius: 5px; /* Скругленные углы */
+  text-align: center; /* Выравнивание текста по центру */
+
 }
