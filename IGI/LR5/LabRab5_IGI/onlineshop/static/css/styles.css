@@ -996,11 +996,13 @@ background-color: rgba(255, 255, 255, 0.9);
 
 /* Продукты */
 .product {
-    width: 50px;
-    height: 50px;
-    background-color: yellow;
-    position: absolute;
-    top: -50px; /* Начальная позиция выше экрана */
+     width: 100%; /* Ширина изображения заполняет контейнер */
+    height: 100%; /* Высота изображения заполняет контейнер */
+    max-width: 70px; /* Максимальная ширина изображения */
+    max-height: 90px; /* Максимальная высота изображения */
+    object-fit: contain; /* О*/
+     position: absolute;
+    top: -90px; /* Начальная позиция выше экрана */
     left: 50%;
     transform: translateX(-50%);
     border-radius: 10px;
@@ -1021,8 +1023,21 @@ background-color: rgba(255, 255, 255, 0.9);
 #product-3 {
     left: calc(50% + 55px); /* Позиционируем продукт правее корзины */
     animation-delay: 1.02s;
+    width: 50px; /* Максимальная ширина изображения */
+    height: 90px;
+}
+/* CSS: Стили для новых продуктов */
+#product-1-2 {
+    left: calc(50% - 27.5px); /* Позиционируем продукт между 1 и 2 */
+    animation-delay: 1.015s;
+     z-index: 2;
 }
 
+#product-2-3 {
+    left: calc(50% + 27.5px); /* Позиционируем продукт между 2 и 3 */
+    animation-delay: 1.01s;
+     z-index: 2;
+}
 @keyframes dropProduct {
     0% {
         top: -50px;
@@ -1031,7 +1046,7 @@ background-color: rgba(255, 255, 255, 0.9);
         top: 120px; /* Продукты опускаются на уровень корзины */
     }
     100% {
-        top: calc(100% - 120px); /* Продукты опускаются с корзиной на лужайку */
+        top: calc(100% - 115px); /* Продукты опускаются с корзиной на лужайку */
     }
 }
 
@@ -1039,12 +1054,11 @@ background-color: rgba(255, 255, 255, 0.9);
 .cart {
     width: 180px;
     height: 60px;
-    background-color: grey;
     position: absolute;
     bottom: 300px; /* Начальная позиция корзины в середине неба */
     left: 50%;
     transform: translateX(-50%);
-    z-index: 2;
+    z-index: 3;
     animation: cartDrop 9.7s forwards ease-in-out;
     animation-delay: 1.5s; /* Корзина начинает опускаться позже, чтобы облако успело подлететь */
 }
@@ -1057,15 +1071,14 @@ background-color: rgba(255, 255, 255, 0.9);
         bottom: 300px; /* Корзина удерживается на облаке */
     }
     100% {
-        bottom: 50px; /* Корзина опускается на лужайку вместе с облаком */
+        bottom: 40px; /* Корзина опускается на лужайку вместе с облаком */
     }
 }
 
 /* Облако */
 .cloud {
-    width: 220px;
-    height: 70px;
-    background-color: white;
+    width: 280px;
+    height: 100px;
     border-radius: 50%;
     position: absolute;
     top: 50px;
@@ -1073,6 +1086,7 @@ background-color: rgba(255, 255, 255, 0.9);
     z-index: 1; /* Облако ниже продуктов и корзины */
     animation: cloudMove 10s forwards ease-in-out;
     animation-delay: 1.2s; /* Облако начинает движение немного позже */
+
 }
 
 @keyframes cloudMove {
@@ -1081,8 +1095,8 @@ background-color: rgba(255, 255, 255, 0.9);
         top: 50px;
     }
     60% {
-        right: 35%; /* Облако подлетает к корзине */
-        top: 180px; /* Облако "подхватывает" корзину */
+        right: 36%; /* Облако подлетает к корзине */
+        top: 150px; /* Облако "подхватывает" корзину */
     }
     100% {
         right: 36%; /* Облако двигается в сторону */
@@ -1093,9 +1107,9 @@ background-color: rgba(255, 255, 255, 0.9);
 /* Название компании */
 #company-name {
     position: absolute;
-    top: 20px;
+    top: 10px;
     left: 20px;
-    font-size: 24px;
+    font-size: 34px;
     color: #333;
     opacity: 0;
     z-index: 100; /* Обеспечиваем, что элемент будет выше других элементов */
@@ -1114,11 +1128,24 @@ background-color: rgba(255, 255, 255, 0.9);
 
 /* Лужайка и дом */
 #house {
-    width: 400px;
-    height: 100px;
-    background-color: green;
+    width: 100%;
+    height: 500px;
+    background: url('https://img.goodfon.ru/wallpaper/big/6/74/priroda-nebo-oblaka-svezhest.webp') no-repeat  fixed;
+    background-size: cover; /* Изображение будет покрывать весь элемент */
+    background-position: center;
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
+}
+
+/* CSS: Стили для изображения дерева */
+.tree {
+    position: absolute;
+    left: 15px; /* Позиционируем дерево слева */
+    bottom: 10px;
+    max-width: 500px; /* Максимальная ширина изображения дерева */
+    max-height: 450px; /* Максимальная высота изображения дерева */
+    object-fit: contain; /* Вписывание изображения в контейнер без обрезки */
+    z-index: 1; /* Дерево ниже продуктов */
 }

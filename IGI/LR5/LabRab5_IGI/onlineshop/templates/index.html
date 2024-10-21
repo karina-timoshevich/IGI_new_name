@@ -1,15 +1,20 @@
 {% extends "base_generic.html" %}
-
 {% block content %}
+
     <h1 class="itim-regular">Welcome to our shop!</h1>
+{% load static %}
+
 <div id="animation-area">
-    <div id="product-1" class="product"></div>
-    <div id="product-2" class="product"></div>
-    <div id="product-3" class="product"></div>
-    <div id="cart" class="cart"></div>
-    <div id="cloud" class="cloud"></div>
-    <div id="house"></div>
-    <div id="company-name">OnlineStore</div>
+    <img src="{% static 'images/zelen.png' %}" class="product" id="product-1" />
+    <img src="{% static 'images/eggs.png' %}" class="product" id="product-2" />
+    <img src="{% static 'images/cheese.png' %}" class="product" id="product-3" />
+    <img src="{% static 'images/cart.png' %}" class="cart" />
+    <img src="{% static 'images/cloud.png' %}" class="cloud" />
+    <img src="{% static 'images/milk.png' %}" class="product" id="product-1-2" />
+    <img src="{% static 'images/flour.png' %}" class="product" id="product-2-3" />
+    <img src="{% static 'images/house-clipart-hd-14.png' %}" id="house" />
+    <img src="{% static 'images/tree.png' %}" class="tree" id="tree" />
+    <div id="company-name">Online Store</div>
 </div>
 
     <figure>
