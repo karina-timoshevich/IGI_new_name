@@ -986,6 +986,52 @@ background-color: rgba(255, 255, 255, 0.9);
 .product-table tr:hover {
   background-color: #6aa927;
 }
+
+/* Стили для истории по годам */
+.history-list {
+    list-style-type: none;
+    margin-left: 20px;
+    padding-left: 20px;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+}
+
+.history-list li {
+    margin-bottom: 10px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.history-list li::before {
+    content: '✔';
+    position: absolute;
+    left: 0;
+    color: green;
+}
+
+/* Стили для реквизитов */
+.banking-details {
+    font-weight: bold;
+    font-style: italic;
+}
+
+/* Стили для видео */
+.styled-video {
+    border: 3px solid #1e5922;
+    border-radius: 30px;
+    width: 340px;
+    height: 190px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* Стили для аудио */
+.styled-audio {
+    border: 3px solid #1e5922;
+    border-radius: 30px;
+    width: 340px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
 #animation-area {
     position: relative;
     width: 70%;
@@ -993,7 +1039,6 @@ background-color: rgba(255, 255, 255, 0.9);
     background-color: lightblue;
     overflow: hidden;
 }
-
 /* Продукты */
 .product {
      width: 100%; /* Ширина изображения заполняет контейнер */
@@ -1165,13 +1210,6 @@ background-color: rgba(255, 255, 255, 0.9);
     z-index: 1; /* Дерево ниже продуктов */
 }
 /* Контейнер для прелоадера */
-    .preloader {
-      width: 120px;
-      height: 120px;
-      position: relative;
-    }
-
-
 
  .preloader {
       width: 120px;
@@ -1225,3 +1263,67 @@ background-color: rgba(255, 255, 255, 0.9);
         stroke-dashoffset: -30; /* Длина червяка и его движение по окружности */
       }
     }
+
+    /*тестовые элементы*/
+/* List and Table Element Styles */
+.test-list li:first-child {
+    color: red;
+}
+.test-list li:last-child {
+    color: blue;
+}
+.test-list li:nth-child(3) {
+    color: green;
+}
+.test-table tr:first-child {
+    background-color: lightcoral;
+}
+.test-table tr:last-child {
+    background-color: lightblue;
+}
+.test-table tr:nth-child(3) {
+    background-color: lightgreen;
+}
+
+/* Form Element Styles */
+.test-form input:required {
+    border: 2px solid red;
+}
+.test-form input:disabled {
+    background-color: lightgray;
+}
+.test-form input:out-of-range {
+    border: 2px solid orange;
+}
+.test-form input:checked {
+    background-color: lightgreen;
+}
+
+/* Quotation Marks Based on Language */
+blockquote[lang="en"] {
+    quotes: '"' '"';
+}
+blockquote[lang="fr"] {
+    quotes: '« ' ' »';
+}
+blockquote[lang="de"] {
+    quotes: '„' '“';
+}
+blockquote:before {
+    content: open-quote;
+}
+blockquote:after {
+    content: close-quote;
+}
+
+/* Attribute Selectors */
+/*все элементы input, у которых значение атрибута type начинается с подстроки "text"*/
+input[type^="text"] {
+    background-color: #efefeb;
+}
+input[type$="number"] {
+    background-color: lightcyan;
+}
+input[placeholder="Disabled"] {
+    background-color: lightpink;
+}

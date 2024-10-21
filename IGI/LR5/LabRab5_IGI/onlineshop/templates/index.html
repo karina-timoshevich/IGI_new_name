@@ -81,4 +81,39 @@
         <h3><a href="{% url 'article_detail' latest_article.id %}">{{ latest_article.title }}</a></h3>
         <p>{{ latest_article.summary }}</p>
     </div>
+
+    <!-- Test Section for Demonstration -->
+<div class="test-section">
+    <h2>List and Table Element Styles</h2>
+    <ul class="test-list">
+        <li>First Item</li>
+        <li>Second Item</li>
+        <li>Third Item</li>
+        <li>Fourth Item</li>
+        <li>Fifth Item</li>
+        <li>Sixth Item</li>
+    </ul>
+    <table class="test-table">
+        <tr><td>First Row</td></tr>
+        <tr><td>Second Row</td></tr>
+        <tr><td>Third Row</td></tr>
+        <tr><td>Fourth Row</td></tr>
+        <tr><td>Fifth Row</td></tr>
+    </table>
+
+    <h2>Form Element Styles</h2>
+    <form class="test-form">
+        <input type="text" placeholder="Available" />
+        <input type="text" required placeholder="Required" />
+        <input type="text" disabled placeholder="Disabled" />
+        <input type="number" min="1" max="10" value="15" placeholder="Out of Range" />
+        <input type="checkbox" checked /> Checked
+        <input type="radio" checked /> Checked
+    </form>
+
+    <h2>Quotation Marks Based on Language</h2>
+    <blockquote lang="en">This is an English quote.</blockquote>
+    <blockquote lang="fr">Ceci est une citation française.</blockquote>
+    <blockquote lang="de">Dies ist ein deutsches Zitat</blockquote>
+</div>
 {% endblock %}
