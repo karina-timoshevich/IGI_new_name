@@ -2,12 +2,23 @@
 
 {% block content %}
     <h1 class="itim-regular">Welcome to our shop!</h1>
+<div id="animation-area">
+    <div id="product-1" class="product"></div>
+    <div id="product-2" class="product"></div>
+    <div id="product-3" class="product"></div>
+    <div id="cart" class="cart"></div>
+    <div id="cloud" class="cloud"></div>
+    <div id="house"></div>
+    <div id="company-name">OnlineStore</div>
+</div>
+
     <figure>
         <img src="{{ info.logo.url }}" alt="Company Logo" style="display: block; width: 15%; height: auto;">
         <figcaption>Company Logo</figcaption>
     </figure>
     <img src="{{ info.banner1.url }}" alt="Company Banner 1" style="width: 50%; height: auto;">
     <img src="{{ info.banner2.url }}" alt="Company Banner 2" style="width: 50%; height: auto;">
+
 
     <h2 class="itim-regular">Cat Fact of the Day</h2>
     <p contenteditable="true">{{ cat_fact.fact }}</p>
