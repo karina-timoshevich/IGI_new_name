@@ -46,25 +46,6 @@ formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(messag
 handler.setFormatter(formatter)
 logger.addHandler(handler)
 
-
-def get_cat_fact():
-    response = requests.get('https://catfact.ninja/fact')
-    if response.status_code == 200:
-        logger.info('Successfully retrieved cat fact')
-        return response.json()
-    else:
-        logger.warning('Failed to retrieve cat fact')
-        return None
-
-
-def get_random_dog_image():
-    response = requests.get('https://dog.ceo/api/breeds/image/random')
-    if response.status_code == 200:
-        return response.json()
-    else:
-        return None
-
-
 from django.utils import timezone
 
 
@@ -84,13 +65,6 @@ def index(request):
     num_manufacturers = Manufacturer.objects.count()
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
-
-    cat_fact = get_cat_fact()
-    if cat_fact is None:
-        logger.warning('Failed to retrieve cat fact')
-    dog_image = get_random_dog_image()
-    if dog_image is None:
-        logger.warning('Failed to retrieve dog image')
     latest_article = Article.objects.latest('date_added')
     current_user_time_data = get_user_time()
     user_timezone = current_user_time_data["user_timezone"]
@@ -106,7 +80,7 @@ def index(request):
         request,
         'index.html',
         context={'num_books': num_products, 'info': info, 'num_authors': num_manufacturers,
-                 'num_visits': num_visits, 'cat_fact': cat_fact, 'dog_image': dog_image,
+                 'num_visits': num_visits,
                  'latest_article': latest_article, 'now': timezone.now(),
                  'current_date_formatted': current_date_formatted, 'calendar_text': calendar_text,
                  'current_timezone': current_timezone, 'month_calendar': month_calendar,

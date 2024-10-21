@@ -1138,8 +1138,23 @@ background-color: rgba(255, 255, 255, 0.9);
     left: 50%;
     transform: translateX(-50%);
 }
+#company-logo {
+    position: absolute;
+    top: 40%;
+    left: 85%;
+    transform: translate(-50%, -50%);
+    z-index: 3; /* Логотип выше других элементов */
+    text-align: center; /* Центрируем текст под изображением */
+}
 
-/* CSS: Стили для изображения дерева */
+#company-logo img {
+    width: 300px; /* Устанавливаем фиксированную ширину изображения */
+    height: auto; /* Автоматическая высота для сохранения пропорций */
+    object-fit: contain; /* Вписывание изображения в контейнер без обрезки */
+    display: block; /* Убираем возможные отступы */
+    margin: 0 auto; /* Центрируем изображение */
+}
+
 .tree {
     position: absolute;
     left: 15px; /* Позиционируем дерево слева */
@@ -1149,3 +1164,64 @@ background-color: rgba(255, 255, 255, 0.9);
     object-fit: contain; /* Вписывание изображения в контейнер без обрезки */
     z-index: 1; /* Дерево ниже продуктов */
 }
+/* Контейнер для прелоадера */
+    .preloader {
+      width: 120px;
+      height: 120px;
+      position: relative;
+    }
+
+
+
+ .preloader {
+      width: 120px;
+      height: 120px;
+      position: relative;
+    }
+
+    /* Статичная серая обводка */
+    .static-wheel, .static-outline {
+      stroke: #cccccc; /* Серая обводка */
+      fill: none;
+    }
+
+    /* Анимированная голубая линия с закруглёнными концами и плавными соединениями */
+    .animate-wheel, .animate-outline {
+      stroke: #1e90ff; /* Голубая линия */
+      stroke-linecap: round; /* Закруглённые концы */
+      stroke-linejoin: round; /* Плавные соединения */
+      fill: none;
+    }
+
+    /* Плавное движение червяка по колёсам */
+    .animate-wheel {
+      stroke-dasharray: 10 20; /* Контроль длины и интервала линии */
+      stroke-dashoffset: 0;
+      animation: moveWheel 3s linear infinite;
+    }
+
+  .animate-outline {
+      stroke-dasharray: 50 150; /* Контроль длины червяка на тележке */
+      stroke-dashoffset: 0;
+      animation: drawCart 3s linear infinite;
+    }
+
+    /* Ключевые кадры для движения червяка по тележке */
+    @keyframes drawCart {
+      0% {
+        stroke-dashoffset: 0;
+      }
+      100% {
+        stroke-dashoffset: -200; /* Длина движения по тележке */
+      }
+    }
+
+    /* Ключевые кадры для движения червяка по колёсам */
+    @keyframes moveWheel {
+      0% {
+        stroke-dashoffset: 0;
+      }
+      100% {
+        stroke-dashoffset: -30; /* Длина червяка и его движение по окружности */
+      }
+    }
