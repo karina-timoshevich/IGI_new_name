@@ -1,5 +1,5 @@
 {% extends "base_generic.html" %}
-
+{% load static %}
 {% block content %}
     <h1 class="itim-regular">About company</h1>
     <img src="{{ info.logo.url }}" alt="Company Logo" height=200px width=200px class="logo-transform">
@@ -22,19 +22,51 @@
     </ul>
     <h2 class="itim-regular">Banking Details</h2>
     <p class="banking-details">{{ info.details }}</p>
+<h2>Our certificate</h2>
+<div class="certificate-container" id="about_company">
+    <h1 class="h1-certificate">Свидетельство о качестве продукции</h1>
 
-    <h2>Certificate</h2>
-    <div>
-        <h3>UNIFIED REGISTRY OF ONLINE STORES</h3>
-        <p><strong>Certificate</strong></p>
-        <p>on the entry of information</p>
-        <p>Minsk, September 8, 2024</p>
-        <p><strong>Limited Liability Company "Happy Shop"</strong></p>
-        <p>(TIN 12345678998)</p>
-        <p>Registration number: 2005</p>
-        <p>Timoshevich K.S.</p>
-        <p>Director of the Association "Online Stores Association"</p>
-        <p>Stamp</p>
+    <div class="certificate-content">
+        <p>Настоящим удостоверяется, что <strong class="certificate">Онлайн-магазин "FreshMarket"</strong>
+            успешно прошел все необходимые проверки и обладает
+            всеми необходимыми ресурсами, квалифицированным персоналом и оборудованием для обеспечения
+            высокого качества продуктов на территории Республики Беларусь.</p>
+
+        <p>Компания "FreshMarket" осуществляет следующие виды услуг:</p>
+        <ul class="certificate-list">
+            <li>Быстрая доставка свежих продуктов на дом;</li>
+            <li>Широкий ассортимент органических и фермерских продуктов;</li>
+            <li>Удобный онлайн-заказ и оплата;</li>
+            <li>Гарантия качества и свежести продуктов;</li>
+            <li>Профессиональная консультация по выбору продуктов.</li>
+        </ul>
+
+        <p>Компания имеет лицензию №987654321 от 16 октября 2024 года и выполняет работы в соответствии с
+            действующими стандартами и нормами охраны труда и техники безопасности.</p>
+
+        <p>Срок действия данного свидетельства: с 16 октября 2024 года по 01 января 2025 года.</p>
     </div>
+    <div class="certificate-sign">
+        <img src="{% static 'images/podpis.png' %}"
+             alt="Company Seal">
+    </div>
+     <div class="certificate-pechat">
+        <img src="{% static 'images/sign.png' %}" alt="Company Seal">
+    </div>
+
+    <div class="certificate-signatures">
+        <div class="certificate-signature-line">
+            <div>
+                ___________________________<br>
+                <em>Генеральный директор</em><br>
+                Иванов И.И.
+            </div>
+        </div>
+    </div>
+
+    <footer class="certificate">
+        <p> 2024 - Ассоциация контроля нормы торговли.</p>
+    </footer>
+</div>
     <p>If you have any questions, you can <a href="mailto:milana03tima@gmail.com?subject=Question">email us</a> or <a href="tel:+375292568820">call us</a>.</p>
 {% endblock %}
