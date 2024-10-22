@@ -1491,6 +1491,106 @@ table {
 .login-button:hover {
     background-color: #45b76a;
 }
+
+/* CSS для центрирования контейнера */
+.centered-container {
+    max-width: 800px; /* Увеличенная ширина контейнера */
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрирование содержимого по горизонтали */
+    margin-left: 290px;
+    margin-top: 10px;
+}
+/* CSS для формы заказа */
+.order-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрирование содержимого по горизонтали */
+    width: 100%; /* Ширина формы */
+}
+
+.order-form h2 {
+    text-align: center; /* Центрирование заголовка */
+}
+
+.order-form button {
+    margin-top: 20px; /* Отступ сверху для кнопки */
+}
+/* CSS для селектора */
+select {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+/* CSS для контейнера кнопок */
+.button-container {
+    display: flex;
+    gap: 15px; /* Расстояние между кнопками */
+    padding: 10px;
+    border: 2px solid #50C878; /* Рамка вокруг кнопок */
+    border-radius: 10px; /* Скругленные углы рамки */
+    background-color: #f9f9f9; /* Фон для контейнера */
+    align-items: center; /* Выравнивание по центру */
+}
+
+/* CSS для отображения количества */
+.quantity-display {
+    padding: 10px;
+    font-size: 16px;
+}
+
+/* CSS для деталей продукта */
+.product-details {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #555;
+}
+/* CSS для товаров */
+.product-item {
+    text-align: center;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-red {
+    padding: 10px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.btn-red:hover {
+    background-color: #e60000;
+}
+
+/* CSS для формы промокода */
+.promo-form {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.promo-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
     /*тестовые элементы*/
 /* List and Table Element Styles */
 .test-list li:first-child {

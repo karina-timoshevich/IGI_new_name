@@ -1,46 +1,53 @@
-
 {% extends "base_generic.html" %}
 
 {% block content %}
-    <h1>Your Cart</h1>
+<div class="centered-container">
+    <h1 class="itim-regular">Your Cart</h1>
 
     {% if cart.products.all %}
     <ul>
       {% for product_instance in cart.products.all %}
-      <li>
-            <a href="{% url 'product-detail' product_instance.product.id %}">{{ product_instance.product.name }}</a> (Quantity: {{ product_instance.quantity }}, Price: {{ product_instance.product.price }}, Total: <span id="total-price-{{ product_instance.id }}">{{ product_instance.total_price }}</span>)
-            <div style="display: flex;">
-                <form action="{% url 'increase-quantity' product_instance.id %}" method="post" class="quantity-form" data-product-instance-id="{{ product_instance.id }}">
-                    {% csrf_token %}
-                    <input type="submit" value="+">
-                </form>
+      <li class="product-item">
+            <a href="{% url 'product-detail' product_instance.product.id %}">{{ product_instance.product.name }}</a>
+            <div class="product-details">
+                Quantity: {{ product_instance.quantity }}, Price: {{ product_instance.product.price }}, Total: <span id="total-price-{{ product_instance.id }}">{{ product_instance.total_price }}</span>
+            </div>
+            <div class="button-container">
+
                 <form action="{% url 'decrease-quantity' product_instance.id %}" method="post" class="quantity-form" data-product-instance-id="{{ product_instance.id }}">
                     {% csrf_token %}
-                    <input type="submit" value="-">
+                    <input type="submit" value="-" class="btn-emerald">
+                </form>
+                <span class="quantity-display">{{ product_instance.quantity }}</span>
+                                <form action="{% url 'increase-quantity' product_instance.id %}" method="post" class="quantity-form" data-product-instance-id="{{ product_instance.id }}">
+                    {% csrf_token %}
+                    <input type="submit" value="+" class="btn-emerald">
                 </form>
                 <form action="{% url 'remove-from-cart' product_instance.id %}" method="post">
                     {% csrf_token %}
-                    <input type="submit" value="Удалить из корзины">
+                    <input type="submit" value="Remove from Cart" class="btn-red">
                 </form>
             </div>
       </li>
       {% endfor %}
     </ul>
          <!-- Promo code form -->
-    <form action="{% url 'apply-promo-code' %}" method="post">
+    <form action="{% url 'apply-promo-code' %}" method="post" class="promo-form">
         {% csrf_token %}
-        <input type="text" name="promo_code" placeholder="Enter promo code">
-        <input type="submit" value="Apply Promo Code">
+        <input type="text" name="promo_code" placeholder="Enter promo code" class="promo-input">
+        <input type="submit" value="Apply Promo Code" class="btn-emerald">
     </form>
 
-    <p>Total price: {{ cart.total_price }}</p>
-      <form method="post" action="{% url 'create-order' %}">
-        {% csrf_token %}
-        <h2>Select a pickup location:</h2>
-        {{ form.as_p }}
-        <button type="submit">Place order</button>
-      </form>
+    <p class="itim-regular">Total price: {{ cart.total_price }}</p>
+     <!-- HTML для формы заказа -->
+<form method="post" action="{% url 'create-order' %}" class="order-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn-emerald">Place order</button>
+</form>
     {% else %}
-        <p>Your cart is empty.</p>
+                <p>Your cart is empty.</p>
     {% endif %}
+
+</div>
 {% endblock %}
