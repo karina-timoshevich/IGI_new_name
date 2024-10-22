@@ -1442,6 +1442,55 @@ margin: 0 auto;
     color: #555;
     text-align: left; /* Выравнивание текста по ширине */
 }
+
+/* CSS для центрирования формы и улучшения внешнего вида */
+.form-container {
+    max-width: 600px; /* Увеличенная максимальная ширина */
+    margin: 0 auto;
+    padding: 30px; /* Увеличенные внутренние отступы */
+    border: 1px solid #ddd;
+    border-radius: 15px; /* Увеличенный радиус скругления углов */
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.error-message {
+    color: red;
+    text-align: center;
+}
+
+.info-message {
+    color: #555;
+    text-align: center;
+}
+/* CSS для формы с flex-стилями */
+.flex-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+table {
+    width: 100%;
+}
+/* CSS для кнопки логина */
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #50C878;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #45b76a;
+}
     /*тестовые элементы*/
 /* List and Table Element Styles */
 .test-list li:first-child {
