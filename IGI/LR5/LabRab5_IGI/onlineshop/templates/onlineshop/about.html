@@ -2,8 +2,9 @@
 {% load static %}
 {% block content %}
     <h1 class="itim-regular">About company</h1>
-    <img src="{{ info.logo.url }}" alt="Company Logo" height=200px width=200px class="logo-transform">
-    <p>{{ info.text }}</p>
+
+   <img src="{{ info.logo.url }}" alt="Company Logo" height=200px width=200px class="logo-transform">
+<p class="text-wrap">{{ info.text }}</p>
     <video class="styled-video" controls autoplay muted>
         <source src="{{ info.video.url }}" type="video/mp4">
     </video>
@@ -22,7 +23,7 @@
     </ul>
     <h2 class="itim-regular">Banking Details</h2>
     <p class="banking-details">{{ info.details }}</p>
-<h2>Our certificate</h2>
+<h2 class="itim-regular">Our certificate</h2>
 <div class="certificate-container" id="about_company">
     <h1 class="h1-certificate">Свидетельство о качестве продукции</h1>
 
@@ -68,5 +69,11 @@
         <p> 2024 - Ассоциация контроля нормы торговли.</p>
     </footer>
 </div>
-    <p>If you have any questions, you can <a href="mailto:milana03tima@gmail.com?subject=Question">email us</a> or <a href="tel:+375292568820">call us</a>.</p>
+<div class="contact-section">
+    <p class="itim-regular">Contact with us:</p>
+    <div class="button-container">
+        <button class="btn-emerald" onclick="location.href='mailto:milana03tima@gmail.com?subject=Question'">Email us</button>
+        <button class="btn-emerald" onclick="location.href='tel:+375292568820'">Call us</button>
+    </div>
+</div>
 {% endblock %}

@@ -1017,6 +1017,8 @@ background-color: rgba(255, 255, 255, 0.9);
 
 /* Стили для видео */
 .styled-video {
+     clear: both;
+     display: block;
     border: 3px solid #1e5922;
     border-radius: 30px;
     width: 340px;
@@ -1368,7 +1370,41 @@ strong.certificate {
     font-weight: bold;
     color: #002147;
 }
+.logo-transform {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 20px;
+}
 
+.text-wrap {
+    overflow: hidden;
+}
+.contact-section {
+    text-align: center;
+
+    width: 20%;
+margin: 0 auto;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    color: #333;
+}
+
+.contact-section p {
+    margin-bottom: 10px;
+    margin-left: -20px;
+    font-size: 20px;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Расстояние между кнопками */
+    padding: 10px;
+    border: 2px solid #50C878; /* Рамка вокруг кнопок */
+    border-radius: 10px; /* Скругленные углы рамки */
+    background-color: #f9f9f9; /* Фон для контейнера */
+}
     /*тестовые элементы*/
 /* List and Table Element Styles */
 .test-list li:first-child {
