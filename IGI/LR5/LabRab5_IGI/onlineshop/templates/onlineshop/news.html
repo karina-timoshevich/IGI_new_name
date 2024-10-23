@@ -14,7 +14,7 @@
               <img class="news-image" src="{{ article.image.url }}" alt="{{ article.title }}" itemprop="image" border="0" width="500">
             </a>
             <footer>
-              <a href="{% url 'article_detail' article.id %}" itemprop="url">Read more</a>
+              <a class="read-more" href="{% url 'article_detail' article.id %}" itemprop="url">Read more</a>
             </footer>
           </div>
         {% endfor %}

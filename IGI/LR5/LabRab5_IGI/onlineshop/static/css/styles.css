@@ -4,26 +4,26 @@
 .container {
   display: flex;
 }
-
+/* селектр класса */
 .sidebar {
-    position: fixed; /* Закрепляем панель */
+    position: fixed;
     top: 0;
     left: 0;
     width: 12%;
     height: 100%;
     background-color: #f8f8f8;
-    overflow-y: auto; /* Прокрутка, если содержимого больше */
+    overflow-y: auto; /* прокрутка если содержимого больше */
     z-index: 1000;
-    padding-top: 20px; /* Отступ сверху для отступа от шапки */
+    padding-top: 20px;
 }
 
 .content {
     margin-left: 12%;
-    padding: 15px; /* Добавляем отступы для контента */
+    padding: 15px;
 }
 
 .sidebar-nav {
-  list-style-type: none;
+  list-style-type: none; /* убираем маркеры у списка */
   padding: 0;
 }
 
@@ -33,13 +33,13 @@
 }
 
 .sidebar-nav li a {
-  text-decoration: none;
+  text-decoration: none; /* подчеркивания убрать */
 }
 
-/* Круглые блоки для списка компаний партнеров */
+/* круглые блоки */
 .partner-blocks {
     display: flex;
-    overflow-x: auto;
+    overflow-x: auto; /* шоризонтальная прокрутка */
     padding: 10px;
 }
 
@@ -48,57 +48,47 @@
     height: 150px;
     background-color: #f0f0f0;
     border-radius: 50%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /*тень */
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: center; /* центрирование по вертикали */
+    justify-content: center; /*горизонтали */
     margin: 10px;
-    flex-shrink: 0;
+    flex-shrink: 0; /* запретили сжатие блока */
     position: relative;
-    overflow: hidden;
     flex-direction: column; /* Вертикальное расположение элементов */
 }
 
 .partner-logo {
     width: 100%;
-    height: 100%; /* Лого полностью заполняет круг */
-    object-fit: contain; /* Лого не растягивается */
+    height: 100%;
+    object-fit: contain; /* лого не растягивается */
     border-radius: 50%;
 }
 
 .partner-name {
     font-family: 'Itim', cursive;
     font-size: 14px;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.5px; /* интеравал между символами */
     text-align: center;
-    margin-top: 10px; /* Больше отступа сверху, чтобы текст не прилипал */
-    width: 100%; /* Ширина 100% для центрирования */
+    margin-top: 10px;
+    width: 100%;
     margin-left: -12px;
 }
 
-/* Позиционирование для отображения инфо о последней статье */
 .latest-article {
     position: relative;
     top: 20px;
     left: 10px;
 }
 
-.navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    background-color: white;
-    z-index: 1000;
-}
-
 .itim-regular {
   font-family: "Itim", cursive;
   font-weight: 400;
-  font-style: normal;
+  font-style: normal; /* обычный, а можно италик например*/
 }
 
 .logo-transform {
-    transform: rotate(15deg); /* Поворачивает логотип на 15 градусов */
+    transform: rotate(15deg);
 }
 
 /* Основные стили для страницы новостей */
@@ -110,34 +100,32 @@
 
 .news-item {
     width: calc(50% - 20px);
-    border: 1px solid #ddd;
     padding: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
-/* Стили для изображений в новостных ячейках */
 .news-image {
-    width: 100%; /* Ширина изображения заполняет контейнер */
-    height: 200px; /* Фиксированная высота для всех изображений */
-    object-fit: cover; /* Изображение обрезается, чтобы заполнить контейнер */
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* обрезается чтобы заполнить контейнер */
 }
 
-/* Основные стили для страницы новостей */
 .news-summary {
-    overflow: hidden; /* Скрывает переполнение */
-    text-overflow: ellipsis; /* Добавляет многоточие при переполнении */
-    display: -webkit-box; /* Использует flexbox для ограничения строк */
-    -webkit-line-clamp: 2; /* Ограничивает количество строк */
-    -webkit-box-orient: vertical; /* Вертикальная ориентация */
-    max-height: 3.6em; /* Ограничивает высоту строки */
+    overflow: hidden; /* скрывает переполнение */
+   display: -webkit-box;
+    -webkit-line-clamp: 2; /* Ограничение до 2 строк */
+    -webkit-box-orient: vertical;
+
+    text-overflow: ellipsis;
+    max-height: 3.6em; /* высоту строки */
     margin-bottom: 10px;
 }
 
 .read-more {
     display: inline-block;
     padding: 5px 10px;
-    background-color: #007bff;
+    background-color: #46ce39;
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -145,42 +133,41 @@
 }
 
 .read-more:hover {
-    background-color: #0056b3;
+    background-color: #2e8831;
 }
-/* Стили для контейнера статьи */
+
 .article-content {
-    column-count: 2; /* Две колонки для текста */
-    column-gap: 20px; /* Отступ между колонками текста */
+    column-count: 2;
+    column-gap: 20px;
 }
 
-/* Стили для текста */
 .article-content p {
-    margin: 0; /* Убираем отступы */
+    margin: 0;
 }
 
-/* Определение семейства шрифтов в CSS */
+
 body {
-    font-family: 'Arial', sans-serif;
+    font-family: 'Arial', 'Roboto', sans-serif;
     text-align: justify;
-
 }
-/* Настройка заднего фона сайта */
+
 body {
   background: url('https://media.istockphoto.com/id/589415708/ru/%D1%84%D0%BE%D1%82%D0%BE/%D1%81%D0%B2%D0%B5%D0%B6%D0%B8%D0%B5-%D1%84%D1%80%D1%83%D0%BA%D1%82%D1%8B-%D0%B8-%D0%BE%D0%B2%D0%BE%D1%89%D0%B8.jpg?s=612x612&w=0&k=20&c=AqKy-fSiJwYynKlGD6uh4kMSq4pi6euD5A6tWsc4Kwk=') no-repeat center center fixed; /* Устанавливаем изображение фона */
-  background-size: cover; /* Масштабируем изображение, чтобы оно покрывало весь экран */
+  background-size: cover;
 }
 
 /* Полупрозрачный фон */
 body::before {
-  content: '';
+  content: '';  /* обяз пустое содержимое для бефора */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(255, 255, 255, 0.85); /* Белый цвет с прозрачностью 50% */
-  z-index: -1; /* Размещаем фон позади основного контента */
+  background: rgba(255, 255, 255, 0.85);
+  z-index: -1; /* позади основного основного содерж */
 }
+/*планшеты - телефоны*/
 @media (max-width: 768px) {
     .news-item {
         width: calc(50% - 20px);
@@ -193,82 +180,73 @@ body::before {
     }
 }
 
-/* Стили для контейнера контента */
 .content-container {
     display: flex;
-    flex-wrap: nowrap; /* Запрещаем перенос строк */
-    overflow-x: hidden; /* Убираем горизонтальную прокрутку */
+    flex-wrap: nowrap;
+    overflow-x: hidden;
 }
 
-/* Стили для основного контента */
 .main-content {
-    flex-grow: 1; /* Занимает оставшееся пространство */
-    margin-right: 20px; /* Отступ справа */
-    min-width: 0; /* Предотвращает переполнение */
+    flex-grow: 1; /* занимает оставшееся пространство */
+    margin-right: 20px;
+    min-width: 0; /* от переполнения - позволяет элементу сжиматься до нуля */
 }
 
-/* Стили для правой колонки */
 .right-column {
-    width: 400px; /* Ширина правой колонки */
-    flex-shrink: 0; /* Запрещаем сжатие */
+    width: 400px;
+    flex-shrink: 0;
 }
 
-/* Стили для навигационного меню */
 .right-column nav {
-    background-color: #f8f9fa; /* Светлый фон */
-    padding: 10px; /* Внутренние отступы */
-    border-radius: 5px; /* Скругленные углы */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Тень */
+    background-color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Стили для списка навигации */
 .right-column nav ul {
-    list-style-type: none; /* Убираем маркеры списка */
-    padding: 0; /* Убираем отступы */
-    margin: 0; /* Убираем отступы */
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
 }
 
-/* Стили для элементов списка */
 .right-column nav ul li {
-    margin-bottom: 5px; /* Отступ между элементами */
+    margin-bottom: 5px;
 }
 
-/* Стили для ссылок */
 .right-column nav ul li a {
-    text-decoration: none; /* Убираем подчеркивание */
-    color: #007bff; /* Цвет ссылок */
-    padding: 5px 10px; /* Внутренние отступы */
-    display: block; /* Блочный элемент */
-    border-radius: 3px; /* Скругленные углы */
-    transition: background-color 0.3s; /* Плавный переход фона */
+    text-decoration: none;
+    color: #007bff;
+    padding: 5px 10px;
+    display: block;
+    border-radius: 3px;
+    transition: background-color 0.3s; /* плавный он */
 }
 
-/* Стили для ссылок при наведении */
 .right-column nav ul li a:hover {
-    background-color: #e2e6ea; /* Фон при наведении */
-    color: #0056b3; /* Цвет текста при наведении */
+    background-color: #e2e6ea;
+    color: #0056b3;
 }
 
-/* Стили для контейнера статей */
+/* контейнер статей */
 .articles-container {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Две колонки одинаковой ширины */
-    gap: 20px; /* Отступы между элементами */
-    padding: 20px; /* Внутренние отступы */
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 20px;
 }
 
-/* Выделение первой буквы текста абзаца в статье */
 .article-content p::first-letter {
     font-size: 2em;
     font-weight: bold;
     color: #50C199;
 }
-/* Изменение стиля при выделении текста */
+
 ::selection {
     background: #218142;
     color: white;
 }
-/* Стили для отдельной статьи */
+
 .article-item {
     background-color: #fff;
     border: 1px solid #ddd;
@@ -278,25 +256,24 @@ body::before {
 }
 
 .btn-emerald {
-    width: auto; /* Автоматическая ширина */
-    padding: 0.375rem 0.5rem; /* Уменьшенные внутренние отступы */
-    margin-left: 5%; /* Отступ слева 15% */
-    background-color: #50C878; /* Изумрудный цвет */
-    color: #fff; /* Белый цвет текста */
-    border-color: #50C878; /* Изумрудный цвет границы */
-    border-radius: 0.5rem; /* Немного скругленные углы */
-    opacity: 1; /* Полная непрозрачность */
-    cursor: pointer; /* Изменение курсора при наведении */
+    width: auto;
+    padding: 0.375rem 0.5rem; /* root em, связан с корневым размером, удобно ля пропорциональности */
+    margin-left: 5%;
+    background-color: #50C878;
+    color: #fff;
+    border-color: #50C878;
+    border-radius: 0.5rem;
+    opacity: 1;
+    cursor: pointer;
     text-decoration: none;
 }
 
 .btn-emerald:hover {
-    background-color: #3CA66A; /* Темнее изумрудный цвет при наведении */
-    border-color: #3CA66A; /* Темнее изумрудный цвет границы при наведении */
-    opacity: 1; /* Полная непрозрачность при наведении */
+    background-color: #3CA66A;
+    border-color: #3CA66A;
+    opacity: 1;
 }
 
-/* Стили для элементов details и summary */
 details {
     border-radius: 5px;
     width: 800px;
@@ -311,7 +288,7 @@ summary {
     cursor: pointer;
     padding: 5px;
     border-bottom: 1px solid #ddd;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease; /* fast slow fast*/
 }
 
 summary h2 {
@@ -324,28 +301,25 @@ details[open] summary {
     border-bottom: none;
 }
 summary:hover {
-    transform: scale(1.02); /* Увеличение на 5% */
+    transform: scale(1.02);
 }
 
-/* Стили для даты добавления */
 details footer {
     font-size: 0.7em;
     color: #666;
     margin-top: 5px;
 }
 
-/* Стили для контейнера сотрудников */
 .employee-list {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
     width: 100%;
-    margin: 0 auto; /* Центрирование контейнера */
+    margin: 0 auto;
 }
 
-/* Стили для каждого элемента сотрудника */
 .employee-item {
-    flex: 1 1 calc(30% - 20px); /* Три элемента в строке */
+    flex: 1 1 calc(30% - 20px); /* flex-grow, flex-shrink,  */
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 20px;
@@ -353,7 +327,7 @@ details footer {
     background-color: #f9f9f9;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* выравнивание дочерних элементов по поперечной оси */
     text-align: center;
 }
 
@@ -361,47 +335,44 @@ details footer {
     border-radius: 50%;
     margin-bottom: 10px;
 }
-/* Стили для увеличения карточки сотрудника при наведении */
+
 .employee-item:hover {
-    transform: scale(1.05); /* Увеличение на 5% */
-    transition: transform 0.3s ease; /* Плавный переход */
+    transform: scale(1.05);
+    transition: transform 0.3s ease;
 }
 
 .employee-item p {
     margin: 5px 0;
-    text-indent: 0; /* Отступ первой строки */
+    text-indent: 0; /* отст первой строки */
 }
 
 @media (max-width: 768px) {
     .employee-item {
-        flex: 1 1 calc(50% - 20px); /* Два элемента в строке */
+        flex: 1 1 calc(50% - 20px);
     }
 }
 
 @media (max-width: 480px) {
     .employee-item {
-        flex: 1 1 100%; /* Один элемент в строке */
+        flex: 1 1 100%;
     }
 }
 
 /* политика конфиденциальности */
 
-/* Оформление фрагмента текста капителью */
 .capitalized {
     font-variant: small-caps;
 }
 
-/* Настройка переноса и разрыва слов */
 p {
-    word-wrap: break-word;
-    hyphens: auto;
-    word-spacing: 2px;/* Настройка интервала между словами и символами */
+    word-wrap: break-word; /* перенос слов */
+    hyphens: auto; /* дефисы */
+    word-spacing: 2px;
     letter-spacing: 1px;
-    line-height: 1.2;
-  text-indent: 30px; /* Отступ первой строки */
-
+    line-height: 1.2; /* интервал между строками текста: высоту строки в 1.2 раза больше, чем размер шрифта*/
+    text-indent: 30px;
 }
-/* Оформление заголовков с помощью text-transform */
+
 h1, h2, h3, h4, h5, h6 {
     text-transform: uppercase;
     font-size: 1.2em;
@@ -410,14 +381,13 @@ h1, h2, h3, h4, h5, h6 {
 .privacy-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; /* поперек флекс дир*/
     justify-content: center;
     width: 100%;
-    text-align: justify; /* Для равномерного распределения текста */
-    padding-left: 20px; /* Для отступа с левой стороны */
+    text-align: justify;
+    padding-left: 10px;
 }
 
-/* Стили для навигации */
 nav {
     margin-bottom: 20px;
 }
@@ -431,24 +401,24 @@ nav a {
 nav a:hover {
     text-decoration: underline;
 }
-/* Оформление списка маркерами – символами юникода */
+/* символами юникода */
 .privacy-container ul.custom-list {
     list-style-type: none;
     padding: 0;
 }
 
 .privacy-container ul.custom-list li::before {
-    content: "\25AA"; /* Юникод символа маркера */
+    content: "\25AA"; /* Юникод символа квадратика */
     color: #218142;
     font-weight: bold;
     display: inline-block;
     width: 1em;
     margin-left: -1em;
 }
-/* Общий стиль для всех списков */
+
 ul, ol {
-    margin-left: 20px; /* Отступ слева */
-    padding-left: 20px; /* Внутренний отступ слева */
+    margin-left: 20px;
+    padding-left: 20px;
 }
 .highlight::before {
     content: "Начало контекста: ";
@@ -464,20 +434,19 @@ ul, ol {
     color: gray;
 }
 
-/* Стили для списка понятий и определений */
 .definition-list {
     margin: 20px 0;
     padding: 0;
     border: 1px solid #50C878;
     list-style-type: none;
-    background-color: rgba(0, 0, 0, 0.07); /* Полупрозрачный фон */
-    border-radius: 10px; /* Скругленные углы */
+    background-color: rgba(0, 0, 0, 0.07);
+    border-radius: 10px;
 }
 
 .definition-list dt {
     margin-top: 10px;
     font-variant: normal;
-    color: rgba(0, 0, 0, 0.6); /* Полупрозрачный цвет */
+    color: rgba(0, 0, 0, 0.6);
     text-transform: none;
 }
 
@@ -493,11 +462,11 @@ ul, ol {
     width: 95%;
     margin: 2.5%;
     padding: 10px;
-    box-sizing: border-box;
-    background-color: rgba(80, 200, 120, 0.5); /* Полупрозрачный изумрудный фон */
-    border-radius: 10px; /* Скругленные углы */
-    border: 1px solid rgba(80, 200, 120, 0.5); /* Полупрозрачная изумрудная граница */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Легкая тень */
+    box-sizing: border-box; /*учит padding и border*/
+    background-color: rgba(80, 200, 120, 0.5);
+    border-radius: 10px;
+    border: 1px solid rgba(80, 200, 120, 0.5);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .clear {
@@ -506,20 +475,19 @@ ul, ol {
 
 .centered-container {
   display: flex;
-  flex-direction: column; /* Вертикальное расположение элементов */
-  justify-content: center; /* Центрирование по вертикали */
-  align-items: center; /* Центрирование по горизонтали */
-  width: 100%; /* Ширина контейнера на весь экран */
+  flex-direction: column;
+  justify-content: center; /* кентрирование по вертикали */
+  align-items: center; /* центрирование по горизонтали */
+  width: 100%;
   margin-left: 195px;
     margin-top: 70px;
-  padding: 0; /* Убираем внутренние отступы */
+  padding: 0;
 }
 
 .review-form {
     width: 100%;
-    max-width: 800px; /* Ограниченная ширина формы */
+    max-width: 800px;
     padding: 20px;
-    border: 1px solid #ddd;
     display: block;
     border-radius: 10px;
     background-color: #fafafa;
@@ -529,36 +497,46 @@ ul, ol {
 .review-form input,
 .review-form textarea,
 .review-form select {
-  width: 250px; /* Одинаковая ширина для всех полей */
+  width: 250px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   margin-bottom: 10px;
   font-family: 'Arial', sans-serif;
 }
-/* Селектор атрибутов: для обязательных элементов формы (required) */
+
+.review-form input,
+.review-form textarea {
+    border: 2px solid #ffffff;
+}
+
+/* Селектор атрибутов: для required */
 .review-form input[required],
 .review-form textarea[required] {
   border: 2px solid #ec4aa4;
 }
-/* Стили для кнопки отправки */
+ul > li {
+    color: #0c0000; /* для прямых потомков li внутри ul */
+}
+
+
 .review-form .btn-emerald {
-  width: fit-content; /* Ширина по содержимому */
-  margin-left: 0; /* Выровнять по левому краю */
+  width: fit-content; /* ширина по содержимому */
+  margin-left: 0;
   font-family: 'Arial', sans-serif;
   font-size: 16px;
 }
 
-/* Псевдоклассы для элементов в фокусе */
+/* псевдоклассы для элементов в фокусе */
 .review-form input:focus,
 .review-form textarea:focus,
 .review-form select:focus {
-  border: 2px solid #00ff00; /* Зеленая рамка при фокусе */
-  outline: none; /* Убирает стандартное выделение */
+  border: 2px solid #00ff00;
+  outline: none;
 }
 
 .review-form textarea {
-  height: 300px; /* Фиксированная высота */
+  height: 300px;
   width: 775px;
 }
 
@@ -572,31 +550,28 @@ ul, ol {
   color: #444;
   margin: 10px 0;
 }
-/* Обёртка для контейнера с отзывами */
+
+/* обёртка для контейнера с отзывами */
 .review-container-wrapper {
   width: 100%;
   margin: 0 auto;
   max-width: 1380px;
   padding: 15px;
-  overflow-x: auto; /* Оставляем возможность прокрутки */
-  scrollbar-width: none; /* Скрытие прокрутки для Firefox */
+  overflow-x: auto; /* возможность прокрутки */
+  scrollbar-width: none;
 }
 
-/* Скрытие полосы прокрутки для Webkit браузеров (Chrome, Safari, Edge) */
 .review-container-wrapper::-webkit-scrollbar {
   display: none;
 }
 
-/* Стили для горизонтальной прокрутки отзывов */
 .review-container {
   display: flex;
-
   gap: 15px;
   white-space: nowrap;
   padding: 15px;
 }
 
-/* Стили для заголовка "What Our Customers Say" */
 header h1 {
   font-size: 2em;
   color: #333;
@@ -604,44 +579,32 @@ header h1 {
   margin-bottom: 20px;
 }
 .review p mark {
-  background-color: #e0f7e9; /* Светло-зеленый фон */
-  color: #2e7d32; /* Темно-зеленый текст */
-  padding: 2px 4px; /* Внутренние отступы */
-  border-radius: 3px; /* Скругленные углы */
+  background-color: #e0f7e9;
+  color: #2e7d32; /* текст */
+  padding: 2px 4px;
+  border-radius: 3px;
 }
-/* Стили для блоков отзывов */
+
 .review {
-  width: 300px; /* Фиксированная ширина для отзывов */
-  max-height: 400px; /* Ограничение максимальной высоты отзыва */
+  width: 300px;
+  max-height: 400px;
   background-color: rgba(255, 255, 255, 0.8);
   padding: 15px;
-  border: 1px solid #3b6e22; /* Легкая окантовка */
+  border: 1px solid #3b6e22;
   scrollbar-width: none;
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  flex-shrink: 0; /* Предотвращаем сжатие отзывов */
-  overflow: auto; /* Прокрутка, если текст превышает высоту блока */
-  white-space: normal; /* Разрешаем перенос строк */
+  flex-shrink: 0;
+  overflow: auto; /*  текст превышает высоту блока - ролкрутк */
+  white-space: normal;
 }
 
-/* Стили для заголовков отзывов */
-.review header h2 {
-  background-color: rgba(0, 0, 0, 0.1);
-  padding: 5px;
-  border-radius: 5px;
-  display: inline-block;
-  font-size: 1.5em;
-  color: #333;
-}
-
-/* Перенос времени на следующую строку */
 .review header time {
   display: block;
   font-size: 0.9em;
-  color: #777; /* Цвет для времени */
+  color: #777;
 }
 
-/* Стили для заголовков отзывов */
 .review header h2 {
   background-color: rgba(0, 0, 0, 0.1);
   padding: 5px;
@@ -649,10 +612,9 @@ header h1 {
   display: inline-block;
   font-size: 1.5em;
   color: #333;
-  margin-bottom: 5px; /* Добавляем отступ для переноса времени на следующую строку */
+  margin-bottom: 5px;
 }
 
-/* Стили для предложения оставить отзыв */
 footer p {
   font-size: 1.2em;
   color: #333;
@@ -660,48 +622,44 @@ footer p {
   margin-top: 20px;
 }
 
-/* Стили для кнопки оставить отзыв */
 footer .btn-emerald {
-  display: block; /* Блочный элемент */
+  display: block;
   margin-left: 509px;
-  padding: 10px 10px; /* Внутренние отступы */
+  padding: 10px 10px;
   width: 400px;
-  border: none; /* Убираем границу */
-  border-radius: 5px; /* Скругленные углы */
-  text-align: center; /* Выравнивание текста по центру */
+  border: none;
+  border-radius: 5px;
+  text-align: center;
 }
 
-/* Стили для страницы промокодов */
 .promo-code-page {
   max-width: 800px;
   margin-left: 230px;
   padding: 20px;
-  background-color: #f9f9f9; /* Светлый фон */
-  border-radius: 10px; /* Скругленные углы */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень */
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Стили для заголовков */
 .promo-code-page h1 {
   text-align: center;
   margin-bottom: 20px;
 }
 
 .promo-code-page h2 {
-  color: #1e5922; /* Темно-зеленый цвет */
+  color: #1e5922;
 }
 
-/* Стили для списка промокодов */
 .promo-code-page ul {
-  list-style-type: none; /* Убираем маркеры списка */
+  list-style-type: none;
   padding: 0;
 }
 
 .promo-code-page li {
-  background-color: #e0f7e9; /* Светло-зеленый фон */
+  background-color: #e0f7e9;
   padding: 15px;
-  border: 1px solid #2e7d32; /* Темно-зеленая граница */
-  border-radius: 5px; /* Скругленные углы */
+  border: 1px solid #2e7d32;
+  border-radius: 5px;
   margin-bottom: 10px;
 }
 
@@ -713,17 +671,18 @@ footer .btn-emerald {
   margin: 0;
 }
 .promo-code-page li:hover {
-    transform: scale(1.02); /* Увеличение на 5% */
-    transition: transform 0.3s ease; /* Плавный переход */
+    transform: scale(1.02);
+    transition: transform 0.3s ease;
 }
-/* Стили для строки поиска и выпадающих списков */
+
 .search-container {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
-     font-family: 'Itim', cursive; /* Ваш шрифт */
-    width: 1380px;
-    margin-left: 20px;
+  font-family: 'Itim', cursive;
+  width: 1350px;
+  margin-left: 25px;
+  margin-right: 25px;
 }
 
 .search-container input[type="text"] {
@@ -732,7 +691,7 @@ footer .btn-emerald {
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
- font-family: 'Itim', cursive; /* Ваш шрифт */
+ font-family: 'Itim', cursive;
 }
 
 .search-container select {
@@ -741,34 +700,38 @@ footer .btn-emerald {
   border: 1px solid #ddd;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-     font-family: 'Itim', cursive; /* Ваш шрифт */
+     font-family: 'Itim', cursive;
 }
 
-/* Подсветка элементов выпадающего списка при наведении */
 .search-container select option:hover {
-  background-color: #bee8ef; /* Голубой цвет при наведении */
+  background-color: #bee8ef;
 }
 
-/* Подсветка выбранного элемента выпадающего списка */
 .search-container select option:checked {
-  background-color:  #50C878; /* Зеленый цвет при выборе */
+  background-color:  #50C878;
 }
+
 /* Стили для каталога товаров */
 .product-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
   padding: 20px;
+  width: 100%;
+  max-width: 1380px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  overflow-x: auto;
 }
-.product-item h2 {
-  font-size: 1.0em;
-  margin: 5px 0; /* Уменьшить отступ между названием и ценой */
-}
+
 .product-item {
-  background-color: #fff;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 20px;
   border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 15px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   text-align: center;
   display: flex;
@@ -776,20 +739,23 @@ footer .btn-emerald {
   justify-content: space-between;
 }
 
+.product-item h2 {
+  font-size: 1.0em;
+  margin: 5px 0;
+}
 .product-image {
-  width: 100%; /* Ширина изображения заполняет контейнер */
-  height: 200px; /* Высота изображения */
-  object-fit: cover; /* Обрезка изображения для заполнения контейнера */
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
   border-radius: 5px;
   margin: 5px 0;
 }
 .product-item a {
-  text-decoration: none; /* Убираем подчеркивание */
-  color: inherit; /* Наследуем цвет текста */
+  text-decoration: none;
+  color: inherit;
 }
-
 .product-item a:visited {
-  color: inherit; /* Наследуем цвет текста после посещения */
+  color: inherit;
 }
 .product-price {
   font-size: 1.0em;
@@ -800,7 +766,6 @@ text-indent: 0;
     text-align: center;
 }
 
-/* Стили для карточки товара */
 .product-card {
     border: 1px solid #ddd;
   border-radius: 5px;
@@ -813,8 +778,8 @@ text-indent: 0;
 
 .product-card img {
   max-width: 100%;
-  height: 300px; /* Фиксированная высота для всех изображений */
-  object-fit: cover; /* Обрезка изображения для заполнения контейнера */
+  height: 300px;
+  object-fit: cover;
   border-radius: 5px;
   margin-bottom: 15px;
 }
@@ -829,12 +794,11 @@ text-indent: 0;
   color: #333;
   margin: 5px 0;
   padding: 10px;
-  border: 1px solid rgba(0, 0, 0, 0.1); /* Полупрозрачная серая рамка */
+  border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  background-color: rgba(0, 0, 0, 0.05); /* Легкий серый фон */
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
-/* Динамическое состояние для ссылок */
 .product-card a {
   text-decoration: none;
   color: #007bff;
@@ -859,7 +823,6 @@ text-indent: 0;
   outline-offset: 2px;
 }
 
-/* Стили для списка производителей */
 .manufacturer-list {
   list-style-type: none;
   padding: 0;
@@ -871,14 +834,14 @@ text-indent: 0;
   padding: 20px;
   margin: 20px 0;
     text-align: center;
-    border: 1px solid #50C878; /* Зеленая рамка */
+    border: 1px solid #50C878;
      background: rgba(255, 255, 255, 0.85);
   border-radius: 5px;
   transition: transform 0.3s, box-shadow 0.3s;
   width: 1300px;
 }
 .manufacturer-list li > * {
-  flex: 1; /* Все элементы внутри строки будут занимать равное пространство */
+  flex: 1; /*  будут занимать равное пространство */
 }
 .manufacturer-list li:hover {
   transform: scale(1.03);
@@ -888,9 +851,9 @@ text-indent: 0;
 .manufacturer-list img {
   margin-right: 20px;
   border-radius: 50%;
-  width: 100px; /* Увеличиваем размер логотипа */
-  height: 100px; /* Увеличиваем размер логотипа */
-  object-fit: contain; /* Сохраняем пропорции изображения */
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
 }
 
 .manufacturer-list a {
@@ -903,10 +866,10 @@ text-indent: 0;
 }
 
 .manufacturer-list .phone {
-  background-color: rgba(0, 0, 0, 0.05); /* Полупрозрачный фон */
+  background-color: rgba(0, 0, 0, 0.05);
   padding: 5px 10px;
   border-radius: 5px;
-  margin-right: 20px; /* Увеличиваем отступ между номером телефона и кнопкой */
+  margin-right: 20px;
     text-align: center;
 }
 
@@ -926,10 +889,9 @@ text-indent: 0;
      color: white;
 }
 
-/* Стили для страницы производителя */
 .manufacturer-details {
   padding: 20px;
-  border: 1px solid #50C878; /* Зеленая рамка */
+  border: 1px solid #50C878;
   border-radius: 5px;
   background-color: #f9f9f9;
   margin-bottom: 20px;
@@ -945,25 +907,25 @@ text-indent: 0;
 
 .product-table-container {
   display: flex;
-  justify-content: center;/* Центрирование таблицы на странице */
+  justify-content: center;
   margin-top: 20px;
 }
 
 .product-table {
-  width: 100%; /* Уменьшение ширины таблицы для лучшего центрирования */
-  max-width: 1400px; /* Ограничение максимальной ширины */
+  width: 100%;
+  max-width: 1400px;
   border-collapse: collapse;
-  margin: 0 auto; /* Дополнительное центрирование с помощью auto-margin */
+  margin: 0 auto;
 }
 
 .product-table th, .product-table td {
-  vertical-align: middle; /* Вертикальное выравнивание по центру */
-  text-align: center; /* Горизонтальное выравнивание по центру */
+  vertical-align: middle;
+  text-align: center;
   border: 1px solid #FFFFFFD8;
 background-color: rgba(255, 255, 255, 0.9);
   padding: 8px;
 }
-/* Стили для заголовка таблицы */
+
 .table-title {
   text-align: center;
   font-size: 1.5em;
@@ -971,7 +933,7 @@ background-color: rgba(255, 255, 255, 0.9);
   color: #1e5922;
 }
 .product-table td:empty {
-  background-color: #c4c0c0; /* Фон для пустых ячеек */
+  background-color: #c4c0c0;
 }
 
 .product-table tr:nth-child(even) {
@@ -987,7 +949,6 @@ background-color: rgba(255, 255, 255, 0.9);
   background-color: #6aa927;
 }
 
-/* Стили для истории по годам */
 .history-list {
     list-style-type: none;
     margin-left: 20px;
@@ -1009,13 +970,11 @@ background-color: rgba(255, 255, 255, 0.9);
     color: green;
 }
 
-/* Стили для реквизитов */
 .banking-details {
     font-weight: bold;
     font-style: italic;
 }
 
-/* Стили для видео */
 .styled-video {
      clear: both;
      display: block;
@@ -1026,7 +985,6 @@ background-color: rgba(255, 255, 255, 0.9);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-/* Стили для аудио */
 .styled-audio {
     border: 3px solid #1e5922;
     border-radius: 30px;
@@ -1041,47 +999,47 @@ background-color: rgba(255, 255, 255, 0.9);
     background-color: lightblue;
     overflow: hidden;
 }
-/* Продукты */
+
 .product {
-     width: 100%; /* Ширина изображения заполняет контейнер */
-    height: 100%; /* Высота изображения заполняет контейнер */
-    max-width: 70px; /* Максимальная ширина изображения */
-    max-height: 90px; /* Максимальная высота изображения */
-    object-fit: contain; /* О*/
+     width: 100%;
+    height: 100%;
+    max-width: 70px;
+    max-height: 90px;
+    object-fit: contain;
      position: absolute;
-    top: -90px; /* Начальная позиция выше экрана */
+    top: -90px;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 10px;
-    z-index: 3; /* Продукты выше корзины и облака */
+    z-index: 3;
     animation: dropProduct 10.2s forwards ease-in-out;
 }
 
 #product-1 {
-    left: calc(50% - 55px); /* Позиционируем продукт левее корзины */
+    left: calc(50% - 55px);
     animation-delay: 1.03s;
 }
 
 #product-2 {
-    left: calc(50%); /* Центрируем продукт */
+    left: calc(50%);
     animation-delay: 1s;
 }
 
 #product-3 {
-    left: calc(50% + 55px); /* Позиционируем продукт правее корзины */
+    left: calc(50% + 55px);
     animation-delay: 1.02s;
-    width: 50px; /* Максимальная ширина изображения */
+    width: 50px;
     height: 90px;
 }
-/* CSS: Стили для новых продуктов */
+
 #product-1-2 {
-    left: calc(50% - 27.5px); /* Позиционируем продукт между 1 и 2 */
+    left: calc(50% - 27.5px);
     animation-delay: 1.015s;
      z-index: 2;
 }
 
 #product-2-3 {
-    left: calc(50% + 27.5px); /* Позиционируем продукт между 2 и 3 */
+    left: calc(50% + 27.5px);
     animation-delay: 1.01s;
      z-index: 2;
 }
@@ -1090,39 +1048,37 @@ background-color: rgba(255, 255, 255, 0.9);
         top: -50px;
     }
     60% {
-        top: 120px; /* Продукты опускаются на уровень корзины */
+        top: 120px;
     }
     100% {
-        top: calc(100% - 115px); /* Продукты опускаются с корзиной на лужайку */
+        top: calc(100% - 115px);
     }
 }
 
-/* Корзина */
 .cart {
     width: 180px;
     height: 60px;
     position: absolute;
-    bottom: 300px; /* Начальная позиция корзины в середине неба */
+    bottom: 300px;
     left: 50%;
     transform: translateX(-50%);
     z-index: 3;
     animation: cartDrop 9.7s forwards ease-in-out;
-    animation-delay: 1.5s; /* Корзина начинает опускаться позже, чтобы облако успело подлететь */
+    animation-delay: 1.5s;
 }
 
 @keyframes cartDrop {
     0% {
-        bottom: 300px; /* Корзина в середине неба */
+        bottom: 300px;
     }
     60% {
-        bottom: 300px; /* Корзина удерживается на облаке */
+        bottom: 300px;
     }
     100% {
-        bottom: 40px; /* Корзина опускается на лужайку вместе с облаком */
+        bottom: 40px;
     }
 }
 
-/* Облако */
 .cloud {
     width: 280px;
     height: 100px;
@@ -1130,28 +1086,27 @@ background-color: rgba(255, 255, 255, 0.9);
     position: absolute;
     top: 50px;
     right: -180px;
-    z-index: 1; /* Облако ниже продуктов и корзины */
+    z-index: 1;
     animation: cloudMove 10s forwards ease-in-out;
-    animation-delay: 1.2s; /* Облако начинает движение немного позже */
+    animation-delay: 1.2s;
 
 }
 
 @keyframes cloudMove {
     0% {
-        right: -150px; /* Начальная позиция облака */
+        right: -150px;
         top: 50px;
     }
     60% {
-        right: 36%; /* Облако подлетает к корзине */
-        top: 150px; /* Облако "подхватывает" корзину */
+        right: 36%;
+        top: 150px;
     }
     100% {
-        right: 36%; /* Облако двигается в сторону */
-        top: 400px; /* Облако опускается с корзиной на лужайку */
+        right: 36%;
+        top: 400px;
     }
 }
 
-/* Название компании */
 #company-name {
     position: absolute;
     top: 10px;
@@ -1159,9 +1114,9 @@ background-color: rgba(255, 255, 255, 0.9);
     font-size: 34px;
     color: #333;
     opacity: 0;
-    z-index: 100; /* Обеспечиваем, что элемент будет выше других элементов */
+    z-index: 100;
     animation: fadeInCompany 7s forwards ease-in-out;
-    animation-delay: 10s; /* Название появляется после завершения анимации */
+    animation-delay: 10s;
 }
 
 @keyframes fadeInCompany {
@@ -1173,12 +1128,11 @@ background-color: rgba(255, 255, 255, 0.9);
     }
 }
 
-/* Лужайка и дом */
 #house {
     width: 100%;
     height: 500px;
     background: url('https://img.goodfon.ru/wallpaper/big/6/74/priroda-nebo-oblaka-svezhest.webp') no-repeat  fixed;
-    background-size: cover; /* Изображение будет покрывать весь элемент */
+    background-size: cover;
     background-position: center;
     position: absolute;
     bottom: 0;
@@ -1190,28 +1144,27 @@ background-color: rgba(255, 255, 255, 0.9);
     top: 40%;
     left: 85%;
     transform: translate(-50%, -50%);
-    z-index: 3; /* Логотип выше других элементов */
-    text-align: center; /* Центрируем текст под изображением */
+    z-index: 3;
+    text-align: center;
 }
 
 #company-logo img {
-    width: 300px; /* Устанавливаем фиксированную ширину изображения */
-    height: auto; /* Автоматическая высота для сохранения пропорций */
-    object-fit: contain; /* Вписывание изображения в контейнер без обрезки */
-    display: block; /* Убираем возможные отступы */
-    margin: 0 auto; /* Центрируем изображение */
+    width: 300px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
 }
 
 .tree {
     position: absolute;
-    left: 15px; /* Позиционируем дерево слева */
+    left: 15px;
     bottom: 10px;
-    max-width: 500px; /* Максимальная ширина изображения дерева */
-    max-height: 450px; /* Максимальная высота изображения дерева */
-    object-fit: contain; /* Вписывание изображения в контейнер без обрезки */
-    z-index: 1; /* Дерево ниже продуктов */
+    max-width: 500px;
+    max-height: 450px;
+    object-fit: contain;
+    z-index: 1;
 }
-/* Контейнер для прелоадера */
 
  .preloader {
       width: 120px;
@@ -1219,54 +1172,48 @@ background-color: rgba(255, 255, 255, 0.9);
       position: relative;
     }
 
-    /* Статичная серая обводка */
     .static-wheel, .static-outline {
-      stroke: #cccccc; /* Серая обводка */
+      stroke: #cccccc;
       fill: none;
     }
 
-    /* Анимированная голубая линия с закруглёнными концами и плавными соединениями */
     .animate-wheel, .animate-outline {
-      stroke: #1e90ff; /* Голубая линия */
-      stroke-linecap: round; /* Закруглённые концы */
-      stroke-linejoin: round; /* Плавные соединения */
+      stroke: #1e90ff;
+      stroke-linecap: round;
+      stroke-linejoin: round;
       fill: none;
     }
 
-    /* Плавное движение червяка по колёсам */
     .animate-wheel {
-      stroke-dasharray: 10 20; /* Контроль длины и интервала линии */
-      stroke-dashoffset: 0;
-      animation: moveWheel 3s linear infinite;
+      stroke-dasharray: 10 20; /*отрезок*/
+      stroke-dashoffset: 0; /* начало линии*/
+      animation: moveWheel 3s linear infinite; /*бескон с пост скор*/
     }
 
   .animate-outline {
-      stroke-dasharray: 50 150; /* Контроль длины червяка на тележке */
+      stroke-dasharray: 50 150;
       stroke-dashoffset: 0;
       animation: drawCart 3s linear infinite;
     }
 
-    /* Ключевые кадры для движения червяка по тележке */
     @keyframes drawCart {
       0% {
         stroke-dashoffset: 0;
       }
       100% {
-        stroke-dashoffset: -200; /* Длина движения по тележке */
+        stroke-dashoffset: -200;
       }
     }
 
-    /* Ключевые кадры для движения червяка по колёсам */
     @keyframes moveWheel {
       0% {
         stroke-dashoffset: 0;
       }
       100% {
-        stroke-dashoffset: -30; /* Длина червяка и его движение по окружности */
+        stroke-dashoffset: -30;
       }
     }
 
-/* Стили для контейнера сертификата */
 div.certificate-container {
     position: relative;
     width: 70%;
@@ -1399,11 +1346,11 @@ margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px; /* Расстояние между кнопками */
+    gap: 10px;
     padding: 10px;
-    border: 2px solid #50C878; /* Рамка вокруг кнопок */
-    border-radius: 10px; /* Скругленные углы рамки */
-    background-color: #f9f9f9; /* Фон для контейнера */
+    border: 2px solid #50C878;
+    border-radius: 10px;
+    background-color: #f9f9f9;
 }
 
 .banner-container {
@@ -1421,35 +1368,34 @@ margin: 0 auto;
 
 .latest-article {
     background: linear-gradient(to top, rgba(46, 143, 55, 0.8), rgba(180, 243, 200, 0.8)); /* Градиент от темно-зеленого к светло-зеленому */
-    border: 2px solid #50C878; /* Зеленая окантовка */
+    border: 2px solid #50C878;
     padding: 10px;
-    text-align: left; /* Выравнивание текста по левому краю */
-    border-radius: 15px; /* Скругленные углы */
+    text-align: left;
+    border-radius: 15px;
     margin-top: -25px;
     margin-bottom: 35px;
-    max-width: 400px; /* Ограничение ширины */
+    max-width: 400px;
 }
 
 .latest-article h3 {
     margin-top: 0;  margin-bottom: 5px;
     font-size: 18px;
-    text-align: left; /* Центрирование заголовка */
+    text-align: left;
 }
 
 .latest-article p {
     margin: 5px 0 0;
     font-size: 14px;
     color: #555;
-    text-align: left; /* Выравнивание текста по ширине */
+    text-align: left;
 }
 
-/* CSS для центрирования формы и улучшения внешнего вида */
 .form-container {
-    max-width: 600px; /* Увеличенная максимальная ширина */
+    max-width: 600px;
     margin: 0 auto;
-    padding: 30px; /* Увеличенные внутренние отступы */
+    padding: 30px;
     border: 1px solid #ddd;
-    border-radius: 15px; /* Увеличенный радиус скругления углов */
+    border-radius: 15px;
     background-color: #f9f9f9;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     position: absolute;
@@ -1466,18 +1412,17 @@ margin: 0 auto;
     color: #555;
     text-align: center;
 }
-/* CSS для формы с flex-стилями */
+
 .flex-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-
 table {
     width: 100%;
 }
-/* CSS для кнопки логина */
+
 .login-button {
     width: 100%;
     padding: 10px;
@@ -1492,35 +1437,34 @@ table {
     background-color: #45b76a;
 }
 
-/* CSS для центрирования контейнера */
 .centered-container {
-    max-width: 800px; /* Увеличенная ширина контейнера */
+    max-width: 800px;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 15px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
-    align-items: center; /* Центрирование содержимого по горизонтали */
+    align-items: center;
     margin-left: 290px;
     margin-top: 10px;
 }
-/* CSS для формы заказа */
+
 .order-form {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Центрирование содержимого по горизонтали */
-    width: 100%; /* Ширина формы */
+    align-items: center;
+    width: 100%;
 }
 
 .order-form h2 {
-    text-align: center; /* Центрирование заголовка */
+    text-align: center;
 }
 
 .order-form button {
-    margin-top: 20px; /* Отступ сверху для кнопки */
+    margin-top: 20px;
 }
-/* CSS для селектора */
+
 select {
     padding: 10px;
     border: 1px solid #ddd;
@@ -1528,30 +1472,28 @@ select {
     background-color: #f9f9f9;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-/* CSS для контейнера кнопок */
+
 .button-container {
     display: flex;
-    gap: 15px; /* Расстояние между кнопками */
+    gap: 15px;
     padding: 10px;
-    border: 2px solid #50C878; /* Рамка вокруг кнопок */
-    border-radius: 10px; /* Скругленные углы рамки */
-    background-color: #f9f9f9; /* Фон для контейнера */
-    align-items: center; /* Выравнивание по центру */
+    border: 2px solid #50C878;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    align-items: center;
 }
 
-/* CSS для отображения количества */
 .quantity-display {
     padding: 10px;
     font-size: 16px;
 }
 
-/* CSS для деталей продукта */
 .product-details {
     margin-top: 10px;
     font-size: 14px;
     color: #555;
 }
-/* CSS для товаров */
+
 .product-item {
     text-align: center;
     width: 500px;
@@ -1578,7 +1520,6 @@ select {
     background-color: #e60000;
 }
 
-/* CSS для формы промокода */
 .promo-form {
     display: flex;
     gap: 10px;
@@ -1592,7 +1533,6 @@ select {
     border-radius: 5px;
 }
     /*тестовые элементы*/
-/* List and Table Element Styles */
 .test-list li:first-child {
     color: red;
 }
@@ -1612,7 +1552,6 @@ select {
     background-color: lightgreen;
 }
 
-/* Form Element Styles */
 .test-form input:required {
     border: 2px solid red;
 }
@@ -1626,7 +1565,6 @@ select {
     background-color: lightgreen;
 }
 
-/* Quotation Marks Based on Language */
 blockquote[lang="en"] {
     quotes: '"' '"';
 }
@@ -1643,7 +1581,6 @@ blockquote:after {
     content: close-quote;
 }
 
-/* Attribute Selectors */
 /*все элементы input, у которых значение атрибута type начинается с подстроки "text"*/
 input[type^="text"] {
     background-color: #efefeb;

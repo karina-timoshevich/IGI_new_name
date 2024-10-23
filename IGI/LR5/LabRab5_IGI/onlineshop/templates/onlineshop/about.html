@@ -2,9 +2,8 @@
 {% load static %}
 {% block content %}
     <h1 class="itim-regular">About company</h1>
-
    <img src="{{ info.logo.url }}" alt="Company Logo" height=200px width=200px class="logo-transform">
-<p class="text-wrap">{{ info.text }}</p>
+   <p class="text-wrap">{{ info.text }}</p>
     <video class="styled-video" controls autoplay muted>
         <source src="{{ info.video.url }}" type="video/mp4">
     </video>
@@ -23,8 +22,8 @@
     </ul>
     <h2 class="itim-regular">Banking Details</h2>
     <p class="banking-details">{{ info.details }}</p>
-<h2 class="itim-regular">Our certificate</h2>
-<div class="certificate-container" id="about_company">
+    <h2 class="itim-regular">Our certificate</h2>
+    <div class="certificate-container" id="about_company">
     <h1 class="h1-certificate">Свидетельство о качестве продукции</h1>
 
     <div class="certificate-content">
@@ -44,7 +43,6 @@
 
         <p>Компания имеет лицензию №987654321 от 16 октября 2024 года и выполняет работы в соответствии с
             действующими стандартами и нормами охраны труда и техники безопасности.</p>
-
         <p>Срок действия данного свидетельства: с 16 октября 2024 года по 01 января 2025 года.</p>
     </div>
     <div class="certificate-sign">
