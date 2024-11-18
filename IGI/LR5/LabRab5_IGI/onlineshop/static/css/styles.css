@@ -1643,10 +1643,11 @@ input[placeholder="Disabled"] {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
+   background-color: transparent;
+    color: #afaeae;
     border: none;
     cursor: pointer;
+    font-size: 30px;
     padding: 10px;
     z-index: 10;
 }
