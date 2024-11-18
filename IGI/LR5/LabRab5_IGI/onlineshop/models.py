@@ -229,6 +229,7 @@ class CompanyInfo(models.Model):
     logo = models.ImageField(upload_to='company_info/')
     banner1 = models.ImageField(upload_to='company_info/', null=True, blank=True)
     banner2 = models.ImageField(upload_to='company_info/', null=True, blank=True)
+    banner3 = models.ImageField(upload_to='company_info/', null=True, blank=True)  # Новое поле
     privacy_policy = models.FileField(upload_to='employee_photos/policies/', null=True, blank=True)
 
     audio = models.FileField(upload_to='company_info/', null=True, blank=True)

@@ -39,10 +39,7 @@
         <img src="{{ info.logo.url }}" alt="Company Logo">
         <figcaption>Company Logo</figcaption>
     </figure>
-<div class="banner-container">
-    <img src="{{ info.banner1.url }}" alt="Company Banner 1" class="banner-image">
-    <img src="{{ info.banner2.url }}" alt="Company Banner 2" class="banner-image">
-</div>
+
     <p>Current time: {{ current_date_formatted }}</p>
     <p>Current data: {{ calendar_text }}</p>
     <h2 class="itim-regular">Partner Companies</h2>
@@ -59,6 +56,33 @@
         {% endfor %}
     </div>
 
+<div class="slider-container">
+    <div class="slides">
+        <div class="slide">
+            <img src="{{ info.banner1.url }}" alt="Banner 1" class="banner-image">
+            <div class="slide-caption" id="caption-1">Fresh and healthy products straight from the farm to your table!</div>
+        </div>
+        <div class="slide">
+            <img src="{{ info.banner2.url }}" alt="Banner 2" class="banner-image">
+            <div class="slide-caption" id="caption-2">Daily essentials for your family — always fresh and available!</div>
+        </div>
+        <div class="slide">
+            <img src="{{ info.banner3.url }}" alt="Banner 3" class="banner-image">
+            <div class="slide-caption" id="caption-3">All your favorite ingredients in one place — for every recipe!</div>
+        </div>
+    </div>
+
+    <div class="slider-controls">
+        <button id="prev">Prev</button>
+        <button id="next">Next</button>
+    </div>
+
+    <div class="pagination">
+        <span id="slide-number">1/3</span>
+    </div>
+</div>
+
+
 
     <h2 class="itim-regular">Latest Article</h2>
 
@@ -67,39 +91,7 @@
     <h3><a href="{% url 'article_detail' latest_article.id %}">{{ latest_article.title }}</a></h3>
     <p>{{ latest_article.summary }}</p>
 </div>
-
-    <!-- Test Section for Demonstration -->
-<div class="test-section">
-    <h2>List and Table Element Styles</h2>
-    <ul class="test-list">
-        <li>First Item</li>
-        <li>Second Item</li>
-        <li>Third Item</li>
-        <li>Fourth Item</li>
-        <li>Fifth Item</li>
-        <li>Sixth Item</li>
-    </ul>
-    <table class="test-table">
-        <tr><td>First Row</td></tr>
-        <tr><td>Second Row</td></tr>
-        <tr><td>Third Row</td></tr>
-        <tr><td>Fourth Row</td></tr>
-        <tr><td>Fifth Row</td></tr>
-    </table>
-
-    <h2>Form Element Styles</h2>
-    <form class="test-form">
-        <input type="text" placeholder="Available" />
-        <input type="text" required placeholder="Required" />
-        <input type="text" disabled placeholder="Disabled" />
-        <input type="number" min="1" max="10" value="15" placeholder="Out of Range" />
-        <input type="checkbox" checked /> Checked
-        <input type="radio" checked /> Checked
-    </form>
-
-    <h2>Quotation Marks Based on Language</h2>
-    <blockquote lang="en">This is an English quote.</blockquote>
-    <blockquote lang="fr">Ceci est une citation française.</blockquote>
-    <blockquote lang="de">Dies ist ein deutsches Zitat</blockquote>
-</div>
+{% block scripts %}
+    <script src="{% static 'js/slider.js' %}"></script>
+{% endblock %}
 {% endblock %}

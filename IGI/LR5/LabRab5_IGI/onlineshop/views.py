@@ -542,3 +542,5 @@ def faq(request):
 def jobs(request):
     jobs = Job.objects.all()
     return render(request, 'onlineshop/jobs.html', {'jobs': jobs})
+
+
