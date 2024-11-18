@@ -16,6 +16,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Показываем подпись для текущего слайда
         document.getElementById(`caption-${index + 1}`).style.visibility = 'visible';
+
+         // Обновление активной страницы в пагинации
+        const pages = document.querySelectorAll(".page");
+        pages.forEach(page => {
+            page.classList.remove("active");
+        });
+        pages[index].classList.add("active");
     }
 
     document.getElementById("next").addEventListener("click", function() {
@@ -28,6 +35,15 @@ document.addEventListener("DOMContentLoaded", function() {
         showSlide(currentIndex);
     });
 
+   // Обработчик клика на элементы пагинации
+    const paginationButtons = document.querySelectorAll(".page");
+    paginationButtons.forEach((button) => {
+        button.addEventListener("click", function() {
+            const slideIndex = parseInt(button.getAttribute("data-slide"));
+            currentIndex = slideIndex;
+            showSlide(currentIndex);
+        });
+    });
     // Инициализация первого слайда
     showSlide(currentIndex);
 });

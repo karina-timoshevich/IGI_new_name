@@ -1594,7 +1594,7 @@ input[placeholder="Disabled"] {
 .slider-container {
     position: relative;
     width: 100%;
-    height: 400px;
+    height: 420px;
     overflow: hidden;
 }
 
@@ -1621,7 +1621,7 @@ input[placeholder="Disabled"] {
 /* Подпись для каждого слайда */
 .slide-caption {
     position: absolute;
-    bottom: 10px;  /* Расстояние от нижнего края */
+    bottom: 30px;  /* Расстояние от нижнего края */
     left: 50%;
     transform: translateX(-50%);  /* Центрирование по горизонтали */
     font-size: 18px;
@@ -1658,15 +1658,50 @@ input[placeholder="Disabled"] {
     right: 10px;
 }
 /* Пагинация */
+/*.pagination {*/
+/*    position: absolute;*/
+/*    bottom: 10px;*/
+/*    right: 20px;*/
+/*    background-color: rgba(0, 0, 0, 0.5);*/
+/*    color: white;*/
+/*    padding: 5px 10px;*/
+/*    font-size: 16px;*/
+/*}*/
+/* Пагинация */
 .pagination {
     position: absolute;
-    bottom: 10px;
-    right: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    padding: 5px 10px;
-    font-size: 16px;
+    bottom: 10px;  /* Устанавливаем отступ снизу, чтобы пагинация была ниже картинок */
+    left: 50%;
+    transform: translateX(-50%);  /* Центрирование */
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Расстояние между кружочками */
+    z-index: 20; /* Обеспечиваем, что пагинация будет поверх других элементов */
 }
 
+.page {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: rgba(187, 186, 186, 0.6);  /* Легкая прозрачность */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
 
+.page:hover {
+    background-color: rgba(161, 160, 160, 0.8);  /* Более яркий цвет при наведении */
+    transform: scale(1.2);  /* Увеличение при наведении */
+}
 
+.page.active {
+    background-color: rgb(133, 131, 131);  /* Яркий цвет для активного слайда */
+}
+/* Пагинация с номером слайда в верхнем левом углу */
+#slide-number {
+    position: absolute;
+    top: 10px;  /* Отступ сверху */
+    left: 10px;  /* Отступ слева */
+    font-size: 16px;
+    color: black;
+    z-index: 30; /* Позиционируем поверх других элементов */
+}
