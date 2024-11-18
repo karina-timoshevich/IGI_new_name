@@ -1648,6 +1648,7 @@ input[placeholder="Disabled"] {
     border: none;
     cursor: pointer;
     padding: 10px;
+    z-index: 10;
 }
 
 #prev {
