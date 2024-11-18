@@ -42,6 +42,8 @@
 
     <p>Current time: {{ current_date_formatted }}</p>
     <p>Current data: {{ calendar_text }}</p>
+    <p id="countdown-timer">Loading countdown...</p>
+
     <h2 class="itim-regular">Partner Companies</h2>
     <div class="partner-blocks">
         {% for manufacturer in manufacturer_list %}
@@ -86,7 +88,6 @@
 </div>
 
 
-
     <h2 class="itim-regular">Latest Article</h2>
 
 
@@ -96,5 +97,6 @@
 </div>
 {% block scripts %}
     <script src="{% static 'js/slider.js' %}"></script>
+     <script src="{% static 'js/countdown.js' %}"></script>
 {% endblock %}
 {% endblock %}
