@@ -1,0 +1,78 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+<h1>Employee Table</h1>
+
+<!-- Фильтр -->
+<div>
+    <input type="text" id="filter-input" placeholder="Filter employees">
+    <button onclick="filterTable()">Find</button>
+</div>
+
+<!-- Таблица -->
+<div class="employee-table-container">
+    <table class="employee-table" id="employee-table">
+    <thead>
+        <tr>
+            <th onclick="sortTable(0)">First Name <span id="sort-arrow-0"></span></th>
+            <th onclick="sortTable(1)">Last Name <span id="sort-arrow-1"></span></th>
+            <th onclick="sortTable(2)">Position <span id="sort-arrow-2"></span></th>
+            <th onclick="sortTable(3)">Phone <span id="sort-arrow-3"></span></th>
+            <th onclick="sortTable(4)">Email <span id="sort-arrow-4"></span></th>
+            <th>Photo</th>
+            <th>Select</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in page_obj %}
+        <tr onclick="showDetails(this)">
+            <td>{{ employee.first_name }}</td>
+            <td>{{ employee.last_name }}</td>
+            <td>{{ employee.position }}</td>
+            <td>{{ employee.phone }}</td>
+            <td>{{ employee.email }}</td>
+            <td>
+                {% if employee.photo %}
+                <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }}" width="50">
+                {% else %}
+                No photo
+                {% endif %}
+            </td>
+            <td><input type="checkbox" name="select_employee" value="{{ employee.id }}"></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+    <!-- Навигация для пагинации -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+
+<div id="employee-details" class="details-container">
+    <h3>Employee Details</h3>
+    <div id="details" class="details-content">
+        <p>Select a row to view details.</p>
+    </div>
+</div>
+
+<!-- Кнопка премирования -->
+<button onclick="rewardSelected()">Reward Selected</button>
+
+{% block scripts %}
+<script src="{% static 'js/table.js' %}"></script>
+{% endblock %}
+{% endblock %}

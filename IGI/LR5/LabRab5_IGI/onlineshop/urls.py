@@ -107,3 +107,9 @@ urlpatterns += [
 urlpatterns += [
     path('jobs/', views.jobs, name='jobs'),
 ]
+from django.urls import path
+from . import views
+
+urlpatterns += [
+    path('employees/', views.employee_table, name='employee_table'),
+]

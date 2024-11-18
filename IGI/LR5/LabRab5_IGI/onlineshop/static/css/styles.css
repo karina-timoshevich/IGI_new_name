@@ -1707,3 +1707,91 @@ input[placeholder="Disabled"] {
     color: black;
     z-index: 30; /* Позиционируем поверх других элементов */
 }
+/* Контейнер для таблицы */
+.employee-table-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    flex-direction: column; /* Добавлен этот стиль, чтобы блок с деталями шел под таблицей */
+}
+
+/* Таблица сотрудников */
+.employee-table {
+    width: 100%;
+    max-width: 1200px;
+    border-collapse: collapse;
+    margin: 0 auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+/* Заголовки столбцов */
+.employee-table th {
+    background-color: #4CAF50; /* Зеленый оттенок для рабочего стиля */
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    font-size: 1em;
+    text-transform: uppercase;
+}
+
+/* Ячейки */
+.employee-table td {
+    vertical-align: middle;
+    text-align: center;
+    border: 1px solid #ddd;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    font-size: 0.9em;
+}
+
+/* Пустые ячейки */
+.employee-table td:empty {
+    background-color: #e0e0e0; /* Серый фон для пустых значений */
+    color: #888;
+}
+
+/* Полосатые строки */
+.employee-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Ховер для строк */
+.employee-table tr:hover {
+    background-color: #81c784; /* Светлый зеленый при наведении */
+    color: #fff;
+    transition: 0.3s;
+}
+
+/* Блок с деталями */
+.details-container {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.details-container h3 {
+    margin-top: 0;
+    color: #2e7d32;
+}
+
+.details-content p {
+    font-size: 1em;
+    line-height: 1.5;
+    color: #333;
+}
+
+.details-content strong {
+    color: #4CAF50;
+}

@@ -26,7 +26,6 @@ from datetime import date
 from dateutil.relativedelta import relativedelta
 from matplotlib import pyplot as plt
 import base64
-from .models import CompanyInfo
 from io import BytesIO
 from django.views.generic import ListView, CreateView
 from .models import Review
@@ -34,6 +33,9 @@ from .forms import ReviewForm
 import logging
 import os
 import calendar
+from django.http import JsonResponse
+from django.core.paginator import Paginator
+from .models import Employee
 
 log_level_name = os.getenv('LOG_LEVEL', 'INFO')
 log_level = getattr(logging, log_level_name.upper(), logging.INFO)
@@ -544,3 +546,40 @@ def jobs(request):
     return render(request, 'onlineshop/jobs.html', {'jobs': jobs})
 
 
+def employee_table(request):
+    # Получаем все данные сотрудников
+    employees = Employee.objects.all()
+
+    # Настроим пагинацию, ограничив количество элементов на странице (3)
+    paginator = Paginator(employees, 3)
+
+    # Получаем текущую страницу из GET параметров
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'onlineshop/employee_table.html', {'page_obj': page_obj})
+def employee_list(request):
+    employees = Employee.objects.all()
+    paginator = Paginator(employees, 3)  # 3 сотрудника на странице
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    employees_data = [{
+        'first_name': employee.first_name,
+        'last_name': employee.last_name,
+        'position': employee.position,
+        'phone': employee.phone,
+        'email': employee.email,
+        'photo': employee.photo.url if employee.photo else None,
+        'id': employee.id
+    } for employee in page_obj]
+
+    response_data = {
+        'employees': employees_data,
+        'has_previous': page_obj.has_previous(),
+        'has_next': page_obj.has_next(),
+        'current_page': page_obj.number,
+        'total_pages': page_obj.paginator.num_pages,
+    }
+
+    return JsonResponse(response_data)
