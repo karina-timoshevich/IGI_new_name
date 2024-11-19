@@ -106,6 +106,18 @@
     </tbody>
     </table>
 
+
+</div>
+<div id="employee-details" class="details-container">
+    <h3>Employee Details</h3>
+    <div id="details" class="details-content">
+        <p>Select a row to view details.</p>
+    </div>
+</div>
+
+<!-- Кнопка премирования -->
+<button onclick="rewardSelected()">Reward Selected</button>
+<div id="rewardText" style="margin-top: 20px;"></div>
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
@@ -134,19 +146,6 @@
     </span>
 </div>
 
-
-
-</div>
-
-<div id="employee-details" class="details-container">
-    <h3>Employee Details</h3>
-    <div id="details" class="details-content">
-        <p>Select a row to view details.</p>
-    </div>
-</div>
-
-<!-- Кнопка премирования -->
-<button onclick="rewardSelected()">Reward Selected</button>
 
 {% block scripts %}
 <script src="{% static 'js/table.js' %}"></script>

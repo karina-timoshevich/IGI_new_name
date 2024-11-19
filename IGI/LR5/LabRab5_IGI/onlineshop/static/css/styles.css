@@ -1659,26 +1659,29 @@ input[placeholder="Disabled"] {
 #next {
     right: 10px;
 }
-/* Пагинация */
-/*.pagination {*/
-/*    position: absolute;*/
-/*    bottom: 10px;*/
-/*    right: 20px;*/
-/*    background-color: rgba(0, 0, 0, 0.5);*/
-/*    color: white;*/
-/*    padding: 5px 10px;*/
-/*    font-size: 16px;*/
-/*}*/
+
 /* Пагинация */
 .pagination {
-    position: absolute;
-    bottom: 10px;  /* Устанавливаем отступ снизу, чтобы пагинация была ниже картинок */
+    position: fixed;  /* Закрепить пагинацию внизу экрана */
+    bottom: 0;  /* Прикрепить к нижнему краю */
     left: 50%;
     transform: translateX(-50%);  /* Центрирование */
     display: flex;
     justify-content: center;
     gap: 10px; /* Расстояние между кружочками */
     z-index: 20; /* Обеспечиваем, что пагинация будет поверх других элементов */
+    padding: 10px 0;  /* Дополнительные отступы */
+    width: 100%; /* Занимает всю ширину */
+}
+
+/* Чтобы блок с таблицей и кнопкой добавления сотрудника не перекрывали пагинацию */
+.employee-table-container {
+    padding-bottom: 60px; /* Добавить отступ снизу, чтобы было место для пагинации */
+}
+
+/* Кнопка "Добавить сотрудника" */
+#toggleForm {
+    margin-bottom: 20px;  /* Немного отступа снизу */
 }
 
 .page {

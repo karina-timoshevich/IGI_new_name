@@ -98,4 +98,81 @@ function filterTable() {
     phoneInput.addEventListener('input', validateForm);
     urlInput.addEventListener('input', validateForm);
     passwordInput.addEventListener('input', validateForm);
-    passwordConfirmationInput.addEventListener('input', validateForm);
+    passwordConfirmationInput.addEventListener('input', validateForm)
+
+// Сохранение выбранных сотрудников в localStorage
+function saveSelectedEmployees() {
+    const selectedCheckboxes = document.querySelectorAll('input[name="select_employee"]:checked');
+    const selectedData = {};
+
+    selectedCheckboxes.forEach(checkbox => {
+        const row = checkbox.closest('tr');
+        const lastName = row.cells[1].innerText; // Фамилия сотрудника (во втором столбце)
+        selectedData[checkbox.value] = lastName; // Сохраняем ID и фамилию
+    });
+
+    localStorage.setItem("selectedEmployees", JSON.stringify(selectedData));
+}
+
+// Удаление сотрудника из localStorage
+function deselectEmployee(employeeId) {
+    const selectedData = JSON.parse(localStorage.getItem("selectedEmployees")) || {};
+    delete selectedData[employeeId];
+    localStorage.setItem("selectedEmployees", JSON.stringify(selectedData));
+}
+
+// Восстановление состояния чекбоксов
+function restoreSelectedEmployees() {
+    const selectedData = JSON.parse(localStorage.getItem("selectedEmployees")) || {};
+    document.querySelectorAll('input[name="select_employee"]').forEach(checkbox => {
+        if (selectedData.hasOwnProperty(checkbox.value)) {
+            checkbox.checked = true;
+        } else {
+            checkbox.checked = false;
+        }
+    });
+}
+
+// Обработчик изменения чекбокса
+document.addEventListener("change", event => {
+    if (event.target.name === "select_employee") {
+        const employeeId = event.target.value;
+        const selectedData = JSON.parse(localStorage.getItem("selectedEmployees")) || {};
+
+        if (event.target.checked) {
+            // Если выбрано, добавляем сотрудника
+            const row = event.target.closest('tr');
+            const lastName = row.cells[1].innerText;
+            selectedData[employeeId] = lastName;
+        } else {
+            // Если снята галочка, удаляем из localStorage
+            delete selectedData[employeeId];
+        }
+
+        // Сохраняем изменения
+        localStorage.setItem("selectedEmployees", JSON.stringify(selectedData));
+
+        // Обновляем текст премирования
+        rewardSelected();
+    }
+});
+
+// Вызов восстановления состояния при загрузке страницы
+document.addEventListener("DOMContentLoaded", () => {
+    restoreSelectedEmployees();
+    rewardSelected();
+});
+
+// Обновление текста премирования с фамилиями сотрудников
+function rewardSelected() {
+    const selectedData = JSON.parse(localStorage.getItem("selectedEmployees")) || {};
+    const lastNames = Object.values(selectedData).filter(name => name && name.trim() !== "");
+
+    const rewardTextDiv = document.getElementById("rewardText");
+    if (lastNames.length > 0) {
+        const namesList = lastNames.join(", "); // Формируем список через запятую
+        rewardTextDiv.innerHTML = `<p>The following employees are rewarded: ${namesList}.</p>`;
+    } else {
+        rewardTextDiv.innerHTML = `<p>No employees selected for rewarding.</p>`;
+    }
+}
