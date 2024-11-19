@@ -14,7 +14,62 @@
     </select>
     <button type="submit">Find</button>
 </form>
+<button id="toggleForm">Add Employee</button>
 
+<div id="employeeForm" style="display: none; margin-top: 20px; border: 1px solid #ccc; padding: 15px;">
+    <form method="POST" action="{% url 'add_employee' %}" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <div>
+            <label>First Name:</label>
+            <input type="text" name="first_name" id="first_name" required>
+        </div>
+        <div>
+            <label>Last Name:</label>
+            <input type="text" name="last_name" id="last_name" required>
+        </div>
+        <div>
+            <label>Position:</label>
+            <input type="text" name="position" id="position" required>
+        </div>
+        <div>
+            <label>Photo:</label>
+            <input type="file" name="photo" id="photo">
+        </div>
+        <div>
+            <label>Job Description:</label>
+            <textarea name="job_description" id="job_description"></textarea>
+        </div>
+        <div>
+            <label>Phone:</label>
+            <input type="text" name="phone" id="phone" required>
+            <span id="phoneError" class="error" style="color: red; display: none;">Invalid phone number</span>
+        </div>
+        <div>
+            <label>Email:</label>
+            <input type="email" name="email" id="email" required>
+        </div>
+        <div>
+            <label>Username:</label>
+            <input type="text" name="username" id="username" required>
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+        <div>
+            <label>Confirm Password:</label>
+            <input type="password" name="password_confirmation" id="password_confirmation" required>
+            <span id="passwordError" class="error" style="color: red; display: none;">Passwords do not match</span>
+        </div>
+        <div>
+            <label>URL:</label>
+            <input type="text" name="url" id="url" required>
+            <span id="urlError" class="error" style="color: red; display: none;">Invalid URL</span>
+        </div>
+        <button type="submit" id="submitButton" disabled>Submit</button>
+    </form>
+</div>
 
 <!-- Таблица -->
 <div class="employee-table-container">

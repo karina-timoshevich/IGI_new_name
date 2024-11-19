@@ -113,3 +113,8 @@ from . import views
 urlpatterns += [
     path('employees/', views.employee_table, name='employee_table'),
 ]
+
+urlpatterns += [
+    path('add_employee/', views.add_employee, name='add_employee'),
+    # Другие маршруты
+]

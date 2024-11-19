@@ -51,3 +51,51 @@ function filterTable() {
         }
     }
 }
+    document.getElementById('toggleForm').addEventListener('click', () => {
+        const form = document.getElementById('employeeForm');
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    });
+
+    const phoneInput = document.getElementById('phone');
+    const urlInput = document.getElementById('url');
+    const passwordInput = document.getElementById('password');
+    const passwordConfirmationInput = document.getElementById('password_confirmation');
+    const submitButton = document.getElementById('submitButton');
+
+    const phoneError = document.getElementById('phoneError');
+    const urlError = document.getElementById('urlError');
+    const passwordError = document.getElementById('passwordError');
+
+    const validatePhone = (phone) => {
+        const phonePattern = /^(?:\+375|8)\s?\(?\d{2,3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$/;
+        return phonePattern.test(phone);
+    };
+
+    const validateURL = (url) => {
+        const urlPattern = /^(https?:\/\/)[\w-]+\.[a-z]{2,6}(\.[a-z]{2})?(\/[\w\-\.]*)*(\.php|\.html)$/;
+        return urlPattern.test(url);
+    };
+
+    const validateForm = () => {
+        const isPhoneValid = validatePhone(phoneInput.value);
+        const isURLValid = validateURL(urlInput.value);
+        const arePasswordsMatching = passwordInput.value === passwordConfirmationInput.value;
+
+        phoneError.style.display = isPhoneValid ? 'none' : 'block';
+        urlError.style.display = isURLValid ? 'none' : 'block';
+        passwordError.style.display = arePasswordsMatching ? 'none' : 'block';
+
+        phoneInput.style.border = isPhoneValid ? '1px solid #ccc' : '1px solid red';
+        urlInput.style.border = isURLValid ? '1px solid #ccc' : '1px solid red';
+        passwordInput.style.border = arePasswordsMatching ? '1px solid #ccc' : '1px solid red';
+        passwordConfirmationInput.style.border = arePasswordsMatching ? '1px solid #ccc' : '1px solid red';
+
+        // Активируем кнопку только если все валидны
+        submitButton.disabled = !(isPhoneValid && isURLValid && arePasswordsMatching);
+    };
+
+    // Привязываем обработчики к инпутам
+    phoneInput.addEventListener('input', validateForm);
+    urlInput.addEventListener('input', validateForm);
+    passwordInput.addEventListener('input', validateForm);
+    passwordConfirmationInput.addEventListener('input', validateForm);

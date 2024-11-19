@@ -568,3 +568,80 @@ def employee_table(request):
         'filter': filter_value,
         'column': filter_column,
     })
+
+
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User, Group
+import re
+from .models import Employee
+
+
+def add_employee(request):
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        position = request.POST.get('position')
+        photo = request.FILES.get('photo')
+        job_description = request.POST.get('job_description')
+        phone = request.POST.get('phone')
+        username = request.POST.get('username')  # Используем username для логина
+        email = request.POST.get('email')  # Email сотрудника
+        password = request.POST.get('password')
+        password_confirmation = request.POST.get('password_confirmation')
+        url = request.POST.get('url')
+
+        # Проверка пароля
+        if password != password_confirmation:
+            return render(request, 'onlineshop/add_employee.html', {
+                'error_message': 'Passwords do not match',
+                'form_data': request.POST,
+            })
+
+        # Проверка телефона
+        if not validate_phone(phone):
+            return render(request, 'onlineshop/add_employee.html', {
+                'error_message': 'Invalid phone number',
+                'form_data': request.POST,
+            })
+
+        # Проверка URL
+        if url and not validate_url(url):
+            return render(request, 'onlineshop/add_employee.html', {
+                'error_message': 'Invalid URL',
+                'form_data': request.POST,
+            })
+
+        # Создаем пользователя с подтверждением пароля
+        user = User.objects.create_user(username=username, password=password, email=email)
+
+        # Добавляем пользователя в группу Employees
+        group = Group.objects.get(name='Employees')
+        user.groups.add(group)
+
+        # Создаем сотрудника в таблице Employee
+        employee = Employee.objects.create(
+            user=user,
+            first_name=first_name,
+            last_name=last_name,
+            position=position,
+            photo=photo,
+            job_description=job_description,
+            phone=phone,
+            email=email,  # Эмейл добавляется в таблицу сотрудника
+        )
+
+        return redirect('employee_table')  # Перенаправление на страницу списка сотрудников
+
+    return render(request, 'onlineshop/add_employee.html')
+
+
+def validate_phone(phone):
+    # Исправленный шаблон для проверки номеров телефона
+    phone_pattern = r'^(?:\+375|8)\s?\(?\d{2,3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$'
+    return re.match(phone_pattern, phone)
+
+
+def validate_url(url):
+    # Проверка URL с использованием регулярных выражений
+    url_pattern = r'^(https?:\/\/)[\w-]+\.[a-z]{2,6}(\.[a-z]{2})?(\/[\w\-\.]*)*(\.php|\.html)$'
+    return re.match(url_pattern, url)

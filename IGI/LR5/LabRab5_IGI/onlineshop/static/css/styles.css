@@ -1763,7 +1763,7 @@ input[placeholder="Disabled"] {
 /* Ховер для строк */
 .employee-table tr:hover {
     background-color: #81c784; /* Светлый зеленый при наведении */
-    color: #fff;
+    color: #030000;
     transition: 0.3s;
 }
 
