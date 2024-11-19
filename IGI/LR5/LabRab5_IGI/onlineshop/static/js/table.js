@@ -33,3 +33,21 @@ function showDetails(row) {
     `;
     detailsDiv.innerHTML = details;
 }
+function filterTable() {
+    const input = document.getElementById("filter-input").value.toLowerCase();
+    const table = document.getElementById("employee-table");
+    const rows = table.tBodies[0].rows;
+
+    for (let row of rows) {
+        const cellsText = Array.from(row.cells)
+            .map(cell => cell.textContent.toLowerCase())
+            .join(" ");
+
+        // Показывать или скрывать строки в зависимости от текста
+        if (cellsText.includes(input)) {
+            row.style.display = ""; // Показать строку
+        } else {
+            row.style.display = "none"; // Скрыть строку
+        }
+    }
+}

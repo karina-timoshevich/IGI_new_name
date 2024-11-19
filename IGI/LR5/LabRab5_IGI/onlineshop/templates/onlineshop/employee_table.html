@@ -3,11 +3,18 @@
 {% block content %}
 <h1>Employee Table</h1>
 
-<!-- Фильтр -->
-<div>
-    <input type="text" id="filter-input" placeholder="Filter employees">
-    <button onclick="filterTable()">Find</button>
-</div>
+<form method="GET" action="{% url 'employee_table' %}">
+    <input type="text" name="filter" placeholder="Enter search term">
+    <select name="column">
+        <option value="first_name">First Name</option>
+        <option value="last_name">Last Name</option>
+        <option value="position">Position</option>
+        <option value="phone">Phone</option>
+        <option value="email">Email</option>
+    </select>
+    <button type="submit">Find</button>
+</form>
+
 
 <!-- Таблица -->
 <div class="employee-table-container">
@@ -44,12 +51,11 @@
     </tbody>
     </table>
 
-    <!-- Навигация для пагинации -->
-   <div class="pagination">
+<div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
-            <a href="?page=1">&laquo;</a> <!-- Первая страница -->
-            <a href="?page={{ page_obj.previous_page_number }}">&lt;</a> <!-- Предыдущая страница -->
+            <a href="?filter={{ request.GET.filter }}&column={{ request.GET.column }}&page=1">&laquo;</a>
+            <a href="?filter={{ request.GET.filter }}&column={{ request.GET.column }}&page={{ page_obj.previous_page_number }}">&lt;</a>
         {% else %}
             <span class="disabled">&laquo;</span>
             <span class="disabled">&lt;</span>
@@ -57,21 +63,23 @@
 
         {% for i in page_obj.paginator.page_range %}
             {% if page_obj.number == i %}
-                <span class="current">{{ i }}</span> <!-- Текущая страница -->
+                <span class="current">{{ i }}</span>
             {% else %}
-                <a href="?page={{ i }}">{{ i }}</a> <!-- Остальные страницы -->
+                <a href="?filter={{ request.GET.filter }}&column={{ request.GET.column }}&page={{ i }}">{{ i }}</a>
             {% endif %}
         {% endfor %}
 
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">&gt;</a> <!-- Следующая страница -->
-            <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a> <!-- Последняя страница -->
+            <a href="?filter={{ request.GET.filter }}&column={{ request.GET.column }}&page={{ page_obj.next_page_number }}">&gt;</a>
+            <a href="?filter={{ request.GET.filter }}&column={{ request.GET.column }}&page={{ page_obj.paginator.num_pages }}">&raquo;</a>
         {% else %}
             <span class="disabled">&gt;</span>
             <span class="disabled">&raquo;</span>
         {% endif %}
     </span>
 </div>
+
+
 
 </div>
 

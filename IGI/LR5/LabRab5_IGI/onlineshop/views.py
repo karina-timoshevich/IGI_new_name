@@ -550,11 +550,21 @@ def employee_table(request):
     # Получаем все данные сотрудников
     employees = Employee.objects.all()
 
-    # Настроим пагинацию, ограничив количество элементов на странице (3)
-    paginator = Paginator(employees, 3)
+    # Фильтрация
+    filter_value = request.GET.get('filter', '').strip().lower()
+    filter_column = request.GET.get('column', '')
 
-    # Получаем текущую страницу из GET параметров
+    if filter_value and filter_column in ['first_name', 'last_name', 'position', 'phone', 'email']:
+        filter_kwargs = {f"{filter_column}__icontains": filter_value}
+        employees = employees.filter(**filter_kwargs)
+
+    # Пагинация
+    paginator = Paginator(employees, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'onlineshop/employee_table.html', {'page_obj': page_obj})
+    return render(request, 'onlineshop/employee_table.html', {
+        'page_obj': page_obj,
+        'filter': filter_value,
+        'column': filter_column,
+    })
