@@ -176,3 +176,33 @@ function rewardSelected() {
         rewardTextDiv.innerHTML = `<p>No employees selected for rewarding.</p>`;
     }
 }
+
+// Функция для показа прелоадера
+function showPreloader() {
+    document.getElementById('preloader').style.display = 'block';
+    document.querySelector('.content-pr').classList.add('blur'); // Добавляем эффект размытия
+}
+
+// Функция для скрытия прелоадера
+function hidePreloader() {
+    document.getElementById('preloader').style.display = 'none';
+    document.querySelector('.content-pr').classList.remove('blur'); // Убираем размытие
+}
+
+// Пример асинхронной операции с искусственной задержкой
+async function loadData() {
+    // Показываем прелоадер
+    showPreloader();
+
+    // Имитируем задержку, чтобы прелоадер был виден
+    await new Promise(resolve => setTimeout(resolve, 3000)); // Задержка 3 секунды
+
+    // Здесь можно добавить код для загрузки реальных данных, если необходимо.
+    console.log("Данные загружены!");
+
+    // Скрываем прелоадер после задержки
+    hidePreloader();
+}
+
+// Вызов функции для загрузки данных
+loadData();

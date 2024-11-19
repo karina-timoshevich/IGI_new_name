@@ -1156,11 +1156,16 @@ background-color: rgba(255, 255, 255, 0.9);
     z-index: 1;
 }
 
- .preloader {
-      width: 120px;
-      height: 120px;
-      position: relative;
-    }
+.preloader {
+    width: 120px;
+    height: 120px;
+    position: fixed; /* Чтобы прелоадер был поверх содержимого */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none; /* Скрыт по умолчанию */
+    z-index: 9999; /* Убедитесь, что прелоадер выше контента */
+}
 
     .static-wheel, .static-outline {
       stroke: #cccccc;
@@ -1837,5 +1842,15 @@ input[placeholder="Disabled"] {
     border: 1px solid #ddd; /* Серый бордер */
     background-color: #f0f0f0; /* Светло-серый фон */
     cursor: not-allowed;
+}
+
+/* Элемент для контента страницы */
+.content-pr {
+    transition: filter 0.3s ease; /* Плавный переход */
+}
+
+/* Применение размытия */
+.content-pr.blur {
+    filter: blur(10px); /* Увеличьте степень размытия */
 }
 
