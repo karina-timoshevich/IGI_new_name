@@ -1916,8 +1916,8 @@ input[placeholder="Disabled"] {
     background-color: #50C878;
     color: white;
     border: none;
-    padding: 12px 20px;
-    font-size: 1em;
+    padding: 6px 10px;
+    font-size: 0.8em;
     font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
@@ -1973,4 +1973,77 @@ input[placeholder="Disabled"] {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+#openModal {
+    background-color: #50C878;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+#openModal:hover {
+    background-color: #277741;
+}
+
+/* Область формы поиска */
+.search-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+/* Поле ввода */
+.search-input {
+    flex-grow: 1; /* Растягивается по ширине контейнера */
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #007BFF;
+}
+
+/* Выпадающий список */
+.search-select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+}
+
+.search-select:focus {
+    border-color: #007BFF;
+}
+
+/* Кнопка поиска */
+.search-button {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #45a049;
 }
