@@ -96,8 +96,35 @@
     <h3><a href="{% url 'article_detail' latest_article.id %}">{{ latest_article.title }}</a></h3>
     <p>{{ latest_article.summary }}</p>
 </div>
+
+    <label for="settings-toggle">Enable custom settings</label>
+<input type="checkbox" id="settings-toggle" />
+
+<div id="settings-panel" style="display: none;">
+    <div>
+        <label for="font-size">Font size:</label>
+        <select id="font-size">
+            <option value="14px">14px</option>
+            <option value="16px">16px</option>
+            <option value="18px">18px</option>
+            <option value="20px">20px</option>
+        </select>
+    </div>
+
+    <div>
+        <label for="text-color">Text color:</label>
+        <input type="color" id="text-color" value="#000000">
+    </div>
+
+    <div>
+        <label for="background-color">Background color:</label>
+        <input type="color" id="background-color" value="#ffffff">
+    </div>
+</div>
+
 {% block scripts %}
     <script src="{% static 'js/slider.js' %}"></script>
      <script src="{% static 'js/countdown.js' %}"></script>
+    <script src="{% static 'js/settings.js' %}"></script>
 {% endblock %}
 {% endblock %}
