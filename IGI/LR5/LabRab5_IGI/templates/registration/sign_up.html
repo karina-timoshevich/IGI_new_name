@@ -1,52 +1,85 @@
 {% extends "base_generic.html" %}
+{% load static %}
 
 {% block content %}
+<div class="registration-container">
+    <h1>Sign Up</h1>
+    <form method="post" action="{% url 'sign-up' %}">
+        {% csrf_token %}
+        <div class="form-field-register">
+            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+            {{ form.username }}
+            <div class="error">{{ form.username.errors }}</div>
+        </div>
 
-<form method="post" action="{% url 'sign-up' %}">
-{% csrf_token %}
-<table>
+        <div class="form-field-register">
+            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+            {{ form.email }}
+            <div class="error">{{ form.email.errors }}</div>
+        </div>
 
-<tr>
-  <td>{{ form.username.label_tag }}</td>
-  <td>{{ form.username }}</td>
-  <td>{{ form.username.errors }}</td>
-</tr>
+        <div class="form-field-register">
+            <label for="{{ form.password1.id_for_label }}">{{ form.password1.label }}</label>
+            {{ form.password1 }}
+            <div class="error">{{ form.password1.errors }}</div>
+        </div>
 
-<tr>
-  <td>{{ form.email.label_tag }}</td>
-  <td>{{ form.email }}</td>
-  <td>{{ form.email.errors }}</td>
-</tr>
+        <div class="form-field-register">
+            <label for="{{ form.password2.id_for_label }}">{{ form.password2.label }}</label>
+            {{ form.password2 }}
+            <div class="error">{{ form.password2.errors }}</div>
+        </div>
 
-<tr>
-  <td>{{ form.password1.label_tag }}</td>
-  <td>{{ form.password1 }}</td>
-  <td>{{ form.password1.errors }}</td>
-</tr>
+        <div class="form-field-register">
+            <label for="{{ form.date_of_birth.id_for_label }}">{{ form.date_of_birth.label }}</label>
+            {{ form.date_of_birth }}
+            <div id="dob-error" class="error"></div>
+        </div>
 
-<tr>
-  <td>{{ form.password2.label_tag }}</td>
-  <td>{{ form.password2 }}</td>
-  <td>{{ form.password2.errors }}</td>
-</tr>
+        <div class="form-field-register">
+            <label for="{{ form.phone_number.id_for_label }}">{{ form.phone_number.label }}</label>
+            {{ form.phone_number }}
+            <div class="error">{{ form.phone_number.errors }}</div>
+        </div>
 
-<!-- Add date of birth field here -->
-<tr>
-  <td>{{ form.date_of_birth.label_tag }}</td>
-  <td>{{ form.date_of_birth }}</td>
-  <td>{{ form.date_of_birth.errors }}</td>
-</tr>
-    
-<tr>
-  <td>{{ form.phone_number.label_tag }}</td>
-  <td>{{ form.phone_number }}</td>
-  <td>{{ form.phone_number.errors }}</td>
-</tr>
-    
-</table>
-<input type="submit" value="sign up" />
-</form>
+        <button type="submit" class="registration-button">Sign Up</button>
+    </form>
 
-<p><a href="{% url 'login' %}">Have an account?</a></p>
+    <p><a href="{% url 'login' %}">Already have an account?</a></p>
+</div>
+
+{% block scripts %}
+<script>
+document.getElementById("id_date_of_birth").addEventListener("change", function () {
+    const dob = document.getElementById("id_date_of_birth").value; // ID поля даты
+    const today = new Date();
+    const dobParts = dob.split('.'); // Предполагается формат DD.MM.YYYY
+    const dobDate = new Date(dobParts[2], dobParts[1] - 1, dobParts[0]); // Преобразование строки в дату
+
+    if (dobDate > today) {
+        alert("Дата рождения не может быть в будущем.");
+        return;
+    }
+
+    let age = today.getFullYear() - dobDate.getFullYear();
+    const monthDiff = today.getMonth() - dobDate.getMonth();
+    const dayDiff = today.getDate() - dobDate.getDate();
+
+    if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) {
+        age--;
+    }
+
+    const weekday = dobDate.toLocaleString('en-US', { weekday: 'long' });
+    const ageMessage = "You are " + age + " years old.";
+    const weekdayMessage = "You were born on a " + weekday + ".";
+
+    document.getElementById("dob-error").innerText = ageMessage + " " + weekdayMessage;
+
+    if (age < 18) {
+        alert("You are under 18. Parental consent is required to use this site.");
+    }
+});
+</script>
+{% endblock %}
 
 {% endblock %}
