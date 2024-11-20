@@ -30,9 +30,13 @@
     </select>
     <button type="submit">Find</button>
 </form>
-<button id="toggleForm">Add Employee</button>
+<button id="openModal" class="btn">Add Employee</button>
 
-<div id="employeeForm" style="display: none; margin-top: 20px; border: 1px solid #ccc; padding: 15px;">
+<!-- Модальное окно -->
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+<div id="employeeForm" >
     <form method="POST" action="{% url 'add_employee' %}" enctype="multipart/form-data">
 
         {% csrf_token %}
@@ -86,7 +90,8 @@
         <button type="submit" id="submitButton" disabled>Submit</button>
     </form>
 </div>
-
+    </div>
+</div>
 <!-- Таблица -->
 <div class="employee-table-container">
     <table class="employee-table" id="employee-table">

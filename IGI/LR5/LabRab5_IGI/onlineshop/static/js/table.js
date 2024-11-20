@@ -51,7 +51,7 @@ function filterTable() {
         }
     }
 }
-    document.getElementById('toggleForm').addEventListener('click', () => {
+    document.getElementById('openModal').addEventListener('click', () => {
         const form = document.getElementById('employeeForm');
         form.style.display = form.style.display === 'none' ? 'block' : 'none';
     });
@@ -76,29 +76,39 @@ function filterTable() {
         return urlPattern.test(url);
     };
 
-    const validateForm = () => {
-        const isPhoneValid = validatePhone(phoneInput.value);
-        const isURLValid = validateURL(urlInput.value);
-        const arePasswordsMatching = passwordInput.value === passwordConfirmationInput.value;
+const validateForm = () => {
+    const isPhoneValid = validatePhone(phoneInput.value);
+    const isURLValid = validateURL(urlInput.value);
+    const arePasswordsMatching = passwordInput.value === passwordConfirmationInput.value;
 
-        phoneError.style.display = isPhoneValid ? 'none' : 'block';
-        urlError.style.display = isURLValid ? 'none' : 'block';
-        passwordError.style.display = arePasswordsMatching ? 'none' : 'block';
+    // Проверяем, что все поля заполнены
+    const isFormComplete = phoneInput.value && urlInput.value && passwordInput.value && passwordConfirmationInput.value;
 
-        phoneInput.style.border = isPhoneValid ? '1px solid #ccc' : '1px solid red';
-        urlInput.style.border = isURLValid ? '1px solid #ccc' : '1px solid red';
-        passwordInput.style.border = arePasswordsMatching ? '1px solid #ccc' : '1px solid red';
-        passwordConfirmationInput.style.border = arePasswordsMatching ? '1px solid #ccc' : '1px solid red';
+    phoneError.style.display = isPhoneValid ? 'none' : 'block';
+    urlError.style.display = isURLValid ? 'none' : 'block';
+    passwordError.style.display = arePasswordsMatching ? 'none' : 'block';
 
-        // Активируем кнопку только если все валидны
-        submitButton.disabled = !(isPhoneValid && isURLValid && arePasswordsMatching);
-    };
+    phoneInput.style.border = isPhoneValid ? '1px solid #ccc' : '1px solid red';
+    urlInput.style.border = isURLValid ? '1px solid #ccc' : '1px solid red';
+    passwordInput.style.border = arePasswordsMatching ? '1px solid #ccc' : '1px solid red';
+    passwordConfirmationInput.style.border = arePasswordsMatching ? '1px solid #ccc' : '1px solid red';
+
+    // Активируем кнопку только если все поля заполнены и валидны
+    submitButton.disabled = !(isFormComplete && isPhoneValid && isURLValid && arePasswordsMatching);
+};
+
 
     // Привязываем обработчики к инпутам
-    phoneInput.addEventListener('input', validateForm);
-    urlInput.addEventListener('input', validateForm);
-    passwordInput.addEventListener('input', validateForm);
-    passwordConfirmationInput.addEventListener('input', validateForm)
+   phoneInput.addEventListener('input', validateForm);
+urlInput.addEventListener('input', validateForm);
+passwordInput.addEventListener('input', validateForm);
+passwordConfirmationInput.addEventListener('input', validateForm);
+
+// Скрываем форму при загрузке страницы
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('employeeForm').style.display = 'none';
+    validateForm(); // Проверяем состояние формы
+});
 
 // Сохранение выбранных сотрудников в localStorage
 function saveSelectedEmployees() {
@@ -195,7 +205,7 @@ async function loadData() {
     showPreloader();
 
     // Имитируем задержку, чтобы прелоадер был виден
-    await new Promise(resolve => setTimeout(resolve, 3000)); // Задержка 3 секунды
+    await new Promise(resolve => setTimeout(resolve, 1500)); // Задержка 3 секунды
 
     // Здесь можно добавить код для загрузки реальных данных, если необходимо.
     console.log("Данные загружены!");
@@ -206,3 +216,24 @@ async function loadData() {
 
 // Вызов функции для загрузки данных
 loadData();
+// Логика модального окна
+const modal = document.getElementById("modal");
+const openModalBtn = document.getElementById("openModal");
+const closeModalBtn = document.getElementById("closeModal");
+
+// Открытие модального окна
+openModalBtn.addEventListener("click", () => {
+    modal.style.display = "block";
+});
+
+// Закрытие модального окна
+closeModalBtn.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
+// Закрытие при клике вне модального окна
+window.addEventListener("click", (event) => {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+});
