@@ -727,6 +727,11 @@ footer .btn-emerald {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.product-item:hover {
+  transform: translateY(-10px); /* Эффект поднятия */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Более выраженная тень */
 }
 
 .product-item h2 {
