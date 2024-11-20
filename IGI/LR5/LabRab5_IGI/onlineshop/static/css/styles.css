@@ -1665,18 +1665,15 @@ input[placeholder="Disabled"] {
     right: 10px;
 }
 
-/* Пагинация */
-.pagination {
-    position: fixed;  /* Закрепить пагинацию внизу экрана */
-    bottom: 0;  /* Прикрепить к нижнему краю */
+.pagination-sl {
+    position: absolute;
+    bottom: 10px; /* Устанавливаем расстояние от нижнего края слайдера */
     left: 50%;
-    transform: translateX(-50%);  /* Центрирование */
+    transform: translateX(-50%);
     display: flex;
     justify-content: center;
-    gap: 10px; /* Расстояние между кружочками */
-    z-index: 20; /* Обеспечиваем, что пагинация будет поверх других элементов */
-    padding: 10px 0;  /* Дополнительные отступы */
-    width: 100%; /* Занимает всю ширину */
+    gap: 10px;
+    z-index: 200;
 }
 
 /* Чтобы блок с таблицей и кнопкой добавления сотрудника не перекрывали пагинацию */
