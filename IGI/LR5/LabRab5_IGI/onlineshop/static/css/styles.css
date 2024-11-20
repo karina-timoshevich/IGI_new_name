@@ -760,6 +760,52 @@ footer .btn-emerald {
 text-indent: 0;
     text-align: center;
 }
+.pagination-pr {
+    text-align: center;
+    margin-top: 20px;
+}
+.pagination-pr .step-links a,
+.pagination-pr .step-links .disabled {
+    padding: 5px 10px;
+    background-color: #50C878;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;  /* Гарантирует одинаковую ширину для всех кнопок */
+    width: 80px; /* Установите фиксированную ширину для всех кнопок */
+    text-align: center; /* Выравнивание текста по центру */
+    margin: 0 5px; /* Отступы между кнопками */
+}
+
+.pagination-pr .step-links .disabled {
+    background-color: #ccc;
+    color: #777;
+    cursor: not-allowed;
+}
+
+.pagination-pr .step-links a:hover {
+    background-color: #2b8d4c;
+}
+
+.pagination-pr .step-links .current {
+    margin: 0 10px;
+      display: inline-block;
+    font-weight: bold;
+}
+.pagination-pr .step-links .disabled {
+    padding: 5px 10px;
+    background-color: #ccc;
+    color: #777;
+      display: inline-block;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.pagination-pr .step-links .disabled:hover {
+    background-color: #ccc;
+    cursor: not-allowed;
+      display: inline-block;
+}
 
 .product-card {
     border: 1px solid #ddd;

@@ -92,7 +92,7 @@ def index(request):
 
 class ProductListView(generic.ListView):
     model = Product
-    paginate_by = 10
+    paginate_by = 3
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -645,3 +645,21 @@ def validate_url(url):
     # Проверка URL с использованием регулярных выражений
     url_pattern = r'^(https?:\/\/)[\w-]+\.[a-z]{2,6}(\.[a-z]{2})?(\/[\w\-\.]*)*(\.php|\.html)$'
     return re.match(url_pattern, url)
+
+
+from django.core.paginator import Paginator
+from django.shortcuts import render
+from .models import Product  # Импортируйте модель вашего товара
+
+
+def product_list(request):
+    # Получаем все товары
+    product_list = Product.objects.all()
+
+    # Создаем пагинатор, показываем 3 товара на странице
+    paginator = Paginator(product_list, 3)  # Показываем по 3 товара на странице
+    page_number = request.GET.get('page')  # Получаем номер страницы из GET-параметров
+    page_obj = paginator.get_page(page_number)  # Получаем объект страницы
+
+    # Передаем данные в шаблон
+    return render(request, 'product_list.html', {'page_obj': page_obj})

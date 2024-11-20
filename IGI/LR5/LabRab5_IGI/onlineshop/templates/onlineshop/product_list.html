@@ -18,6 +18,7 @@
             <option value="desc" {% if request.GET.price_order == 'desc' %}selected{% endif %}>Price high to low</option>
         </select>
     </form>
+
     {% if product_list %}
     <div class="product-grid">
       {% for product in product_list %}
@@ -30,6 +31,31 @@
       </div>
       {% endfor %}
     </div>
+       <div class="pagination-pr">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1&search={{ search }}&product_type_id={{ product_type_id }}&price_order={{ price_order }}">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}&search={{ search }}&product_type_id={{ product_type_id }}&price_order={{ price_order }}">Previous</a>
+        {% else %}
+            <span class="disabled">First</span>
+            <span class="disabled">Previous</span>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}&search={{ search }}&product_type_id={{ product_type_id }}&price_order={{ price_order }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}&search={{ search }}&product_type_id={{ product_type_id }}&price_order={{ price_order }}">Last</a>
+        {% else %}
+            <span class="disabled">Next</span>
+            <span class="disabled">Last</span>
+        {% endif %}
+    </span>
+</div>
+
+
     {% else %}
         <p>There are no products in the online-shop.</p>
     {% endif %}
