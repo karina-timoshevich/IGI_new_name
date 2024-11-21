@@ -18,7 +18,7 @@ window.addEventListener("scroll", () => {
 
     if (isScrollingDown && productRect.top < threshold && !isInCart) {
       // Корректируем смещение по X и Y
-      const offsetX = index*26; // Смещение вправо
+      const offsetX = index * 26; // Смещение вправо
       const offsetY = 0; // Смещение вниз для каждого продукта в корзине
 
       // Перемещаем продукт в корзину с учетом смещения
@@ -27,6 +27,11 @@ window.addEventListener("scroll", () => {
       }px, ${cartRect.top - productRect.top + offsetY}px)`;
 
       product.dataset.inCart = "true"; // Отмечаем, что продукт в корзине
+
+      // Синтез речи: объявление о добавлении в корзину
+      const synth = window.speechSynthesis;
+      const utterance = new SpeechSynthesisUtterance(`${product.textContent} added to cart`);
+      synth.speak(utterance);
     } else if (!isScrollingDown && productRect.top < threshold && isInCart) {
       // При скролле вверх возвращаем на место
       product.style.transform = "none";
