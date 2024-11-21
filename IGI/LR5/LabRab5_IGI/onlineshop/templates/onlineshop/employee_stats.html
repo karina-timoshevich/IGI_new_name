@@ -32,8 +32,24 @@
         var expValues = {{ exp_values|safe }};
         var taylorValues = {{ taylor_values|safe }};
     </script>
+  <h1>Job Vacancies</h1>
+    <form id="vacancy-form">
+        <label for="profession">Profession:</label>
+        <input type="text" id="profession" required>
+        <label for="salary">Salary:</label>
+        <input type="number" id="salary" required>
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" required>
+        <button type="submit">Add Vacancy</button>
+    </form>
+    <h2>All Vacancies</h2>
+    <ul id="vacancy-list"></ul>
+    <h2>Filtered Vacancies</h2>
+    <ul id="filtered-list"></ul>
 
-{% block scripts %}
+    {% block scripts %}
+{#    <script src="{% static 'js/vacancy-prototype.js' %}"></script>  <!-- Прототипное наследование -->#}
+    <script src="{% static 'js/vacancy-class.js' %}"></script>  <!-- Классовое наследование -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{% static 'js/graphics.js' %}"></script>
 {% endblock %}
