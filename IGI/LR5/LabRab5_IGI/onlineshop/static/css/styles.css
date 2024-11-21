@@ -2152,20 +2152,46 @@ margin-left: 500px;
     margin-top: 5px;
 }
 
-.registration-button {
-    width: 100%;
-    padding: 10px;
-    background-color: #50C878;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
+
+
+
+.products-animation-scroll {
+  position: relative; /* Ensure the products container is the reference for absolute positioning */
 }
 
-.registration-button:hover {
-    background-color: #45b76a;
+.product-animation-scroll {
+  font-size: 50px; /* Increase emoji size */
+  position: absolute; /* Position each product absolutely */
+  transition: transform 1s ease-in-out;
+  background-color: transparent; /* Remove background color */
+  width: auto; /* Adjust width to fit content */
+  height: auto; /* Adjust height to fit content */
 }
 
+#product1-scroll {
+  top: 10%;
+  right: 10%;
+}
 
+#product2-scroll {
+  top: 15%;
+  right: 5%;
+}
+
+#product3-scroll {
+  top: 17%;
+  right: 15%;
+}
+
+.cart-animation-scroll {
+  position: absolute;
+    top: 75%;
+  right: 20px; /* Adjust as needed */
+  font-size: 110px; /* Increase emoji size */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent; /* Remove background color */
+  width: auto; /* Adjust width to fit content */
+  height: auto; /* Adjust height to fit content */
+}

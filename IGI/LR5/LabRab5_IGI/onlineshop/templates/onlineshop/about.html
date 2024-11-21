@@ -4,6 +4,19 @@
     <h1 class="itim-regular">About company</h1>
    <img src="{{ info.logo.url }}" alt="Company Logo" height=200px width=200px class="logo-transform">
    <p class="text-wrap">{{ info.text }}</p>
+
+    <div class="products-animation-scroll">
+        <div class="product-animation-scroll" id="product1-scroll">🍎</div>
+        <div class="product-animation-scroll" id="product2-scroll">🥕</div>
+        <div class="product-animation-scroll" id="product3-scroll">🍋</div>
+    </div>
+    <div class="cart-animation-scroll" id="cart-animation-scroll">🛒</div>
+{#<div class="products-scroll">#}
+{#        <img src="{% static 'images/cheese.png' %}" alt="Product 1" class="scroll-product" id="product1">#}
+{#        <img src="{% static 'images/eggs.png' %}" alt="Product 1" class="scroll-product" id="product2">#}
+{#        <img src="{% static 'images/bread.png' %}" alt="Product 1" class="scroll-product" id="product3">#}
+{#   </div>#}
+
     <video class="styled-video" controls autoplay muted>
         <source src="{{ info.video.url }}" type="video/mp4">
     </video>
@@ -74,4 +87,7 @@
         <button class="btn-emerald" onclick="location.href='tel:+375292568820'">Call us</button>
     </div>
 </div>
+    {% block scripts %}
+<script src="{% static 'js/animation.js' %}"></script>
+{% endblock %}
 {% endblock %}
