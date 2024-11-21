@@ -457,57 +457,6 @@ class ReviewCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-@login_required
-def employee_stats(request):
-    orders = Order.objects.all()
-    products = Product.objects.all()
-    clients = Client.objects.all()
-
-    total_sales = orders.aggregate(Sum('total_price'))['total_price__sum']
-    avg_sales = orders.aggregate(Avg('total_price'))['total_price__avg']
-    sales_values = [order.total_price for order in orders]
-    median_sales = np.median(sales_values)
-    mode_sales = max(set(sales_values), key=sales_values.count)
-
-    client_ages = [(date.today() - client.date_of_birth).days // 365 for client in clients if client.date_of_birth]
-    avg_client_age = np.mean(client_ages)
-    median_age = np.median(client_ages)
-
-    popular_product_type = products.values('product_type__name').annotate(count=Count('product_type')).order_by(
-        '-count').first()
-    profitable_product_type = products.values('product_type__name').annotate(profit=Sum('price')).order_by(
-        '-profit').first()
-    logger.info(
-        f'Calculated employee stats: total_sales={total_sales}, avg_sales={avg_sales}, median_sales={median_sales}, mode_sales={mode_sales}, avg_client_age={avg_client_age}, median_age={median_age}, popular_product_type={popular_product_type}, profitable_product_type={profitable_product_type}')
-
-    product_types = Product.objects.values('product_type__name').annotate(
-        count=Count('productinstance__order')).order_by(
-        '-count')  # группируем продукты по типу и считаем количество заказов
-    fig, ax = plt.subplots()  # создаем фигуру для графика
-    ax.pie([pt['count'] for pt in product_types], labels=[pt['product_type__name'] for pt in product_types],
-           autopct='%1.1f%%')  # для круговой диаграммы, точность 1 знак посл ,
-    ax.axis('equal')  # делаем кругляшком
-
-    buf = BytesIO()  # создаем буфер чтобы не в файл кидать
-    plt.savefig(buf, format='png')
-    plt.close(fig)
-    image_string = base64.b64encode(buf.getvalue()).decode()  # переводим в строку прежде кодируя в base64
-
-    context = {
-        'total_sales': total_sales,
-        'avg_sales': avg_sales,
-        'median_sales': median_sales,
-        'mode_sales': mode_sales,
-        'avg_client_age': avg_client_age,
-        'median_age': median_age,
-        'popular_product_type': popular_product_type,
-        'profitable_product_type': profitable_product_type,
-        'pie_chart': image_string,
-    }
-
-    return render(request, 'onlineshop/employee_stats.html', context)
-
-
 class LogoutView(TemplateView):
     template = 'registration/logout.html'
 
@@ -663,3 +612,85 @@ def product_list(request):
 
     # Передаем данные в шаблон
     return render(request, 'product_list.html', {'page_obj': page_obj})
+
+import math
+from django.shortcuts import render
+
+# Функция для расчета ряда Тейлора для e^x
+def taylor_series_expansion(x, n_terms=10):
+    result = 0
+    for n in range(n_terms):
+        result += (x ** n) / math.factorial(n)
+    return result
+
+# Генерация данных
+def generate_exp_graph_data():
+    # Более узкий диапазон для x, который лучше демонстрирует поведение экспоненты
+    x_values = [i * 0.1 for i in range(-50, 71)]  # Значения x от -2 до 2 с шагом 0.1
+    exp_values = [math.exp(x) for x in x_values]  # Реальные значения e^x
+    taylor_values = [taylor_series_expansion(x) for x in x_values]  # Приближение по ряду Тейлора
+
+    return {
+        'x_values': x_values,
+        'exp_values': exp_values,
+        'taylor_values': taylor_values,
+    }
+
+
+@login_required
+def employee_stats(request):
+    orders = Order.objects.all()
+    products = Product.objects.all()
+    clients = Client.objects.all()
+
+    total_sales = orders.aggregate(Sum('total_price'))['total_price__sum']
+    avg_sales = orders.aggregate(Avg('total_price'))['total_price__avg']
+    sales_values = [order.total_price for order in orders]
+    median_sales = np.median(sales_values)
+    mode_sales = max(set(sales_values), key=sales_values.count)
+
+    client_ages = [(date.today() - client.date_of_birth).days // 365 for client in clients if client.date_of_birth]
+    avg_client_age = np.mean(client_ages)
+    median_age = np.median(client_ages)
+
+    popular_product_type = products.values('product_type__name').annotate(count=Count('product_type')).order_by(
+        '-count').first()
+    profitable_product_type = products.values('product_type__name').annotate(profit=Sum('price')).order_by(
+        '-profit').first()
+    logger.info(
+        f'Calculated employee stats: total_sales={total_sales}, avg_sales={avg_sales}, median_sales={median_sales}, mode_sales={mode_sales}, avg_client_age={avg_client_age}, median_age={median_age}, popular_product_type={popular_product_type}, profitable_product_type={profitable_product_type}')
+
+    product_types = Product.objects.values('product_type__name').annotate(
+        count=Count('productinstance__order')).order_by(
+        '-count')  # группируем продукты по типу и считаем количество заказов
+    fig, ax = plt.subplots()  # создаем фигуру для графика
+    ax.pie([pt['count'] for pt in product_types], labels=[pt['product_type__name'] for pt in product_types],
+           autopct='%1.1f%%')  # для круговой диаграммы, точность 1 знак посл ,
+    ax.axis('equal')  # делаем кругляшком
+
+    buf = BytesIO()  # создаем буфер чтобы не в файл кидать
+    plt.savefig(buf, format='png')
+    plt.close(fig)
+    image_string = base64.b64encode(buf.getvalue()).decode()  # переводим в строку прежде кодируя в base64
+    data = generate_exp_graph_data()
+    context = {
+        'total_sales': total_sales,
+        'avg_sales': avg_sales,
+        'median_sales': median_sales,
+        'mode_sales': mode_sales,
+        'avg_client_age': avg_client_age,
+        'median_age': median_age,
+        'popular_product_type': popular_product_type,
+        'profitable_product_type': profitable_product_type,
+        'pie_chart': image_string,
+        'x_values': data['x_values'],
+        'exp_values': data['exp_values'],
+        'taylor_values': data['taylor_values'],
+    }
+
+    return render(request, 'onlineshop/employee_stats.html', context)
+
+
+# Представление для отображения графика
+
+

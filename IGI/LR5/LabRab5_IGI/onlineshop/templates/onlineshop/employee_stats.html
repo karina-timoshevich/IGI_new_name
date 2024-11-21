@@ -1,7 +1,8 @@
 {% extends "base_generic.html" %}
+{% load static %}
 
 {% block content %}
-    <h1>Shop Statistics</h1>
+     <h1>Shop Statistics</h1>
 
     <h2>Sales Statistics</h2>
     <p>Total Sales: {{ total_sales }}</p>
@@ -20,4 +21,20 @@
     <h2>Product Type Distribution in Orders</h2>
     <img src="data:image/png;base64,{{ pie_chart }}" alt="Product type distribution in orders">
 
+    <p>----------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+
+    <h2>Graph of e^x and its Taylor Series Approximation</h2>
+    <canvas id="expGraph" width="800" height="400"></canvas>
+
+    <!-- Передаем данные как обычные переменные JavaScript -->
+    <script>
+        var xValues = {{ x_values|safe }};
+        var expValues = {{ exp_values|safe }};
+        var taylorValues = {{ taylor_values|safe }};
+    </script>
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'js/graphics.js' %}"></script>
+{% endblock %}
 {% endblock %}
