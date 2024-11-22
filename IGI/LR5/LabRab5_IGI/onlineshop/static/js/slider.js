@@ -6,7 +6,10 @@ document.addEventListener("DOMContentLoaded", function() {
     const nextButton = document.getElementById("next");
     const paginationButtons = document.querySelectorAll(".page");
     const slider = document.querySelector(".slides");
+const slideDelayInput = document.getElementById("slide-delay");
 
+    // Добавляем обработчик события для изменения значения
+    slideDelayInput.addEventListener("change", updateAutoSlideInterval);
     let currentIndex = 0;
     let autoSlideInterval;
 
@@ -40,12 +43,22 @@ document.addEventListener("DOMContentLoaded", function() {
         pages[index].classList.add("active");
     }
 
+ function updateAutoSlideInterval() {
+        const delay = parseInt(slideDelayInput.value, 10); // Получаем новое значение задержки
+        console.log("New delay: ", delay);  // Выводим значение в консоль для отладки
+        if (isNaN(delay) || delay <= 0) return; // Если значение некорректное, не обновляем
+
+        settings.delay = delay; // Обновляем значение задержки в настройках
+        stopAutoSlide(); // Останавливаем текущий интервал
+        startAutoSlide(); // Запускаем новый интервал с новым значением задержки
+    }
+
     function startAutoSlide() {
         if (settings.auto) {
             autoSlideInterval = setInterval(function() {
                 currentIndex = (currentIndex + 1) % slides.length;
                 showSlide(currentIndex);
-            }, settings.delay * 1000); // Переключение через delay секунд
+            }, settings.delay * 1000); // Используем задержку из настроек
         }
     }
 
@@ -109,3 +122,5 @@ document.addEventListener("DOMContentLoaded", function() {
     // Инициализация первого слайда
     showSlide(currentIndex);
 });
+
+

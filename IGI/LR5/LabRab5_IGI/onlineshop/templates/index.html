@@ -43,15 +43,21 @@
 <div class="slider-container">
     <div class="slides">
         <div class="slide">
+            <a href="https://github.com/karina-timoshevich/IGI_new_name/tree/STRWEB_LR3/IGI/LR5/LabRab5_IGI">
             <img src="{{ info.banner1.url }}" alt="Banner 1" class="banner-image">
+                  </a>
             <div class="slide-caption" id="caption-1">Fresh and healthy products straight from the farm to your table!</div>
         </div>
         <div class="slide">
+              <a href="https://github.com/karina-timoshevich/IGI_new_name/tree/STRWEB_LR3/IGI/LR5/LabRab5_IGI">
             <img src="{{ info.banner2.url }}" alt="Banner 2" class="banner-image">
+                    </a>
             <div class="slide-caption" id="caption-2">Daily essentials for your family — always fresh and available!</div>
         </div>
         <div class="slide">
+              <a href="https://github.com/karina-timoshevich/IGI_new_name/tree/STRWEB_LR3/IGI/LR5/LabRab5_IGI">
             <img src="{{ info.banner3.url }}" alt="Banner 3" class="banner-image">
+                    </a>
             <div class="slide-caption" id="caption-3">All your favorite ingredients in one place — for every recipe!</div>
         </div>
     </div>
@@ -102,6 +108,12 @@
         <label for="background-color">Background color:</label>
         <input type="color" id="background-color" value="#ffffff">
     </div>
+     {% if user.is_superuser %}
+ <div>
+        <label for="slide-delay">Slide delay (seconds):</label>
+        <input type="number" id="slide-delay" value="{{ settings.delay }}" min="1" step="1">
+    </div>
+    {% endif %}
 </div>
 
 {% block scripts %}
