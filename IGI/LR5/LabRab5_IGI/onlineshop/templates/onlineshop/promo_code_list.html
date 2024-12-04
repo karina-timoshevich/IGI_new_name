@@ -17,30 +17,27 @@
   </div>
 
   <script>
-    // Функция для анимации элементов списка
+
     function animatePromoCodes() {
       const promoList = document.getElementById('promo-list');
       const listItems = promoList.querySelectorAll('li');
 
       listItems.forEach((item, index) => {
-        // Анимация для каждого элемента списка
         const animation = item.animate([
-          { opacity: 0, transform: 'translateY(20px)' },  // Начальное состояние
-          { opacity: 1, transform: 'translateY(0)' }      // Конечное состояние
+          { opacity: 0, transform: 'translateY(20px)' },
+          { opacity: 1, transform: 'translateY(0)' }
         ], {
-          duration: 500,  // Длительность анимации
-          delay: index * 200,  // Задержка между анимациями
-          easing: 'ease-out',  // Поведение анимации
+          duration: 500,
+          delay: index * 200,
+          easing: 'ease-out',
         });
 
-        // После завершения анимации можно сделать элемент видимым
         animation.onfinish = () => {
           item.style.opacity = 1;
         };
       });
     }
 
-    // Вызываем функцию анимации после загрузки страницы
     window.onload = animatePromoCodes;
   </script>
 {% endblock %}

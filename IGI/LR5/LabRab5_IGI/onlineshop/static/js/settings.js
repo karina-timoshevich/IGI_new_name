@@ -12,10 +12,7 @@ document.getElementById('text-color').addEventListener('input', function () {
 });
 
 document.getElementById('background-color').addEventListener('input', function () {
-    // Меняем цвет фона страницы
     document.body.style.backgroundColor = this.value;
-
-    // Если фон с картинкой, сбрасываем картинку при изменении цвета
     document.body.style.backgroundImage = 'none';
 });
 

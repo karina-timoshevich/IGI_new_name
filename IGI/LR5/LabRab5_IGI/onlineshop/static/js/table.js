@@ -3,9 +3,7 @@ function sortTable(columnIndex) {
     const rows = Array.from(table.tBodies[0].rows);
     const direction = table.getAttribute("data-sort-direction") || "asc";
 
-    // Очистка старых индикаторов
     document.querySelectorAll("[id^=sort-arrow-]").forEach(el => (el.innerHTML = ""));
-
     rows.sort((a, b) => {
         const aText = a.cells[columnIndex].innerText.trim().toLowerCase();
         const bText = b.cells[columnIndex].innerText.trim().toLowerCase();
@@ -17,7 +15,6 @@ function sortTable(columnIndex) {
     rows.forEach(row => table.tBodies[0].appendChild(row));
     table.setAttribute("data-sort-direction", direction === "asc" ? "desc" : "asc");
 
-    // Добавление индикатора
     const arrow = direction === "asc" ? "↑" : "↓";
     document.getElementById(`sort-arrow-${columnIndex}`).innerHTML = arrow;
 }
@@ -43,11 +40,10 @@ function filterTable() {
             .map(cell => cell.textContent.toLowerCase())
             .join(" ");
 
-        // Показывать или скрывать строки в зависимости от текста
         if (cellsText.includes(input)) {
-            row.style.display = ""; // Показать строку
+            row.style.display = "";
         } else {
-            row.style.display = "none"; // Скрыть строку
+            row.style.display = "none";
         }
     }
 }
@@ -81,7 +77,6 @@ const validateForm = () => {
     const isURLValid = validateURL(urlInput.value);
     const arePasswordsMatching = passwordInput.value === passwordConfirmationInput.value;
 
-    // Проверяем, что все поля заполнены
     const isFormComplete = phoneInput.value && urlInput.value && passwordInput.value && passwordConfirmationInput.value;
 
     phoneError.style.display = isPhoneValid ? 'none' : 'block';
@@ -93,45 +88,39 @@ const validateForm = () => {
     passwordInput.style.border = arePasswordsMatching ? '1px solid #ccc' : '1px solid red';
     passwordConfirmationInput.style.border = arePasswordsMatching ? '1px solid #ccc' : '1px solid red';
 
-    // Активируем кнопку только если все поля заполнены и валидны
     submitButton.disabled = !(isFormComplete && isPhoneValid && isURLValid && arePasswordsMatching);
 };
 
 
-    // Привязываем обработчики к инпутам
    phoneInput.addEventListener('input', validateForm);
 urlInput.addEventListener('input', validateForm);
 passwordInput.addEventListener('input', validateForm);
 passwordConfirmationInput.addEventListener('input', validateForm);
 
-// Скрываем форму при загрузке страницы
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('employeeForm').style.display = 'none';
     validateForm(); // Проверяем состояние формы
 });
 
-// Сохранение выбранных сотрудников в localStorage
 function saveSelectedEmployees() {
     const selectedCheckboxes = document.querySelectorAll('input[name="select_employee"]:checked');
     const selectedData = {};
 
     selectedCheckboxes.forEach(checkbox => {
         const row = checkbox.closest('tr');
-        const lastName = row.cells[1].innerText; // Фамилия сотрудника (во втором столбце)
-        selectedData[checkbox.value] = lastName; // Сохраняем ID и фамилию
+        const lastName = row.cells[1].innerText;
+        selectedData[checkbox.value] = lastName;
     });
 
     localStorage.setItem("selectedEmployees", JSON.stringify(selectedData));
 }
 
-// Удаление сотрудника из localStorage
 function deselectEmployee(employeeId) {
     const selectedData = JSON.parse(localStorage.getItem("selectedEmployees")) || {};
     delete selectedData[employeeId];
     localStorage.setItem("selectedEmployees", JSON.stringify(selectedData));
 }
 
-// Восстановление состояния чекбоксов
 function restoreSelectedEmployees() {
     const selectedData = JSON.parse(localStorage.getItem("selectedEmployees")) || {};
     document.querySelectorAll('input[name="select_employee"]').forEach(checkbox => {
@@ -143,95 +132,73 @@ function restoreSelectedEmployees() {
     });
 }
 
-// Обработчик изменения чекбокса
 document.addEventListener("change", event => {
     if (event.target.name === "select_employee") {
         const employeeId = event.target.value;
         const selectedData = JSON.parse(localStorage.getItem("selectedEmployees")) || {};
 
         if (event.target.checked) {
-            // Если выбрано, добавляем сотрудника
             const row = event.target.closest('tr');
             const lastName = row.cells[1].innerText;
             selectedData[employeeId] = lastName;
         } else {
-            // Если снята галочка, удаляем из localStorage
             delete selectedData[employeeId];
         }
 
-        // Сохраняем изменения
         localStorage.setItem("selectedEmployees", JSON.stringify(selectedData));
 
-        // Обновляем текст премирования
         rewardSelected();
     }
 });
 
-// Вызов восстановления состояния при загрузке страницы
 document.addEventListener("DOMContentLoaded", () => {
     restoreSelectedEmployees();
     rewardSelected();
 });
 
-// Обновление текста премирования с фамилиями сотрудников
 function rewardSelected() {
     const selectedData = JSON.parse(localStorage.getItem("selectedEmployees")) || {};
     const lastNames = Object.values(selectedData).filter(name => name && name.trim() !== "");
 
     const rewardTextDiv = document.getElementById("rewardText");
     if (lastNames.length > 0) {
-        const namesList = lastNames.join(", "); // Формируем список через запятую
+        const namesList = lastNames.join(", ");
         rewardTextDiv.innerHTML = `<p>The following employees are rewarded: ${namesList}.</p>`;
     } else {
         rewardTextDiv.innerHTML = `<p>No employees selected for rewarding.</p>`;
     }
 }
 
-// Функция для показа прелоадера
 function showPreloader() {
     document.getElementById('preloader').style.display = 'block';
-    document.querySelector('.content-pr').classList.add('blur'); // Добавляем эффект размытия
+    document.querySelector('.content-pr').classList.add('blur');
 }
 
-// Функция для скрытия прелоадера
 function hidePreloader() {
     document.getElementById('preloader').style.display = 'none';
-    document.querySelector('.content-pr').classList.remove('blur'); // Убираем размытие
+    document.querySelector('.content-pr').classList.remove('blur');
 }
 
-// Пример асинхронной операции с искусственной задержкой
 async function loadData() {
-    // Показываем прелоадер
     showPreloader();
-
-    // Имитируем задержку, чтобы прелоадер был виден
-    await new Promise(resolve => setTimeout(resolve, 1500)); // Задержка 3 секунды
-
-    // Здесь можно добавить код для загрузки реальных данных, если необходимо.
+    await new Promise(resolve => setTimeout(resolve, 1500));
     console.log("Данные загружены!");
-
-    // Скрываем прелоадер после задержки
     hidePreloader();
 }
 
-// Вызов функции для загрузки данных
 loadData();
-// Логика модального окна
 const modal = document.getElementById("modal");
 const openModalBtn = document.getElementById("openModal");
 const closeModalBtn = document.getElementById("closeModal");
 
-// Открытие модального окна
 openModalBtn.addEventListener("click", () => {
     modal.style.display = "block";
 });
 
-// Закрытие модального окна
 closeModalBtn.addEventListener("click", () => {
     modal.style.display = "none";
 });
 
-// Закрытие при клике вне модального окна
 window.addEventListener("click", (event) => {
     if (event.target === modal) {
         modal.style.display = "none";

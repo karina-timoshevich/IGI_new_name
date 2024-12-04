@@ -1,20 +1,16 @@
-// countdown.js
 document.addEventListener("DOMContentLoaded", function () {
     const timerElement = document.getElementById("countdown-timer");
     const COOKIE_NAME = "countdown_start_time";
-    const countdownDuration = 3600 * 1000; // 1 час в миллисекундах
+    const countdownDuration = 3600 * 1000;
 
-    // Получаем сохраненное время начала из cookies или создаем новое
     let startTime = document.cookie.split('; ').find(row => row.startsWith(COOKIE_NAME + "="));
     startTime = startTime ? parseInt(startTime.split('=')[1]) : null;
 
     if (!startTime) {
-        // Устанавливаем новое значение в cookies
-        startTime = Date.now(); // Текущее время в миллисекундах
+        startTime = Date.now();
         document.cookie = `${COOKIE_NAME}=${startTime}; path=/; max-age=3600`;
     }
 
-    // Обратный отсчет
     const endTime = startTime + countdownDuration;
 
     function updateCountdown() {
@@ -32,7 +28,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // Обновляем каждые 1000 мс
     updateCountdown();
     const interval = setInterval(updateCountdown, 1000);
 });

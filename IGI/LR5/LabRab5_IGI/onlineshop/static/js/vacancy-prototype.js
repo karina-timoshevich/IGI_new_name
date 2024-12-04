@@ -1,4 +1,3 @@
-// Базовый класс Vacancy с прототипным наследованием
 function Vacancy(profession, salary, phone) {
     this.profession = profession;
     this.salary = salary;
@@ -34,11 +33,20 @@ Vacancy.prototype.addVacancy = function(profession, salary, phone) {
     this.setSalary(salary);
     this.setPhone(phone);
 }
+function HighSalaryVacancy(profession, salary, phone, bonus) {
+    Vacancy.call(this, profession, salary, phone);
+    this.bonus = bonus;
+}
 
-// Массив для хранения вакансий
+HighSalaryVacancy.prototype = Object.create(Vacancy.prototype);
+HighSalaryVacancy.prototype.constructor = HighSalaryVacancy;
+
+HighSalaryVacancy.prototype.getBonus = function() {
+    return this.bonus;
+};
+
 let vacancies = JSON.parse(localStorage.getItem('vacancies')) || [];
 
-// Метод для фильтрации вакансий с высокой зарплатой
 function filterHighSalaryVacancies() {
     const profession = document.getElementById('profession').value;
     const totalSalary = vacancies
@@ -58,7 +66,6 @@ function filterHighSalaryVacancies() {
     });
 }
 
-// Метод для добавления вакансии
 document.getElementById('vacancy-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const profession = document.getElementById('profession').value;
@@ -68,23 +75,18 @@ document.getElementById('vacancy-form').addEventListener('submit', function(e) {
     const vacancy = new Vacancy(profession, salary, phone);
     vacancies.push(vacancy);
 
-    // Сохраняем вакансии в localStorage
     localStorage.setItem('vacancies', JSON.stringify(vacancies));
 
-    // Выводим все вакансии на страницу
     const vacancyList = document.getElementById('vacancy-list');
     const li = document.createElement('li');
     li.textContent = `Profession: ${vacancy.profession}, Salary: ${vacancy.salary}, Phone: ${vacancy.phone}`;
     vacancyList.appendChild(li);
 
-    // Фильтруем вакансии с высокой зарплатой
     filterHighSalaryVacancies();
 
-    // Очистка полей формы
     document.getElementById('vacancy-form').reset();
 });
 
-// Загружаем вакансии и выводим их на страницу при загрузке
 window.onload = function() {
     const vacancyList = document.getElementById('vacancy-list');
     vacancies.forEach(vacancy => {
@@ -92,6 +94,5 @@ window.onload = function() {
         li.textContent = `Profession: ${vacancy.profession}, Salary: ${vacancy.salary}, Phone: ${vacancy.phone}`;
         vacancyList.appendChild(li);
     });
-    // Фильтруем вакансии с высокой зарплатой
     filterHighSalaryVacancies();
 };

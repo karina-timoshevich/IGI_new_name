@@ -730,8 +730,8 @@ footer .btn-emerald {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .product-item:hover {
-  transform: translateY(-10px); /* Эффект поднятия */
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Более выраженная тень */
+  transform: translateY(-10px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .product-item h2 {
@@ -1663,31 +1663,30 @@ input[placeholder="Disabled"] {
 .slide {
     min-width: 100%;
     position: relative;
-    height: 100%; /* Устанавливаем высоту каждого слайда */
+    height: 100%;
 }
 .slide-caption-container {
     position: absolute;
-    bottom: 0; /* Расположение текста внизу слайда */
+    bottom: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    pointer-events: none; /* Чтобы не мешать прокрутке */
+    pointer-events: none;
 }
 
-/* Подпись для каждого слайда */
 .slide-caption {
     position: absolute;
-    bottom: 30px;  /* Расстояние от нижнего края */
+    bottom: 30px;
     left: 50%;
-    transform: translateX(-50%);  /* Центрирование по горизонтали */
+    transform: translateX(-50%);
     font-size: 18px;
     color: black;
 
     padding: 10px;
-    text-align: center;  /* Текст по центру */
-    width: calc(100% - 20px); /* Ширина, учитывающая отступы */
-    z-index: 10; /* Обеспечивает отображение текста поверх изображений */
-    visibility: hidden; /* Скрыть подписи по умолчанию */
+    text-align: center;
+    width: calc(100% - 20px);
+    z-index: 10;
+    visibility: hidden;
 }
 
 .banner-image {
@@ -1718,7 +1717,7 @@ input[placeholder="Disabled"] {
 
 .pagination-sl {
     position: absolute;
-    bottom: 10px; /* Устанавливаем расстояние от нижнего края слайдера */
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -1727,43 +1726,42 @@ input[placeholder="Disabled"] {
     z-index: 200;
 }
 
-/* Чтобы блок с таблицей и кнопкой добавления сотрудника не перекрывали пагинацию */
+
 .employee-table-container {
-    padding-bottom: 60px; /* Добавить отступ снизу, чтобы было место для пагинации */
+    padding-bottom: 60px;
 }
 
-/* Кнопка "Добавить сотрудника" */
 #toggleForm {
-    margin-bottom: 20px;  /* Немного отступа снизу */
+    margin-bottom: 20px;
 }
 
 .page {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background-color: rgba(187, 186, 186, 0.6);  /* Легкая прозрачность */
+    background-color: rgba(187, 186, 186, 0.6);
     cursor: pointer;
     transition: background-color 0.3s, transform 0.3s;
 }
 
 .page:hover {
-    background-color: rgba(161, 160, 160, 0.8);  /* Более яркий цвет при наведении */
-    transform: scale(1.2);  /* Увеличение при наведении */
+    background-color: rgba(161, 160, 160, 0.8);
+    transform: scale(1.2);
 }
 
 .page.active {
-    background-color: rgb(133, 131, 131);  /* Яркий цвет для активного слайда */
+    background-color: rgb(133, 131, 131);
 }
-/* Пагинация с номером слайда в верхнем левом углу */
+
 #slide-number {
     position: absolute;
-    top: 10px;  /* Отступ сверху */
-    left: 10px;  /* Отступ слева */
+    top: 10px;
+    left: 10px;
     font-size: 16px;
     color: black;
-    z-index: 30; /* Позиционируем поверх других элементов */
+    z-index: 30;
 }
-/* Контейнер для таблицы */
+
 .employee-table-container {
     display: flex;
     justify-content: center;
@@ -1771,10 +1769,9 @@ input[placeholder="Disabled"] {
     padding: 10px;
     background-color: #f5f5f5;
     border-radius: 8px;
-    flex-direction: column; /* Добавлен этот стиль, чтобы блок с деталями шел под таблицей */
+    flex-direction: column;
 }
 
-/* Таблица сотрудников */
 .employee-table {
     width: 100%;
     max-width: 1200px;
@@ -1785,9 +1782,8 @@ input[placeholder="Disabled"] {
     border-radius: 8px;
 }
 
-/* Заголовки столбцов */
 .employee-table th {
-    background-color: #4CAF50; /* Зеленый оттенок для рабочего стиля */
+    background-color: #4CAF50;
     color: #fff;
     text-align: center;
     padding: 10px;
@@ -1795,7 +1791,6 @@ input[placeholder="Disabled"] {
     text-transform: uppercase;
 }
 
-/* Ячейки */
 .employee-table td {
     vertical-align: middle;
     text-align: center;
@@ -1805,25 +1800,21 @@ input[placeholder="Disabled"] {
     font-size: 0.9em;
 }
 
-/* Пустые ячейки */
 .employee-table td:empty {
-    background-color: #e0e0e0; /* Серый фон для пустых значений */
+    background-color: #e0e0e0;
     color: #888;
 }
 
-/* Полосатые строки */
 .employee-table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-/* Ховер для строк */
 .employee-table tr:hover {
-    background-color: #81c784; /* Светлый зеленый при наведении */
+    background-color: #81c784;
     color: #030000;
     transition: 0.3s;
 }
 
-/* Блок с деталями */
 .details-container {
     margin-top: 20px;
     padding: 20px;
@@ -1864,65 +1855,61 @@ input[placeholder="Disabled"] {
 .pagination .step-links span {
     padding: 5px 10px;
     text-decoration: none;
-    color: #2e7d32; /* Темно-зелёный */
-    border: 1px solid #50C878; /* Светло-зелёная рамка */
+    color: #2e7d32;
+    border: 1px solid #50C878;
     border-radius: 5px;
     display: inline-block;
-    background-color: #e0f2e9; /* Светло-зелёный фон */
+    background-color: #e0f2e9;
     font-weight: bold;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .pagination .step-links a:hover {
-    background-color: #81c784; /* Светло-зелёный при наведении */
-    color: #fff; /* Белый текст */
+    background-color: #81c784;
+    color: #fff;
 }
 
 .pagination .step-links .current {
     font-weight: bold;
     color: #fff;
-    background-color: #50C878; /* Ярко-зелёный для текущей страницы */
+    background-color: #50C878;
     border-color: #2e7d32;
 }
 
 .pagination .step-links .disabled {
-    color: #888; /* Серый текст для неактивных элементов */
-    border: 1px solid #ddd; /* Серый бордер */
-    background-color: #f0f0f0; /* Светло-серый фон */
+    color: #888;
+    border: 1px solid #ddd;
+    background-color: #f0f0f0;
     cursor: not-allowed;
 }
 
-/* Элемент для контента страницы */
 .content-pr {
-    transition: filter 0.3s ease; /* Плавный переход */
+    transition: filter 0.3s ease;
 }
 
-/* Применение размытия */
 .content-pr.blur {
-    filter: blur(10px); /* Увеличьте степень размытия */
+    filter: blur(10px);
 }
 
-/* Уменьшение размера полей формы */
 #employeeForm {
     display: flex;
-    flex-wrap: wrap; /* Поля размещаются в несколько колонок */
-    gap: 10px; /* Расстояние между полями */
-    padding: 10px; /* Уменьшенный отступ */
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
     background-color: #f9f9f9;
     border-radius: 20px;
-    max-width: 800px; /* Фиксированная ширина формы */
-    margin: 0 auto; /* Центрирование формы */
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-/* Уменьшенные поля ввода */
 #employeeForm div {
     display: flex;
     flex-direction: column;
-    flex: 1 1 calc(50% - 20px); /* Поля занимают половину ширины контейнера */
+    flex: 1 1 calc(50% - 20px);
 }
 
 #employeeForm label {
-    font-size: 0.8em; /* Уменьшенный размер текста */
+    font-size: 0.8em;
     margin-bottom: 5px;
 }
 
@@ -1959,7 +1946,7 @@ input[placeholder="Disabled"] {
     font-size: 0.9em;
     margin-top: 5px;
 }
-/* Стиль для кнопки премирования */
+
 .reward-button {
     background-color: #50C878;
     color: white;
@@ -1977,7 +1964,6 @@ input[placeholder="Disabled"] {
     background-color: #45a049;
 }
 
-/* Сообщение после премирования */
 #rewardText {
     font-size: 1.2em;
     color: #4CAF50;
@@ -1986,7 +1972,7 @@ input[placeholder="Disabled"] {
 }
 
 .modal {
-    display: none; /* Скрыто по умолчанию */
+    display: none;
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -1995,7 +1981,7 @@ input[placeholder="Disabled"] {
     height: 100%;
       border-radius: 20px;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Полупрозрачный фон */
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-content {
@@ -2003,7 +1989,7 @@ input[placeholder="Disabled"] {
     margin: 1% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 50%; /* Ширина окна */
+    width: 50%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     animation: fadeIn 0.3s;
 }
@@ -2038,7 +2024,6 @@ font-weight: bold;
     background-color: #277741;
 }
 
-/* Область формы поиска */
 .search-area {
     display: flex;
     align-items: center;
@@ -2050,9 +2035,8 @@ font-weight: bold;
     background-color: #f9f9f9;
 }
 
-/* Поле ввода */
 .search-input {
-    flex-grow: 1; /* Растягивается по ширине контейнера */
+    flex-grow: 1;
     padding: 10px;
     font-size: 14px;
     border: 1px solid #ccc;
@@ -2065,7 +2049,6 @@ font-weight: bold;
     border-color: #007BFF;
 }
 
-/* Выпадающий список */
 .search-select {
     padding: 10px;
     font-size: 14px;
@@ -2080,7 +2063,6 @@ font-weight: bold;
     border-color: #007BFF;
 }
 
-/* Кнопка поиска */
 .search-button {
     padding: 10px 15px;
     font-size: 14px;
@@ -2104,7 +2086,7 @@ font-weight: bold;
 }
 
 .registration-container {
-    width: 400px; /* Оптимальная ширина формы */
+    width: 400px;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 10px;
@@ -2119,20 +2101,20 @@ margin-left: 500px;
 
 
 .form-field-register {
-    width: 300px; /* Все поля одинаковой длины */
+    width: 300px;
     margin-bottom: 15px;
 }
 
 .form-field-register label {
     display: block;
     font-size: 14px;
-    margin-bottom: 5px; /* Отступ между подписью и полем */
+    margin-bottom: 5px;
     color: #333;
-    font-weight: bold; /* Подписи выделены */
+    font-weight: bold;
 }
 
 .form-field-register input {
-    width: 300px; /* Поля одинаковой ширины */
+    width: 300px;
     padding: 10px;
     font-size: 14px;
     border-radius: 5px;
@@ -2143,8 +2125,8 @@ margin-left: 500px;
 
 .form-field-register input:focus {
     outline: none;
-    border-color: #50C878; /* Зеленая рамка при фокусе */
-    background-color: #f0fff4; /* Легкий зеленый фон при фокусе */
+    border-color: #50C878;
+    background-color: #f0fff4;
 }
 .error {
     color: #00acf5;
@@ -2156,16 +2138,16 @@ margin-left: 500px;
 
 
 .products-animation-scroll {
-  position: relative; /* Ensure the products container is the reference for absolute positioning */
+  position: relative;
 }
 
 .product-animation-scroll {
-  font-size: 50px; /* Increase emoji size */
-  position: absolute; /* Position each product absolutely */
+  font-size: 50px;
+  position: absolute;
   transition: transform 1s ease-in-out;
-  background-color: transparent; /* Remove background color */
-  width: auto; /* Adjust width to fit content */
-  height: auto; /* Adjust height to fit content */
+  background-color: transparent;
+  width: auto;
+  height: auto;
 }
 
 #product1-scroll {
@@ -2186,12 +2168,15 @@ margin-left: 500px;
 .cart-animation-scroll {
   position: absolute;
     top: 75%;
-  right: 20px; /* Adjust as needed */
-  font-size: 110px; /* Increase emoji size */
+  right: 20px;
+  font-size: 110px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: transparent; /* Remove background color */
-  width: auto; /* Adjust width to fit content */
-  height: auto; /* Adjust height to fit content */
+  background-color: transparent;
+  width: auto;
+  height: auto;
+}
+#settings-panel {
+    display: none;
 }

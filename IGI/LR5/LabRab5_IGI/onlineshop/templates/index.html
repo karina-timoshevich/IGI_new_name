@@ -87,9 +87,16 @@
 
     <label for="settings-toggle">Enable custom settings</label>
 <input type="checkbox" id="settings-toggle" />
+<div id="settings-container"></div>
 
-<div id="settings-panel" style="display: none;">
-    <div>
+<script>
+    const user = { is_superuser: true };
+    const settingsContainer = document.getElementById('settings-container');
+    const settingsPanel = document.createElement('div');
+    settingsPanel.id = 'settings-panel';
+
+    const fontSizeDiv = document.createElement('div');
+    fontSizeDiv.innerHTML = `
         <label for="font-size">Font size:</label>
         <select id="font-size">
             <option value="14px">14px</option>
@@ -97,24 +104,41 @@
             <option value="18px">18px</option>
             <option value="20px">20px</option>
         </select>
-    </div>
+    `;
+    settingsPanel.appendChild(fontSizeDiv);
 
-    <div>
+    const textColorDiv = document.createElement('div');
+    textColorDiv.innerHTML = `
         <label for="text-color">Text color:</label>
         <input type="color" id="text-color" value="#000000">
-    </div>
+    `;
+    settingsPanel.appendChild(textColorDiv);
+document.getElementById('settings-toggle').addEventListener('change', function() {
+    if (this.checked) {
+        settingsPanel.style.display = 'block';
+    } else {
+        settingsPanel.style.display = 'none';
+    }
+});
 
-    <div>
+    const bgColorDiv = document.createElement('div');
+    bgColorDiv.innerHTML = `
         <label for="background-color">Background color:</label>
         <input type="color" id="background-color" value="#ffffff">
-    </div>
-     {% if user.is_superuser %}
- <div>
-        <label for="slide-delay">Slide delay (seconds):</label>
-        <input type="number" id="slide-delay" value="{{ settings.delay }}" min="1" step="1">
-    </div>
-    {% endif %}
-</div>
+    `;
+    settingsPanel.appendChild(bgColorDiv);
+    if (user.is_superuser) {
+        const slideDelayDiv = document.createElement('div');
+        slideDelayDiv.innerHTML = `
+            <label for="slide-delay">Slide delay (seconds):</label>
+            <input type="number" id="slide-delay" value="5" min="1" step="1">
+        `;
+        settingsPanel.appendChild(slideDelayDiv);
+    }
+
+    settingsContainer.appendChild(settingsPanel);
+</script>
+
 
 {% block scripts %}
     <script src="{% static 'js/slider.js' %}"></script>

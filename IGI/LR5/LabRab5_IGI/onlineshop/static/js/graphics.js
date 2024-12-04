@@ -1,34 +1,31 @@
-// Получаем контекст канваса
 const ctx = document.getElementById('expGraph').getContext('2d');
 
-// Проверим, что переменные xValues, expValues и taylorValues определены
-console.log(xValues);  // Печать значений x
-console.log(expValues);  // Печать значений exp(x)
-console.log(taylorValues);  // Печать значений для ряда Тейлора
+console.log(xValues);
+console.log(expValues);
+console.log(taylorValues);
 
-// Создаем график с двумя линиями: один для функции exp(x), другой для её приближения по ряду Тейлора
 new Chart(ctx, {
     type: 'line',
     data: {
-        labels: xValues,  // Подписи оси X
+        labels: xValues,
         datasets: [{
             label: 'Taylor Series Approximation',
-            data: taylorValues,  // Данные для ряда Тейлора
+            data: taylorValues,
             borderColor: 'rgba(75, 192, 192, 1)',
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             fill: false,
             tension: 0.1
         }, {
             label: 'Actual \( e^x \)',
-            data: expValues,  // Данные для функции exp(x)
+            data: expValues,
             borderColor: 'rgba(153, 102, 255, 1)',
             backgroundColor: 'rgba(153, 102, 255, 0.2)',
             fill: false,
-            tension: 0.1
+            tension: 0.1 //степень кривизны
         }]
     },
     options: {
-        responsive: true,
+        responsive: true, //адаптивность
         scales: {
             x: {
                 title: {
@@ -37,7 +34,7 @@ new Chart(ctx, {
                 },
                  ticks: {
                 callback: function(value) {
-                    return value.toFixed(2);  // Округляем до 2 знаков после запятой
+                    return value.toFixed(2);
                 }
             }
             },
@@ -48,13 +45,13 @@ new Chart(ctx, {
                 },
                  ticks: {
                 callback: function(value) {
-                    return value.toFixed(2);  // Округляем до 2 знаков после запятой
+                    return value.toFixed(2);
                 }
             }
             }
         },
         animation: {
-            duration: 2000,  // Анимация длится 2 секунды
+            duration: 2000,
             easing: 'easeInOutQuart'
         },
         plugins: {

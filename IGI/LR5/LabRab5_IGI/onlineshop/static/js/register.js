@@ -1,8 +1,8 @@
 document.getElementById("id_date_of_birth").addEventListener("change", function () {
     const dob = document.getElementById("id_date_of_birth").value; // ID поля даты
     const today = new Date();
-    const dobParts = dob.split('.'); // Предполагается формат DD.MM.YYYY
-    const dobDate = new Date(dobParts[2], dobParts[1] - 1, dobParts[0]); // Преобразование строки в дату
+    const dobParts = dob.split('.');
+    const dobDate = new Date(dobParts[2], dobParts[1] - 1, dobParts[0]);
 
     if (dobDate > today) {
         alert("Дата рождения не может быть в будущем.");

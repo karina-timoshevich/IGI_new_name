@@ -533,41 +533,34 @@ def add_employee(request):
         photo = request.FILES.get('photo')
         job_description = request.POST.get('job_description')
         phone = request.POST.get('phone')
-        username = request.POST.get('username')  # Используем username для логина
-        email = request.POST.get('email')  # Email сотрудника
+        username = request.POST.get('username')
+        email = request.POST.get('email')
         password = request.POST.get('password')
         password_confirmation = request.POST.get('password_confirmation')
         url = request.POST.get('url')
 
-        # Проверка пароля
         if password != password_confirmation:
             return render(request, 'onlineshop/add_employee.html', {
                 'error_message': 'Passwords do not match',
                 'form_data': request.POST,
             })
 
-        # Проверка телефона
         if not validate_phone(phone):
             return render(request, 'onlineshop/add_employee.html', {
                 'error_message': 'Invalid phone number',
                 'form_data': request.POST,
             })
 
-        # Проверка URL
         if url and not validate_url(url):
             return render(request, 'onlineshop/add_employee.html', {
                 'error_message': 'Invalid URL',
                 'form_data': request.POST,
             })
 
-        # Создаем пользователя с подтверждением пароля
         user = User.objects.create_user(username=username, password=password, email=email)
-
-        # Добавляем пользователя в группу Employees
         group = Group.objects.get(name='Employees')
         user.groups.add(group)
 
-        # Создаем сотрудника в таблице Employee
         employee = Employee.objects.create(
             user=user,
             first_name=first_name,
@@ -576,59 +569,52 @@ def add_employee(request):
             photo=photo,
             job_description=job_description,
             phone=phone,
-            email=email,  # Эмейл добавляется в таблицу сотрудника
+            email=email,
         )
 
-        return redirect('employee_table')  # Перенаправление на страницу списка сотрудников
+        return redirect('employee_table')
 
     return render(request, 'onlineshop/add_employee.html')
 
 
 def validate_phone(phone):
-    # Исправленный шаблон для проверки номеров телефона
     phone_pattern = r'^(?:\+375|8)\s?\(?\d{2,3}\)?[\s\-]?\d{3}[\s\-]?\d{2}[\s\-]?\d{2}$'
     return re.match(phone_pattern, phone)
 
 
 def validate_url(url):
-    # Проверка URL с использованием регулярных выражений
     url_pattern = r'^(https?:\/\/)[\w-]+\.[a-z]{2,6}(\.[a-z]{2})?(\/[\w\-\.]*)*(\.php|\.html)$'
     return re.match(url_pattern, url)
 
 
 from django.core.paginator import Paginator
 from django.shortcuts import render
-from .models import Product  # Импортируйте модель вашего товара
+from .models import Product
 
 
 def product_list(request):
-    # Получаем все товары
     product_list = Product.objects.all()
+    paginator = Paginator(product_list, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
 
-    # Создаем пагинатор, показываем 3 товара на странице
-    paginator = Paginator(product_list, 3)  # Показываем по 3 товара на странице
-    page_number = request.GET.get('page')  # Получаем номер страницы из GET-параметров
-    page_obj = paginator.get_page(page_number)  # Получаем объект страницы
-
-    # Передаем данные в шаблон
     return render(request, 'product_list.html', {'page_obj': page_obj})
 
 import math
 from django.shortcuts import render
 
-# Функция для расчета ряда Тейлора для e^x
+
 def taylor_series_expansion(x, n_terms=10):
     result = 0
     for n in range(n_terms):
         result += (x ** n) / math.factorial(n)
     return result
 
-# Генерация данных
+
 def generate_exp_graph_data():
-    # Более узкий диапазон для x, который лучше демонстрирует поведение экспоненты
-    x_values = [i * 0.1 for i in range(-50, 71)]  # Значения x от -2 до 2 с шагом 0.1
-    exp_values = [math.exp(x) for x in x_values]  # Реальные значения e^x
-    taylor_values = [taylor_series_expansion(x) for x in x_values]  # Приближение по ряду Тейлора
+    x_values = [i * 0.1 for i in range(-50, 71)]
+    exp_values = [math.exp(x) for x in x_values]
+    taylor_values = [taylor_series_expansion(x) for x in x_values]
 
     return {
         'x_values': x_values,
@@ -668,10 +654,10 @@ def employee_stats(request):
            autopct='%1.1f%%')  # для круговой диаграммы, точность 1 знак посл ,
     ax.axis('equal')  # делаем кругляшком
 
-    buf = BytesIO()  # создаем буфер чтобы не в файл кидать
+    buf = BytesIO()
     plt.savefig(buf, format='png')
     plt.close(fig)
-    image_string = base64.b64encode(buf.getvalue()).decode()  # переводим в строку прежде кодируя в base64
+    image_string = base64.b64encode(buf.getvalue()).decode()
     data = generate_exp_graph_data()
     context = {
         'total_sales': total_sales,
@@ -690,7 +676,5 @@ def employee_stats(request):
 
     return render(request, 'onlineshop/employee_stats.html', context)
 
-
-# Представление для отображения графика
 
 

@@ -1,4 +1,3 @@
-// Базовый класс Vacancy с использованием class/extends
 class Vacancy {
     constructor(profession, salary, phone) {
         this.profession = profession;
@@ -37,7 +36,6 @@ class Vacancy {
     }
 }
 
-// Наследник класса HighSalaryVacancy
 class HighSalaryVacancy extends Vacancy {
     constructor(profession, salary, phone, description) {
         super(profession, salary, phone);
@@ -53,10 +51,8 @@ class HighSalaryVacancy extends Vacancy {
     }
 }
 
-// Массив для хранения вакансий
 let vacanciesClass = JSON.parse(localStorage.getItem('vacanciesClass')) || [];
 
-// Метод для фильтрации вакансий с высокой зарплатой
 function filterHighSalaryVacanciesClass() {
     const profession = document.getElementById('profession').value;
     const totalSalary = vacanciesClass
@@ -76,7 +72,6 @@ function filterHighSalaryVacanciesClass() {
     });
 }
 
-// Метод для добавления вакансии
 document.getElementById('vacancy-form').addEventListener('submit', function(e) {
     e.preventDefault();
     const profession = document.getElementById('profession').value;
@@ -86,23 +81,18 @@ document.getElementById('vacancy-form').addEventListener('submit', function(e) {
     const vacancy = new Vacancy(profession, salary, phone);
     vacanciesClass.push(vacancy);
 
-    // Сохраняем вакансии в localStorage
     localStorage.setItem('vacanciesClass', JSON.stringify(vacanciesClass));
 
-    // Выводим все вакансии на страницу
     const vacancyList = document.getElementById('vacancy-list');
     const li = document.createElement('li');
     li.textContent = `Profession: ${vacancy.profession}, Salary: ${vacancy.salary}, Phone: ${vacancy.phone}`;
     vacancyList.appendChild(li);
 
-    // Фильтруем вакансии с высокой зарплатой
     filterHighSalaryVacanciesClass();
 
-    // Очистка полей формы
     document.getElementById('vacancy-form').reset();
 });
 
-// Загружаем вакансии и выводим их на страницу при загрузке
 window.onload = function() {
     const vacancyList = document.getElementById('vacancy-list');
     vacanciesClass.forEach(vacancy => {
@@ -110,6 +100,5 @@ window.onload = function() {
         li.textContent = `Profession: ${vacancy.profession}, Salary: ${vacancy.salary}, Phone: ${vacancy.phone}`;
         vacancyList.appendChild(li);
     });
-    // Фильтруем вакансии с высокой зарплатой
     filterHighSalaryVacanciesClass();
 };
