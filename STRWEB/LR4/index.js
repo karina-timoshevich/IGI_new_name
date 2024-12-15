@@ -3,12 +3,13 @@ import jwt from "jsonwebtoken"
 import mongoose from "mongoose"
 import bcrypt from 'bcrypt'
 import {validationResult} from 'express-validator';
-import {registerValidation} from './validations/auth.js'
+import {loginValidation, registerValidation} from './validations/auth.js'
 import userModel from "./models/user.js"
 import checkAuth from "./utils/checkAuth.js"
 import * as UserController from "./controllers/userController.js"
 import User from "./models/user.js";
-
+import * as ProductController from "./controllers/productController.js"
+import {CreateProductValidation} from "./validations/product.js";
 mongoose.connect('mongodb://root:example@localhost:27017/onlinestore', {
     authSource: "admin"
 })
@@ -17,10 +18,12 @@ mongoose.connect('mongodb://root:example@localhost:27017/onlinestore', {
 
 const app = express();
 app.use(express.json());
-
 app.post('/auth/register',registerValidation, UserController.register);
-app.post('/auth/login', UserController.login);
-app.get('/auth/me', checkAuth, UserController.getMe());
+app.post('/auth/login',loginValidation,  UserController.login);
+app.get('/auth/me', checkAuth, UserController.getMe);
+
+app.post('/products',CreateProductValidation, ProductController.create);
+//app.post('/products', ProductController.create);
 
 app.listen(4444, (err)=>{
 if(err){

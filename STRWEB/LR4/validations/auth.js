@@ -8,3 +8,8 @@ export const registerValidation = [
                         .matches(/^\+375(25|29|33|44|17)\d{7}$/)
                         .withMessage('Please enter a valid phone number in the format +375XXXXXXXXX'),
 ];
+
+export const loginValidation = [
+     body('email').isEmail().withMessage('Please enter a valid email address'),
+     body('password').isLength({min: 6}).withMessage('Password must be at least 6 characters long'),
+];
