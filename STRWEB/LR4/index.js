@@ -24,6 +24,10 @@ app.post('/auth/login',loginValidation,  UserController.login);
 app.get('/auth/me', checkAuth, UserController.getMe);
 
 app.post('/products/create',checkAuth, checkRole(['admin']),CreateProductValidation, ProductController.create);
+app.get('/products', ProductController.getAll);
+app.get('/products/:id', ProductController.getOne);
+app.put('/products/update/:id',checkAuth, checkRole(['admin']),CreateProductValidation, ProductController.update);
+app.delete('/products/delete/:id',checkAuth, checkRole(['admin']),CreateProductValidation, ProductController.remove);
 
 app.listen(4444, (err)=>{
 if(err){

@@ -13,4 +13,4 @@ const manufacturerSchema = new mongoose.Schema({
         timestamps: true,
     })
 
-export default mongoose.model('manufacturer', manufacturerSchema);
+export default mongoose.model('Manufacturer', manufacturerSchema);

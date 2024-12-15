@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import Manufacturer from "./manufacturer.js";
+
 const productSchema = new mongoose.Schema({
         name: {
             type: String,
