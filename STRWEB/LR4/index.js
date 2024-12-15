@@ -10,6 +10,7 @@ import * as UserController from "./controllers/userController.js"
 import User from "./models/user.js";
 import * as ProductController from "./controllers/productController.js"
 import {CreateProductValidation} from "./validations/product.js";
+import {checkRole} from "./utils/checkRole.js";
 mongoose.connect('mongodb://root:example@localhost:27017/onlinestore', {
     authSource: "admin"
 })
@@ -22,8 +23,7 @@ app.post('/auth/register',registerValidation, UserController.register);
 app.post('/auth/login',loginValidation,  UserController.login);
 app.get('/auth/me', checkAuth, UserController.getMe);
 
-app.post('/products',CreateProductValidation, ProductController.create);
-//app.post('/products', ProductController.create);
+app.post('/products/create',checkAuth, checkRole(['admin']),CreateProductValidation, ProductController.create);
 
 app.listen(4444, (err)=>{
 if(err){

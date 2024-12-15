@@ -44,7 +44,7 @@ export const login = async(req, res)=>{
             return res.status(400).json({message: "Wrong email or password"});
         }
         const {passwordHash: _, ...userWithoutPassword} = user._doc;
-        const token = jwt.sign({_id: user._id}, 'secret123', {expiresIn: '1h'});
+        const token = jwt.sign({_id: user._id, role: user.role}, 'secret123', {expiresIn: '1h'});
         res.json({...userWithoutPassword, token});
     }
     catch (error){

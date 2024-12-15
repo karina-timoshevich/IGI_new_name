@@ -14,12 +14,11 @@ export default (request, response, next) => {
     try {
         const decoded = jwt.verify(token, 'secret123');
         request.user_id = decoded._id;
+        request.role = decoded.role;
         next();
     }
     catch (error){
         console.error(error.message);
         return response.status(401).json({message: "Unauthorized"});
     }
-
-
 }
