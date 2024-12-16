@@ -4,6 +4,9 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true,
         },
+        googleId: {
+            type: String
+        },
         role:{
              type: String,
             enum: ['admin', 'client'],
@@ -17,11 +20,9 @@ const userSchema = new mongoose.Schema({
         },
         birthday:{
             type: Date,
-            required: true,
         },
         passwordHash:{
             type: String,
-            required: true,
         },
         phone: String,
     },
