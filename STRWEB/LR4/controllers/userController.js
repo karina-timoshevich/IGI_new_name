@@ -35,6 +35,8 @@ export const register = async(req, res)=>{
 
 export const login = async(req, res)=>{
     try {
+         console.log("Request body:")
+        console.log(req.body)
         const user = await userModel.findOne({email: req.body.email});
         if (!user){
             return res.status(400).json({message: "Wrong email or password"});
