@@ -23,7 +23,22 @@ export const create = async (req, res) => {
 
 export const getAll = async (req, res) => {
   try {
-    const products = await ProductModel.find().populate('manufacturer_id').exec();
+    const { name, sort } = req.query;
+
+    // Фильтрация по названию
+    const filter = name
+      ? { name: { $regex: new RegExp(name, 'i') } } // Поиск по названию (регистронезависимый)
+      : {};
+
+    // Сортировка
+    const sortOptions = sort === 'price_asc' ? { price: 1 } : sort === 'price_desc' ? { price: -1 } : {};
+
+    // Получаем продукты с фильтрацией и сортировкой
+    const products = await ProductModel.find(filter)
+      .populate('manufacturer_id')
+      .sort(sortOptions)
+      .exec();
+
     res.json(products);
   } catch (err) {
     console.error('Error fetching products:', err);
@@ -32,6 +47,7 @@ export const getAll = async (req, res) => {
     });
   }
 };
+
 
 export const getOne = async (req, res) => {
     try {
