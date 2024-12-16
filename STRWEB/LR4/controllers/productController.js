@@ -25,15 +25,12 @@ export const getAll = async (req, res) => {
   try {
     const { name, sort } = req.query;
 
-    // Фильтрация по названию
     const filter = name
-      ? { name: { $regex: new RegExp(name, 'i') } } // Поиск по названию (регистронезависимый)
+      ? { name: { $regex: new RegExp(name, 'i') } }
       : {};
 
-    // Сортировка
     const sortOptions = sort === 'price_asc' ? { price: 1 } : sort === 'price_desc' ? { price: -1 } : {};
 
-    // Получаем продукты с фильтрацией и сортировкой
     const products = await ProductModel.find(filter)
       .populate('manufacturer_id')
       .sort(sortOptions)
@@ -75,7 +72,6 @@ export const update = async (req, res) => {
   try {
     const productId = req.params.id;
 
-    // Проверяем, существует ли продукт
     const product = await ProductModel.findById(productId);
     if (!product) {
       return res.status(404).json({
@@ -83,7 +79,6 @@ export const update = async (req, res) => {
       });
     }
 
-    // Обновляем продукт
     const updatedProduct = await ProductModel.findByIdAndUpdate(
       productId,
       {
@@ -92,10 +87,10 @@ export const update = async (req, res) => {
         price: req.body.price || product.price,
         imageUrl: req.body.imageUrl || product.imageUrl,
       },
-      { new: true }  // Возвращаем обновленный документ
+      { new: true }
     );
 
-    res.json(updatedProduct);  // Возвращаем обновленный продукт
+    res.json(updatedProduct);
   } catch (err) {
     console.log(err);
     res.status(500).json({
