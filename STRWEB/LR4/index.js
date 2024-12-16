@@ -14,6 +14,9 @@ import {checkRole} from "./utils/checkRole.js";
 import passport from "passport";
 import session from 'express-session';
 import './config/passport.js';
+import * as ReviewController from './controllers/reviewController.js';
+import {CreateReviewValidation} from "./validations/review.js";
+
 
 const app = express();
 app.use(express.json());
@@ -50,6 +53,10 @@ app.get('/products', ProductController.getAll);
 app.get('/products/:id', ProductController.getOne);
 app.put('/products/update/:id',checkAuth, checkRole(['admin']),CreateProductValidation, ProductController.update);
 app.delete('/products/delete/:id',checkAuth, checkRole(['admin']),CreateProductValidation, ProductController.remove);
+
+app.post('/reviews/create', checkAuth, checkRole(['client', 'admin']), CreateReviewValidation, ReviewController.create);
+app.get('/reviews', ReviewController.getAll);
+
 
 app.listen(7300, (err)=>{
 if(err){
