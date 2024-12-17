@@ -4,6 +4,7 @@ import {request} from "express";
 
 export default (request, response, next) => {
     const authHeader = request.headers['authorization'];
+    console.log('authHeader:', authHeader);
     if (!authHeader){
         return response.status(401).json({message: "No token provided"});
     }

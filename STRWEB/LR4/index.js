@@ -17,6 +17,7 @@ import './config/passport.js';
 import * as ReviewController from './controllers/reviewController.js';
 import {CreateReviewValidation} from "./validations/review.js";
 import cors from "cors";
+import * as manufacturerController from "./controllers/manufacturerController.js";
 
 const app = express();
 app.use(cors());
@@ -58,6 +59,7 @@ app.delete('/products/delete/:id',checkAuth, checkRole(['admin']),CreateProductV
 app.post('/reviews/create', checkAuth, checkRole(['client', 'admin']), CreateReviewValidation, ReviewController.create);
 app.get('/reviews', ReviewController.getAll);
 
+app.get("/manufacturers/all", manufacturerController.getAll);
 
 app.listen(7300, (err)=>{
 if(err){

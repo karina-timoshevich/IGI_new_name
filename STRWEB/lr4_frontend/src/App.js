@@ -11,6 +11,8 @@ import Catalog from "./pages/Catalog";
 // import { ThemeProvider } from "./context/ThemeContext";
 // import ProtectedRoute from "./components/ProtectedRoute";
 import Header from "./components/Header";
+import AdminRoute from "./components/AdminRoute";
+import AdminPage from "./pages/AdminPage";
 // import Footer from "./components/Footer";
 
 /* Декларативная функция */
@@ -79,12 +81,7 @@ function App() {
                   <Route path="/catalog" element={<Catalog/>}/>
                   <Route path="/item/:id" element={<ItemDetails/>}/>
                   <Route path="/reviews" element={<Reviews />} />
-                  {/*<Route*/}
-                  {/*    path="/admin"*/}
-                  {/*    element={*/}
-                  {/*      <ProtectedRoute element={<AdminPage/>} adminOnly/>*/}
-                  {/*    }*/}
-                  {/*/>*/}
+                  <Route path="/admin" element={ <AdminRoute element={<AdminPage/>} adminOnly/> } />
                   <Route path="/login" element={<Login/>}/>
                   <Route path="/register" element={<Register/>}/>
                 </Routes>

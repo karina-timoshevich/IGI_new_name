@@ -6,7 +6,7 @@ class Navbar extends Component {
     static contextType = AuthContext;
 
     render() {
-       // const { user } = this.context;
+        const { user } = this.context;
 
         const navStyles = {
             ul: {
@@ -36,17 +36,17 @@ class Navbar extends Component {
                             Reviews
                         </Link>
                     </li>
-                    {/* {user && user.isAdmin && (
-                        <li style={navStyles.li}>
-                            <Link to="/admin" style={navStyles.a}>
-                                Admin
-                            </Link>
-                        </li>
-                    )}*/}
-                </ul>
-            </nav>
-        );
-    }
+                     {user && user.role === "admin" && (
+            <li style={navStyles.li}>
+              <Link to="/admin" style={navStyles.a}>
+                Admin
+              </Link>
+            </li>
+          )}
+        </ul>
+      </nav>
+    );
+  }
 }
 
 export default Navbar;
