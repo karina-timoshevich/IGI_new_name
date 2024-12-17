@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
           localStorage.removeItem("token");
         }
       }
-      setLoading(false); // Done fetching user
+      setLoading(false);
     };
 
     const checkGoogleLogin = () => {
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
   };
 if (loading) {
-    return <div>Loading...</div>; // Optionally add a loading state
+    return <div>Loading...</div>;
   }
   return (
     <AuthContext.Provider value={{ user, setUser, login, logout }}>
