@@ -5,21 +5,23 @@ export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+   useEffect(() => {
     const fetchUser = async () => {
       const token = localStorage.getItem("token");
       if (token) {
         try {
           const response = await api.get("/auth/me", {
-            headers: { "x-auth-token": token },
+            headers: { "authorization": token },
           });
           setUser(response.data);
         } catch (error) {
           console.error(error);
-          localStorage.removeItem("token")
+          localStorage.removeItem("token");
         }
       }
+      setLoading(false); // Done fetching user
     };
 
     const checkGoogleLogin = () => {
@@ -43,16 +45,19 @@ export const AuthProvider = ({ children }) => {
       password,
     });
     localStorage.setItem("token", response.data.token);
-    setUser(response.data.user);
+    setUser(response.data);
+    console.log("User set in AuthProvider:", response.data);
   };
 
   const logout = () => {
     localStorage.removeItem("token");
     setUser(null);
   };
-
+if (loading) {
+    return <div>Loading...</div>; // Optionally add a loading state
+  }
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, setUser, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
