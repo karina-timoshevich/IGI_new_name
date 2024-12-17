@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 // import Reviews from "./pages/Reviews";
 import { AuthProvider } from "./context/AuthContext";
 import Register from "./pages/Register";
+import Catalog from "./pages/Catalog";
 // import { ThemeProvider } from "./context/ThemeContext";
 // import ProtectedRoute from "./components/ProtectedRoute";
 // import Header from "./components/Header";
@@ -42,6 +43,7 @@ function App() {
               <nav>
                 <Link to="/login" style={{ margin: "10px" }}>Login</Link>
                 <Link to={"/register"} style={{ margin: "10px" }}>Register</Link>
+                <Link to={"/catalog"} style={{ margin: "10px" }}>Catalog</Link>
                 {/* Добавьте другие ссылки для навигации при необходимости */}
               </nav>
             </header>
@@ -51,6 +53,7 @@ function App() {
                 <Routes>
                   <Route path="/login" element={<Login />} />
                   <Route path={"/register"} element={<Register />} />
+                   <Route path={"/catalog"} element={<Catalog />} />
                   {/* Добавьте другие маршруты при необходимости */}
                 </Routes>
               </div>

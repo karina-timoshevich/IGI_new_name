@@ -22,7 +22,7 @@ const Login = () => {
       try {
          console.log("Submitting form with values:", values);
         await login(values.email, values.password);
-        navigate("/");
+        navigate("/catalog");
       } catch (error) {
 
         console.error(error);
