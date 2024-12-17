@@ -2,7 +2,7 @@ import React from "react";
 import {BrowserRouter as Router, Link, Route, Routes} from "react-router-dom";
 // import Home from "./pages/Home";
 // import Catalog from "./pages/Catalog";
-// import ItemDetails from "./pages/ItemDetails";
+import ItemDetails from "./pages/ItemDetails";
 // import AdminPage from "./pages/AdminPage";
 import Login from "./pages/Login";
 // import Register from "./pages/Register";
@@ -35,39 +35,71 @@ function App() {
     width: "100%",
   };
 
-  return (
-      <AuthProvider>
-        <Router>
-           <Header />
-          <div style={appStyles}>
-            <header style={{ textAlign: "center", padding: "10px" }}>
-              <nav>
-                <Link to="/login" style={{ margin: "10px" }}>Login</Link>
-                <Link to={"/register"} style={{ margin: "10px" }}>Register</Link>
-                <Link to={"/catalog"} style={{ margin: "10px" }}>Catalog</Link>
-                {/* Добавьте другие ссылки для навигации при необходимости */}
-              </nav>
-            </header>
+//   return (
+//       <AuthProvider>
+//         <Router>
+//            <Header />
+//           <div style={appStyles}>
+//             <header style={{ textAlign: "center", padding: "10px" }}>
+//               <nav>
+//                 <Link to="/login" style={{ margin: "10px" }}>Login</Link>
+//                 <Link to={"/register"} style={{ margin: "10px" }}>Register</Link>
+//                 <Link to={"/catalog"} style={{ margin: "10px" }}>Catalog</Link>
+//                 {/* Добавьте другие ссылки для навигации при необходимости */}
+//               </nav>
+//             </header>
+//
+//             <main style={mainStyles}>
+//               <div style={contentStyles}>
+//                 <Routes>
+//                   <Route path="/login" element={<Login />} />
+//                   <Route path={"/register"} element={<Register />} />
+//                    <Route path={"/catalog"} element={<Catalog />} />
+//                   {/* Добавьте другие маршруты при необходимости */}
+//                 </Routes>
+//               </div>
+//             </main>
+//
+//             <footer style={{ textAlign: "center", padding: "10px" }}>
+//               © {new Date().getFullYear()} Created by Karina
+//             </footer>
+//           </div>
+//         </Router>
+//       </AuthProvider>
+//   );
+// }
 
+ return (
+    <AuthProvider>
+
+        <Router>
+          <div style={appStyles}>
+            <Header/>
             <main style={mainStyles}>
               <div style={contentStyles}>
                 <Routes>
-                  <Route path="/login" element={<Login />} />
-                  <Route path={"/register"} element={<Register />} />
-                   <Route path={"/catalog"} element={<Catalog />} />
-                  {/* Добавьте другие маршруты при необходимости */}
+                  <Route path="/catalog" element={<Catalog/>}/>
+                  <Route path="/item/:id" element={<ItemDetails/>}/>
+
+                  {/*<Route*/}
+                  {/*    path="/admin"*/}
+                  {/*    element={*/}
+                  {/*      <ProtectedRoute element={<AdminPage/>} adminOnly/>*/}
+                  {/*    }*/}
+                  {/*/>*/}
+                  <Route path="/login" element={<Login/>}/>
+                  <Route path="/register" element={<Register/>}/>
                 </Routes>
               </div>
             </main>
-
-            <footer style={{ textAlign: "center", padding: "10px" }}>
+            <footer style={{textAlign: "center", padding: "10px"}}>
               © {new Date().getFullYear()} Created by Karina
             </footer>
           </div>
         </Router>
-      </AuthProvider>
-  );
-}
 
+    </AuthProvider>
+ );
+}
 
 export default App;
