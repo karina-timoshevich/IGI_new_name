@@ -97,7 +97,7 @@ const wrapperStyles = {
               style={inputStyles}
           />
           {formik.touched.name && formik.errors.name ? (
-              <div>{formik.errors.identifier}</div>
+              <div>{formik.errors.email}</div>
           ) : null}
           <input
               type="password"

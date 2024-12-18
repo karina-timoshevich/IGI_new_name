@@ -41,14 +41,30 @@ app.get(
     '/api/users/google/callback',
     passport.authenticate('google', { failureRedirect: '/auth/login' }),
     (req, res) => {
-        res.json({
-            message: 'Google authentication successful!',
-            token: req.user.jwtToken,
-            user: req.user,
-        });
+        // Получаем токен
+        const token = req.user.jwtToken;
+
+        // Перенаправляем пользователя с токеном
+        res.redirect(`http://localhost:3000?token=${token}`);
     }
 );
 
+// app.get(
+//   "/api/users/google/callback",
+//   passport.authenticate("google", { failureRedirect: "/auth/login" }),
+//   (req, res) => {
+//
+//     const token = jwt.sign(
+//       { user: { id: req.user.id }, token: req.user.jwtToken, },
+//       process.env.SESSION_SECRET,
+//       {
+//         expiresIn: 3600,
+//       }
+//
+//     );
+//     res.redirect(`http://localhost:3000?token=${token}`);
+//   }
+// );
 
 app.post('/products/create',checkAuth, checkRole(['admin']),CreateProductValidation, ProductController.create);
 app.get('/products', ProductController.getAll);

@@ -25,12 +25,14 @@ export const AuthProvider = ({ children }) => {
     };
 
     const checkGoogleLogin = () => {
+      console.log("Checking Google login");
       const urlParams = new URLSearchParams(window.location.search);
       const token = urlParams.get("token");
+      console.log("Token from URL:", token);
       if (token) {
         localStorage.setItem("token", token);
         fetchUser();
-        window.history.replaceState({}, document.title, "/");
+        window.history.replaceState({}, document.title, "/catalog");
       }
     };
 
