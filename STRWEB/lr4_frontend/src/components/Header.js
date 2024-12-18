@@ -1,30 +1,52 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./Navbar";
 import AuthLinks from "./AuthLinks";
-
 import axios from "axios";
 
 const Header = () => {
+    const [currentDate, setCurrentDate] = useState("");
+    const [timeZone, setTimeZone] = useState("");
+    const [utcDate, setUtcDate] = useState("");
 
-
-    /*useEffect(() => {
-        const fetchCatImage = async () => {
+    useEffect(() => {
+        const fetchTimeZone = async () => {
             try {
-                const response = await axios.get(
-                    "https://api.thecatapi.com/v1/images/search"
-                );
-                setCatImage(response.data[0].url);
+                const response = await axios.get("http://ip-api.com/json");
+                const timezone = response.data.timezone;
+                if (timezone) {
+                    setTimeZone(timezone);
+                } else {
+                    setTimeZone("UTC");
+                }
             } catch (error) {
-                console.error("Error fetching cat image:", error);
+                console.error("Error fetching time zone:", error);
+                setTimeZone("UTC");
             }
         };
 
-        fetchCatImage();
-    }, []);*/
+        const updateDate = () => {
+            const date = new Date();
+            try {
+                const formattedCurrentDate = date.toLocaleString("en-US", { timeZone: timeZone || "UTC" });
+                setCurrentDate(formattedCurrentDate);
+            } catch (error) {
+                console.error("Error formatting date:", error);
+                setCurrentDate(date.toLocaleString("en-US", { timeZone: "UTC" }));
+            }
+
+            setUtcDate(new Date().toLocaleString("en-US", { timeZone: "UTC" }));
+        };
+
+        fetchTimeZone();
+        updateDate();
+        const intervalId = setInterval(updateDate, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [timeZone]);
 
     const headerStyles = {
         display: "flex",
-        justifyContent: "space-around",
+        justifyContent: "space-between",
         alignItems: "center",
         padding: "20px 20px",
         backgroundColor: "#f0f0f0",
@@ -35,11 +57,21 @@ const Header = () => {
         zIndex: 1000,
     };
 
+    const timeZoneStyles = {
+        fontSize: "0.6rem",
+        marginTop: "5px",
+        marginBottom: "5px",
+    };
 
     return (
         <header style={headerStyles}>
             <Navbar />
             <AuthLinks />
+            <div>
+                <p style={timeZoneStyles}>Current Date: {currentDate}</p>
+                <p style={timeZoneStyles}>Time Zone: {timeZone}</p>
+                <p style={timeZoneStyles}>UTC Time: {utcDate}</p>
+            </div>
         </header>
     );
 };

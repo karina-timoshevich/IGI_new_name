@@ -15,7 +15,6 @@ import AdminRoute from "./components/AdminRoute";
 import AdminPage from "./pages/AdminPage";
 // import Footer from "./components/Footer";
 
-/* Декларативная функция */
 function App() {
   const appStyles = {
     display: "flex",

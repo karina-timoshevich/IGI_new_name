@@ -123,13 +123,19 @@ const ProductAdmin = forwardRef((props, ref) => {
             await api.delete(`/products/delete/${id}`, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                "Content-Type": "application/json", // меняем заголовок
+                "Content-Type": "application/json",
             },
         });
             fetchProducts();
         } catch (error) {
             console.error("Error deleting Product:", error);
         }
+    };
+// onclick, onchange, onsubmit, onblur, то что ниже
+ const handleManufacturerSelect = (selectedManufacturer, customParam) => {
+        console.log("Selected Manufacturer:", selectedManufacturer);
+        console.log("Custom Param:", customParam);
+        setManufacturer(selectedManufacturer);
     };
 
 
@@ -154,7 +160,7 @@ const ProductAdmin = forwardRef((props, ref) => {
                 />
                 <select
                     value={manufacturer_id}
-                    onChange={(e) => setManufacturer(e.target.value)}
+                    onChange={(e) => handleManufacturerSelect(e.target.value, "customParam")}
                 >
                     <option value="">Select Manufacturer</option>
                     {manufacturers.map((m) => (
@@ -163,6 +169,7 @@ const ProductAdmin = forwardRef((props, ref) => {
                         </option>
                     ))}
                 </select>
+
                 <input
                     type="number"
                     placeholder="Price"
@@ -170,20 +177,20 @@ const ProductAdmin = forwardRef((props, ref) => {
                     onChange={(e) => setPrice(e.target.value)}
                 />
 
-                 <input
+                <input
                     type="text"
                     placeholder="Image URL"
                     value={imageUrl}
                     onChange={(e) => setPhotoUrl(e.target.value)}
                 />
-              <button type="submit">{editMode ? "Update Product" : "Add Product"}</button>
-              {editMode && (
-                  <button type="button" onClick={resetForm}>
-                    Cancel
-                  </button>
-              )}
+                <button type="submit">{editMode ? "Update Product" : "Add Product"}</button>
+                {editMode && (
+                    <button type="button" onClick={resetForm}>
+                        Cancel
+                    </button>
+                )}
             </form>
-          <div>
+            <div>
                 {products.map((product) => (
                     <div
                         key={product._id}

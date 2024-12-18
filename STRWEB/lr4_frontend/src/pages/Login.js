@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
 import { AuthContext } from "../context/AuthContext";
+import AnimalImages from "../components/ApiClass.js"
 
 const Login = () => {
   const { login } = useContext(AuthContext);
@@ -20,28 +21,33 @@ const Login = () => {
     }),
     onSubmit: async (values) => {
       try {
-         console.log("Submitting form with values:", values);
+        console.log("Submitting form with values:", values);
         await login(values.email, values.password);
         navigate("/catalog");
       } catch (error) {
-
         console.error(error);
       }
     },
   });
-
-  const handleGoogleLogin = (e) => {
-    e.preventDefault();
-    window.location.href = "http://localhost:7300/api/users/google";
-  };
 
   const containerStyles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     height: "100vh",
-    backgroundColor: "#f0f0f0", // Removed theme dependency
+    backgroundColor: "#f0f0f0",
   };
+
+const wrapperStyles = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  maxWidth: "800px",
+  width: "100%",
+  gap: "20px",
+  flexWrap: "wrap",
+};
+
 
   const formStyles = {
     display: "flex",
@@ -75,34 +81,47 @@ const Login = () => {
 
   return (
     <div style={containerStyles}>
-      <form onSubmit={formik.handleSubmit} style={formStyles}>
-        <h1>Login</h1>
-        <input
-          type="text"
-          placeholder="Username or Email"
-          {...formik.getFieldProps("email")}
-          style={inputStyles}
-        />
-        {formik.touched.identifier && formik.errors.identifier ? (
-          <div>{formik.errors.identifier}</div>
-        ) : null}
-        <input
-          type="password"
-          placeholder="Password"
-          {...formik.getFieldProps("password")}
-          style={inputStyles}
-        />
-        {formik.touched.password && formik.errors.password ? (
-          <div>{formik.errors.password}</div>
-        ) : null}
-        <button type="submit" style={buttonStyles}>
-          Login
-        </button>
-        <button onClick={handleGoogleLogin} style={buttonStyles}>
-          Login with Google
-        </button>
-      </form>
+      <div style={wrapperStyles}>
+        {/* Левая часть с картинками */}
+        <AnimalImages />
+
+        {/* Форма логина */}
+        <form onSubmit={formik.handleSubmit} style={formStyles}>
+          <h1>Login</h1>
+          <input
+            type="text"
+            placeholder="Username or Email"
+            {...formik.getFieldProps("email")}
+            style={inputStyles}
+          />
+          {formik.touched.identifier && formik.errors.identifier ? (
+            <div>{formik.errors.identifier}</div>
+          ) : null}
+          <input
+            type="password"
+            placeholder="Password"
+            {...formik.getFieldProps("password")}
+            style={inputStyles}
+          />
+          {formik.touched.password && formik.errors.password ? (
+            <div>{formik.errors.password}</div>
+          ) : null}
+          <button type="submit" style={buttonStyles}>
+            Login
+          </button>
+          <button onClick={(e) => {
+            e.preventDefault();
+            window.location.href = "http://localhost:7300/api/users/google";
+          }} style={buttonStyles}>
+            Login with Google
+          </button>
+        </form>
+
+        {/* Правая часть с картинками */}
+        <AnimalImages />
+      </div>
     </div>
   );
 };
+
 export default Login;
