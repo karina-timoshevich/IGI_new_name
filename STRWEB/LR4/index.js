@@ -41,10 +41,8 @@ app.get(
     '/api/users/google/callback',
     passport.authenticate('google', { failureRedirect: '/auth/login' }),
     (req, res) => {
-        // Получаем токен
         const token = req.user.jwtToken;
 
-        // Перенаправляем пользователя с токеном
         res.redirect(`http://localhost:3000?token=${token}`);
     }
 );

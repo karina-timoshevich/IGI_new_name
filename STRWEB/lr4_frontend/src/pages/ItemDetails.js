@@ -123,7 +123,6 @@ const ProductDetails = () => {
                         </p>
                     )}
 
-                    {/* Даты с локальной временной зоной и UTC */}
                     {item.createdAt && (
                         <div style={dateStyles}>
                             <p>
