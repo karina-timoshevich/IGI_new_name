@@ -82,7 +82,7 @@ export const update = async (req, res) => {
     const updatedProduct = await ProductModel.findByIdAndUpdate(
       productId,
       {
-        name: req.body.name || product.name,  // Если новое значение есть, то обновляем
+        name: req.body.name || product.name,
         manufacturer_id: req.body.manufacturer_id || product.manufacturer_id,
         price: req.body.price || product.price,
         imageUrl: req.body.imageUrl || product.imageUrl,

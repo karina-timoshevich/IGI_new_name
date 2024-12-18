@@ -1,6 +1,6 @@
 import React, { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import api from "../utils/api";
-
+import '../styles/ProductAdmin.css';
 const ProductAdmin = forwardRef((props, ref) => {
     const [products, setProducts] = useState([]);
     const [manufacturers, setManufacturers] = useState([]);
@@ -59,7 +59,7 @@ const ProductAdmin = forwardRef((props, ref) => {
         await api.post("/products/create", productData, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                "Content-Type": "application/json",  // меняем заголовок
+                "Content-Type": "application/json",
             },
         });
         fetchProducts();
@@ -74,7 +74,7 @@ const ProductAdmin = forwardRef((props, ref) => {
         setName("");
         setManufacturer("");
         setPrice("");
-       setPhotoUrl("");
+        setPhotoUrl("");
         setError("");
         setEditMode(false);
         setEditProductId(null);
@@ -107,7 +107,7 @@ const ProductAdmin = forwardRef((props, ref) => {
         await api.put(`/products/update/${editProductId}`, productData, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("token")}`,
-                "Content-Type": "application/json", // меняем заголовок
+                "Content-Type": "application/json",
             },
         });
         fetchProducts();
@@ -131,36 +131,32 @@ const ProductAdmin = forwardRef((props, ref) => {
             console.error("Error deleting Product:", error);
         }
     };
-// onclick, onchange, onsubmit, onblur, то что ниже
+// onclick, onchange, onsubmit, onblur, ondoubleclick  то что ниже
  const handleManufacturerSelect = (selectedManufacturer, customParam) => {
         console.log("Selected Manufacturer:", selectedManufacturer);
         console.log("Custom Param:", customParam);
         setManufacturer(selectedManufacturer);
     };
 
-
-    return (
-        <div>
+  return (
+        <div className="product-admin">
             <h2>Manage Products</h2>
-            {error && <div style={{ color: "red" }}>{error}</div>}
+            {error && <div className="error">{error}</div>}
             <form
                 onSubmit={editMode ? editProduct : addProduct}
-                style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "10px",
-                    marginBottom: "20px",
-                }}
+                className="product-form"
             >
                 <input
                     type="text"
                     placeholder="Name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    className="input-field"
                 />
                 <select
                     value={manufacturer_id}
                     onChange={(e) => handleManufacturerSelect(e.target.value, "customParam")}
+                    className="input-field"
                 >
                     <option value="">Select Manufacturer</option>
                     {manufacturers.map((m) => (
@@ -175,6 +171,7 @@ const ProductAdmin = forwardRef((props, ref) => {
                     placeholder="Price"
                     value={price}
                     onChange={(e) => setPrice(e.target.value)}
+                    className="input-field"
                 />
 
                 <input
@@ -182,36 +179,31 @@ const ProductAdmin = forwardRef((props, ref) => {
                     placeholder="Image URL"
                     value={imageUrl}
                     onChange={(e) => setPhotoUrl(e.target.value)}
+                    className="input-field"
                 />
-                <button type="submit">{editMode ? "Update Product" : "Add Product"}</button>
+                <button type="submit" className="submit-button">
+                    {editMode ? "Update Product" : "Add Product"}
+                </button>
                 {editMode && (
-                    <button type="button" onClick={resetForm}>
+                    <button type="button" onClick={resetForm} className="cancel-button">
                         Cancel
                     </button>
                 )}
             </form>
-            <div>
+            <div className="product-list">
                 {products.map((product) => (
                     <div
                         key={product._id}
-                        style={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            marginBottom: "10px",
-                            padding: "10px",
-                            border: "1px solid #ccc",
-                            borderRadius: "5px",
-                        }}
+                        className="product-item"
                     >
                         <div>
                             <h4>{product.name}</h4>
                             <p>Price: ${product.price}</p>
                             <p>Manufacturer: {product.manufacturer_id?.name || "Unknown"}</p>
-
                         </div>
                         <div>
-                            <button onClick={() => startEditProduct(product)}>Edit</button>
-                            <button onClick={() => deleteProduct(product._id)}>Delete</button>
+                            <button onClick={() => startEditProduct(product)} className="edit-button">Edit</button>
+                            <button onClick={() => deleteProduct(product._id)} className="delete-button">Delete</button>
                         </div>
                     </div>
                 ))}

@@ -29,13 +29,16 @@ const Login = () => {
       }
     },
   });
+ const handleGoogleLogin = (e) => {
+    e.preventDefault();
+    window.location.href = "http://localhost:7300/api/users/google";
 
+  };
   const containerStyles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     height: "100vh",
-    backgroundColor: "#f0f0f0",
   };
 
 const wrapperStyles = {
@@ -75,50 +78,45 @@ const wrapperStyles = {
     borderRadius: "5px",
     border: "none",
     cursor: "pointer",
-    backgroundColor: "#007bff",
+    backgroundColor: "#75e164",
     color: "#fff",
   };
 
   return (
     <div style={containerStyles}>
       <div style={wrapperStyles}>
-        {/* Левая часть с картинками */}
+
         <AnimalImages />
 
-        {/* Форма логина */}
         <form onSubmit={formik.handleSubmit} style={formStyles}>
           <h1>Login</h1>
           <input
-            type="text"
-            placeholder="Username or Email"
-            {...formik.getFieldProps("email")}
-            style={inputStyles}
+              type="text"
+              placeholder="Username or Email"
+              {...formik.getFieldProps("email")}
+              style={inputStyles}
           />
-          {formik.touched.identifier && formik.errors.identifier ? (
-            <div>{formik.errors.identifier}</div>
+          {formik.touched.name && formik.errors.name ? (
+              <div>{formik.errors.identifier}</div>
           ) : null}
           <input
-            type="password"
-            placeholder="Password"
-            {...formik.getFieldProps("password")}
-            style={inputStyles}
+              type="password"
+              placeholder="Password"
+              {...formik.getFieldProps("password")}
+              style={inputStyles}
           />
           {formik.touched.password && formik.errors.password ? (
-            <div>{formik.errors.password}</div>
+              <div>{formik.errors.password}</div>
           ) : null}
           <button type="submit" style={buttonStyles}>
             Login
           </button>
-          <button onClick={(e) => {
-            e.preventDefault();
-            window.location.href = "http://localhost:7300/api/users/google";
-          }} style={buttonStyles}>
+          <button onClick={handleGoogleLogin} style={buttonStyles}>
             Login with Google
           </button>
         </form>
 
-        {/* Правая часть с картинками */}
-        <AnimalImages />
+
       </div>
     </div>
   );

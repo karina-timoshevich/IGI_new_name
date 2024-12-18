@@ -5,7 +5,6 @@ import config from "../config";
 
 const Catalog = () => {
     const [items, setItems] = useState([]);
-    // const [serviceTypes, setServiceTypes] = useState([]);
     const [name, setSearch] = useState("");
     const [sort, setOrder] = useState("asc");
 
@@ -25,7 +24,6 @@ const Catalog = () => {
 
     const containerStyles = {
         padding: "20px",
-        backgroundColor: "#f8f8f8",
         color: "#333",
         minHeight: "100vh",
     };
@@ -83,11 +81,10 @@ const Catalog = () => {
     return (
         <div style={containerStyles}>
             <h1>Catalog</h1>
-            {/* Панель фильтров */}
             <div style={filterStyles}>
                 <input
                     type="text"
-                    placeholder="Search by name or type"
+                    placeholder="Search by name of product"
                     value={name}
                     onChange={(e) => setSearch(e.target.value)}
                     style={selectStyles}
@@ -104,7 +101,6 @@ const Catalog = () => {
 
             </div>
 
-            {/* Сетка карточек */}
             <div style={gridStyles}>
                 {items.map((item) => (
                     <div

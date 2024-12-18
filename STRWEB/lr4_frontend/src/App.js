@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {BrowserRouter as Router, Link, Route, Routes} from "react-router-dom";
 // import Home from "./pages/Home";
 import ItemDetails from "./pages/ItemDetails";
@@ -13,6 +13,7 @@ import Catalog from "./pages/Catalog";
 import Header from "./components/Header";
 import AdminRoute from "./components/AdminRoute";
 import AdminPage from "./pages/AdminPage";
+import axios from "axios";
 // import Footer from "./components/Footer";
 
 function App() {
@@ -33,40 +34,52 @@ function App() {
   const contentStyles = {
     width: "100%",
   };
+ const [currentDate, setCurrentDate] = useState("");
+    const [timeZone, setTimeZone] = useState("");
+    const [utcDate, setUtcDate] = useState("");
 
-//   return (
-//       <AuthProvider>
-//         <Router>
-//            <Header />
-//           <div style={appStyles}>
-//             <header style={{ textAlign: "center", padding: "10px" }}>
-//               <nav>
-//                 <Link to="/login" style={{ margin: "10px" }}>Login</Link>
-//                 <Link to={"/register"} style={{ margin: "10px" }}>Register</Link>
-//                 <Link to={"/catalog"} style={{ margin: "10px" }}>Catalog</Link>
-//                 {/* Добавьте другие ссылки для навигации при необходимости */}
-//               </nav>
-//             </header>
-//
-//             <main style={mainStyles}>
-//               <div style={contentStyles}>
-//                 <Routes>
-//                   <Route path="/login" element={<Login />} />
-//                   <Route path={"/register"} element={<Register />} />
-//                    <Route path={"/catalog"} element={<Catalog />} />
-//                   {/* Добавьте другие маршруты при необходимости */}
-//                 </Routes>
-//               </div>
-//             </main>
-//
-//             <footer style={{ textAlign: "center", padding: "10px" }}>
-//               © {new Date().getFullYear()} Created by Karina
-//             </footer>
-//           </div>
-//         </Router>
-//       </AuthProvider>
-//   );
-// }
+    useEffect(() => {
+        const fetchTimeZone = async () => {
+            try {
+                const response = await axios.get("http://ip-api.com/json");
+                const timezone = response.data.timezone;
+                if (timezone) {
+                    setTimeZone(timezone);
+                } else {
+                    setTimeZone("UTC");
+                }
+            } catch (error) {
+                console.error("Error fetching time zone:", error);
+                setTimeZone("UTC");
+            }
+        };
+
+        const updateDate = () => {
+            const date = new Date();
+            try {
+                const formattedCurrentDate = date.toLocaleString("en-US", { timeZone: timeZone || "UTC" });
+                setCurrentDate(formattedCurrentDate);
+            } catch (error) {
+                console.error("Error formatting date:", error);
+                setCurrentDate(date.toLocaleString("en-US", { timeZone: "UTC" }));
+            }
+
+            setUtcDate(new Date().toLocaleString("en-US", { timeZone: "UTC" }));
+        };
+
+        fetchTimeZone();
+        updateDate();
+        const intervalId = setInterval(updateDate, 1000);
+
+        return () => clearInterval(intervalId);
+    }, [timeZone]);
+
+    const timeZoneStyles = {
+        fontSize: "0.8rem",
+        marginTop: "5px",
+        marginBottom: "5px",
+    };
+
 
  return (
     <AuthProvider>
@@ -87,7 +100,10 @@ function App() {
               </div>
             </main>
             <footer style={{textAlign: "center", padding: "10px"}}>
-              © {new Date().getFullYear()} Created by Karina
+               Hello from Karina Timoshevich :)
+               <div>
+                <p style={timeZoneStyles}>Current Date: {currentDate}  |  Time Zone: {timeZone}  |  UTC Time: {utcDate}</p>
+            </div>
             </footer>
           </div>
         </Router>

@@ -39,9 +39,8 @@ class ApiClass extends Component {
             <div style={{ padding: "20px", fontFamily: "Arial, sans-serif", textAlign: "center" }}>
                 <h1 style={{ marginBottom: "20px" }}>Animal Images</h1>
 
-                {/* Блок для картинок и кнопок */}
                 <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
-                    {/* Карточка собаки */}
+
                     <div
                         style={{
                             width: "250px",
@@ -50,7 +49,7 @@ class ApiClass extends Component {
                             padding: "10px",
                             textAlign: "center",
                         }}
-                        onDoubleClick={this.fetchDogImage} // Обновление по двойному щелчку
+                        onDoubleClick={this.fetchDogImage}
                     >
                         <h3 style={{ fontSize: "18px", marginBottom: "10px" }}>Random Dog</h3>
                         {dogImage && (
@@ -59,8 +58,8 @@ class ApiClass extends Component {
                                 alt="Random Dog"
                                 style={{
                                     width: "100%",
-                                    height: "200px", // Одинаковая высота для всех изображений
-                                    objectFit: "cover", // Обеспечивает одинаковое соотношение сторон
+                                    height: "200px",
+                                    objectFit: "cover",
                                     borderRadius: "4px",
                                 }}
                             />
@@ -84,7 +83,6 @@ class ApiClass extends Component {
                         )}
                     </div>
 
-                    {/* Карточка котика */}
                     <div
                         style={{
                             width: "250px",
@@ -93,7 +91,7 @@ class ApiClass extends Component {
                             padding: "10px",
                             textAlign: "center",
                         }}
-                        onDoubleClick={this.fetchCatImage} // Обновление по двойному щелчку
+                        onDoubleClick={this.fetchCatImage}
                     >
                         <h3 style={{ fontSize: "18px", marginBottom: "10px" }}>Random Cat</h3>
                         {catImage && (
@@ -102,8 +100,8 @@ class ApiClass extends Component {
                                 alt="Random Cat"
                                 style={{
                                     width: "100%",
-                                    height: "200px", // Одинаковая высота для всех изображений
-                                    objectFit: "cover", // Обеспечивает одинаковое соотношение сторон
+                                    height: "200px",
+                                    objectFit: "cover",
                                     borderRadius: "4px",
                                 }}
                             />
@@ -116,7 +114,7 @@ class ApiClass extends Component {
                                     fontSize: "14px",
                                     border: "none",
                                     borderRadius: "4px",
-                                    backgroundColor: "#2196F3",
+                                    backgroundColor: "#4CAF50",
                                     color: "white",
                                     cursor: "pointer",
                                     marginTop: "10px",
@@ -128,7 +126,6 @@ class ApiClass extends Component {
                     </div>
                 </div>
 
-                {/* Показ ошибки */}
                 {error && <p style={{ color: "red", marginTop: "20px" }}>{error}</p>}
             </div>
         );

@@ -5,10 +5,7 @@ import { useLocation } from "react-router-dom";
 const ProductDetails = () => {
     const location = useLocation();
     const { item } = location.state || {};
-
-    const [currentDate, setCurrentDate] = useState("");
     const [timeZone, setTimeZone] = useState("");
-    const [utcDate, setUtcDate] = useState("");
 
     useEffect(() => {
         // Получаем временную зону пользователя
@@ -28,17 +25,14 @@ const ProductDetails = () => {
             }
         };
 
-        // Обновляем текущую дату
         const updateDate = () => {
             const date = new Date();
             try {
                 const formattedCurrentDate = date.toLocaleString("en-US", { timeZone: timeZone || "UTC" });
-                setCurrentDate(formattedCurrentDate);
+
             } catch (error) {
                 console.error("Error formatting date:", error);
-                setCurrentDate(date.toLocaleString("en-US", { timeZone: "UTC" }));
             }
-            setUtcDate(new Date().toLocaleString("en-US", { timeZone: "UTC" }));
         };
 
         fetchTimeZone();
@@ -48,7 +42,6 @@ const ProductDetails = () => {
         return () => clearInterval(intervalId);
     }, [timeZone]);
 
-    // Форматирование даты для временной зоны
     const formatDate = (date, timeZone) => {
         try {
             return new Date(date).toLocaleString("en-US", { timeZone });
@@ -62,7 +55,6 @@ const ProductDetails = () => {
 
     const containerStyles = {
         padding: "20px",
-        backgroundColor: "#f5f5f5",
         color: "#333",
         minHeight: "100vh",
         display: "flex",

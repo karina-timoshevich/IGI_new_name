@@ -6,7 +6,7 @@ import moment from "moment";
 const Reviews = () => {
     const { user } = useContext(AuthContext);
     const [reviews, setReviews] = useState([]);
-    const [rating, setRating] = useState(1);
+    const [rating, setRating] = useState(5);
     const [comment, setComment] = useState("");
     const formRef = useRef(null);
 
@@ -40,7 +40,6 @@ const Reviews = () => {
 
     const containerStyles = {
         padding: "20px",
-        backgroundColor: "#f9f9f9",
         minHeight: "100vh",
     };
 
@@ -49,7 +48,7 @@ const Reviews = () => {
         flexDirection: "column",
         gap: "10px",
         marginBottom: "20px",
-        maxWidth: "600px",
+        maxWidth: "800px",
         margin: "0 auto",
         backgroundColor: "#fff",
         padding: "20px",
@@ -67,8 +66,8 @@ const Reviews = () => {
     const buttonStyles = {
         padding: "10px 20px",
         borderRadius: "5px",
-        backgroundColor: "#009688",
-        color: "#fff",
+        backgroundColor: "#1e8847",
+        color: "#f1e4e4",
         border: "none",
         cursor: "pointer",
         fontSize: "16px",
@@ -79,26 +78,26 @@ const Reviews = () => {
         marginTop: "20px",
         display: "flex",
         flexDirection: "column",
-        gap: "20px",
+        gap: "10px",
     };
 
     const reviewCardStyles = {
         backgroundColor: "#fff",
         padding: "20px",
-        borderRadius: "10px",
+        borderRadius: "30px",
         boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
     };
 
     const serviceTitleStyles = {
         fontSize: "14px",
         fontWeight: "bold",
-        marginBottom: "10px",
+        marginBottom: "1px",
         color: "#777",
     };
 
     const commentStyles = {
         fontSize: "16px",
-        marginBottom: "10px",
+        marginBottom: "1px",
         color: "#555",
     };
 
@@ -112,11 +111,11 @@ const Reviews = () => {
             <span
                 key={index}
                 style={{
-                    color: index < rating ? "#ffd700" : "#ddd",
-                    fontSize: "18px",
+                    color: index < rating ? "#fd45d2" : "#ddd",
+                    fontSize: "22px",
                 }}
             >
-                ★
+                ♥
             </span>
         ));
     };
@@ -139,7 +138,7 @@ const Reviews = () => {
                         style={inputStyles}
                     />
                     <textarea
-                        placeholder="Write your comment"
+                        placeholder="Write your review"
                         value={comment}
                         onChange={(e) => setComment(e.target.value)}
                         style={inputStyles}
@@ -153,11 +152,12 @@ const Reviews = () => {
                 {reviews.map((review) => (
                     <div key={review._id} style={reviewCardStyles}>
                         <p style={serviceTitleStyles}>
-                            {moment(review.created_at).format("MMMM Do YYYY, h:mm:ss a")}
+                            {moment(review.createdAt).format("MMMM Do YYYY")}
                         </p>
                         <div>{renderStars(review.rating)}</div>
+                        <p style={userStyles}>From: {review.user_id.email}</p>
                         <p style={commentStyles}>{review.comment}</p>
-                        <p style={userStyles}>By: {review.user_id.email}</p>
+
                     </div>
                 ))}
             </div>

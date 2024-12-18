@@ -68,7 +68,6 @@ const Register = () => {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        backgroundColor: "#f0f0f0",
     };
 
     const formStyles = {
@@ -124,8 +123,6 @@ const Register = () => {
                     <div style={errorStyles}>{formik.errors.name}</div>
                 ) : null}
 
-
-                {/* Поле Email */}
                 <input
                     type="email"
                     placeholder="Email"
@@ -136,7 +133,6 @@ const Register = () => {
                     <div style={errorStyles}>{formik.errors.email}</div>
                 ) : null}
 
-                {/* Поле Password */}
                 <input
                     type="password"
                     placeholder="Password"
@@ -147,7 +143,6 @@ const Register = () => {
                     <div style={errorStyles}>{formik.errors.password}</div>
                 ) : null}
 
-                {/* Поле Birthday */}
                 <input
                     type="date"
                     max={today}
@@ -159,7 +154,6 @@ const Register = () => {
                     <div style={errorStyles}>{formik.errors.birthday}</div>
                 ) : null}
 
-                {/* Поле Phone */}
                 <input
                     type="text"
                     placeholder="Phone (+375XXXXXXXXX)"
@@ -171,7 +165,6 @@ const Register = () => {
                 ) : null}
 
 
-                {/* Кнопка регистрации */}
                 <button type="submit" style={buttonStyles}>
                     Register
                 </button>

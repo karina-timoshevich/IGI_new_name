@@ -6,7 +6,6 @@ const AdminPage = () => {
 
     const containerStyles = {
         padding: "20px",
-        backgroundColor: "#f9f9f9",
         color: "#333",
         minHeight: "100vh",
         display: "flex",
@@ -47,7 +46,6 @@ const AdminPage = () => {
             <h1 style={headerStyles}>Admin Page</h1>
             <div style={sectionsContainerStyles}>
                 <div style={sectionStyles}>
-                    <h2 style={sectionHeaderStyles}>Manage Products</h2>
                     <ProductAdmin ref={productAdminRef} />
                 </div>
             </div>
