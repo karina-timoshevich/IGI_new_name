@@ -1,0 +1,171 @@
+{% extends "base_generic.html" %}
+{% load static %}
+{% block content %}
+<h1>Employee Table</h1>
+      <div class="preloader" id="preloader">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+                <path class="static-outline" d="M2.5 5H4L6 14H19L21 8H7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path class="animate-outline" d="M2.5 5H4L6 14H19L21 8H7" stroke-width="1.5"></path>
+                <circle class="static-wheel" cx="7.5" cy="19.5" r="1.5" stroke-width="1.5"></circle>
+                <circle class="static-wheel" cx="16.5" cy="19.5" r="1.5" stroke-width="1.5"></circle>
+                <circle class="animate-wheel" cx="7.5" cy="19.5" r="1.5" stroke-width="1.5"></circle>
+                <circle class="animate-wheel" cx="16.5" cy="19.5" r="1.5" stroke-width="1.5"></circle>
+            </g>
+        </svg>
+    </div>
+<div class="content-pr">
+
+<form method="GET" action="{% url 'employee_table' %}" class="search-area">
+    <input type="text" name="filter" class="search-input" placeholder="Enter search term">
+    <select name="column" class="search-select">
+        <option value="first_name">First Name</option>
+        <option value="last_name">Last Name</option>
+        <option value="position">Position</option>
+        <option value="phone">Phone</option>
+        <option value="email">Email</option>
+    </select>
+    <button type="submit" class="search-button">Find</button>
+</form>
+
+<button id="openModal" class="btn">Add Employee</button>
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+<div id="employeeForm" >
+    <form method="POST" action="{% url 'add_employee' %}" enctype="multipart/form-data">
+
+        {% csrf_token %}
+        <div>
+            <label>First Name:</label>
+            <input type="text" name="first_name" id="first_name" required>
+        </div>
+        <div>
+            <label>Last Name:</label>
+            <input type="text" name="last_name" id="last_name" required>
+        </div>
+        <div>
+            <label>Position:</label>
+            <input type="text" name="position" id="position" required>
+        </div>
+        <div>
+            <label>Photo:</label>
+            <input type="file" name="photo" id="photo">
+        </div>
+        <div>
+            <label>Job Description:</label>
+            <textarea name="job_description" id="job_description"></textarea>
+        </div>
+        <div>
+            <label>Phone:</label>
+            <input type="text" name="phone" id="phone" required>
+            <span id="phoneError" class="error" style="color: red; display: none;">Invalid phone number</span>
+        </div>
+        <div>
+            <label>Email:</label>
+            <input type="email" name="email" id="email" required>
+        </div>
+        <div>
+            <label>Username:</label>
+            <input type="text" name="username" id="username" required>
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+        <div>
+            <label>Confirm Password:</label>
+            <input type="password" name="password_confirmation" id="password_confirmation" required>
+            <span id="passwordError" class="error" style="color: red; display: none;">Passwords do not match</span>
+        </div>
+        <div>
+            <label>URL:</label>
+            <input type="text" name="url" id="url" required>
+            <span id="urlError" class="error" style="color: red; display: none;">Invalid URL</span>
+        </div>
+        <button type="submit" id="submitButton" disabled>Submit</button>
+    </form>
+</div>
+    </div>
+</div>
+
+<div class="employee-table-container">
+    <table class="employee-table" id="employee-table">
+    <thead>
+        <tr>
+            <th onclick="sortTable(0)">First Name <span id="sort-arrow-0"></span></th>
+            <th onclick="sortTable(1)">Last Name <span id="sort-arrow-1"></span></th>
+            <th onclick="sortTable(2)">Position <span id="sort-arrow-2"></span></th>
+            <th onclick="sortTable(3)">Phone <span id="sort-arrow-3"></span></th>
+            <th onclick="sortTable(4)">Email <span id="sort-arrow-4"></span></th>
+            <th>Photo</th>
+            <th>Select</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for employee in page_obj %}
+        <tr onclick="showDetails(this)">
+            <td>{{ employee.first_name }}</td>
+            <td>{{ employee.last_name }}</td>
+            <td>{{ employee.position }}</td>
+            <td>{{ employee.phone }}</td>
+            <td>{{ employee.email }}</td>
+            <td>
+                {% if employee.photo %}
+                <img src="{{ employee.photo.url }}" alt="{{ employee.first_name }}" width="50">
+                {% else %}
+                No photo
+                {% endif %}
+            </td>
+            <td><input type="checkbox" name="select_employee" value="{{ employee.id }}"></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+
+
+</div>
+<div id="employee-details" class="details-container">
+    <h3>Employee Details</h3>
+    <div id="details" class="details-content">
+        <p>Select a row to view details.</p>
+    </div>
+</div>
+
+<button class="reward-button" onclick="rewardSelected()">Reward Selected</button>
+<div id="rewardText" style="margin-top: 20px;"></div>
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?filter={{ request.GET.filter }}&column={{ request.GET.column }}&page=1">&laquo;</a>
+            <a href="?filter={{ request.GET.filter }}&column={{ request.GET.column }}&page={{ page_obj.previous_page_number }}">&lt;</a>
+        {% else %}
+            <span class="disabled">&laquo;</span>
+            <span class="disabled">&lt;</span>
+        {% endif %}
+
+        {% for i in page_obj.paginator.page_range %}
+            {% if page_obj.number == i %}
+                <span class="current">{{ i }}</span>
+            {% else %}
+                <a href="?filter={{ request.GET.filter }}&column={{ request.GET.column }}&page={{ i }}">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?filter={{ request.GET.filter }}&column={{ request.GET.column }}&page={{ page_obj.next_page_number }}">&gt;</a>
+            <a href="?filter={{ request.GET.filter }}&column={{ request.GET.column }}&page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+        {% else %}
+            <span class="disabled">&gt;</span>
+            <span class="disabled">&raquo;</span>
+        {% endif %}
+    </span>
+</div>
+</div>
+
+{% block scripts %}
+<script src="{% static 'js/table.js' %}"></script>
+{% endblock %}
+{% endblock %}

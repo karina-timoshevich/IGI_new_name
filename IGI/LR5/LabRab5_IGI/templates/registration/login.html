@@ -1,0 +1,38 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<div class="form-container">
+  {% if form.errors %}
+    <p class="error-message">Your username and password didn't match. Please try again.</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p class="info-message">Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% else %}
+      <p class="info-message">Please login to see this page.</p>
+    {% endif %}
+  {% endif %}
+
+  <form class="flex-form" method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>{{ form.username.label_tag }}</td>
+        <td>{{ form.username }}</td>
+      </tr>
+      <tr>
+        <td>{{ form.password.label_tag }}</td>
+        <td>{{ form.password }}</td>
+      </tr>
+    </table>
+<input type="submit" value="login" class="login-button" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+
+  <p><a style="padding-left: 15px" href="{% url 'sign-up' %}">Don't have an account?</a></p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block content %}
+     <h1>Shop Statistics</h1>
+
+    <h2>Sales Statistics</h2>
+    <p>Total Sales: {{ total_sales }}</p>
+    <p>Average Sales: {{ avg_sales }}</p>
+    <p>Median Sales: {{ median_sales }}</p>
+    <p>Mode Sales: {{ mode_sales }}</p>
+
+    <h2>Client Age Statistics</h2>
+    <p>Average Client Age: {{ avg_client_age }}</p>
+    <p>Median Client Age: {{ median_age }}</p>
+
+    <h2>Product Statistics</h2>
+    <p>Most Popular Product Type: {{ popular_product_type.product_type__name }}</p>
+    <p>Most Profitable Product Type: {{ profitable_product_type.product_type__name }}</p>
+
+    <h2>Product Type Distribution in Orders</h2>
+    <img src="data:image/png;base64,{{ pie_chart }}" alt="Product type distribution in orders">
+
+    <p>----------------------------------------------------------------------------------------------------------------------------------------------------------------------</p>
+
+    <h2>Graph of e^x and its Taylor Series Approximation</h2>
+    <canvas id="expGraph" width="800" height="400"></canvas>
+
+    <!-- Передаем данные как обычные переменные JavaScript -->
+    <script>
+        var xValues = {{ x_values|safe }};
+        var expValues = {{ exp_values|safe }};
+        var taylorValues = {{ taylor_values|safe }};
+    </script>
+  <h1>Job Vacancies</h1>
+    <form id="vacancy-form">
+        <label for="profession">Profession:</label>
+        <input type="text" id="profession" required>
+        <label for="salary">Salary:</label>
+        <input type="number" id="salary" required>
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" required>
+        <button type="submit">Add Vacancy</button>
+    </form>
+    <h2>All Vacancies</h2>
+    <ul id="vacancy-list"></ul>
+    <h2>Filtered Vacancies</h2>
+    <ul id="filtered-list"></ul>
+
+    {% block scripts %}
+{#    <script src="{% static 'js/vacancy-prototype.js' %}"></script>  #}
+    <script src="{% static 'js/vacancy-class.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'js/graphics.js' %}"></script>
+{% endblock %}
+{% endblock %}

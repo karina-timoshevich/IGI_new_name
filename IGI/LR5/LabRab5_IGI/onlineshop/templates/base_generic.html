@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  {% load static %}
+  {% block title %}<title>Online Shop</title>{% endblock %}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="author" content="Karina Timoshevich" />
+  <meta name="description" content="Welcome to Online Shop, your go-to destination for high-quality food products. Discover our wide range of fresh and organic items, and enjoy our excellent customer service and fast delivery." />
+  <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+</head>
+
+  <body>
+    <div class="container">
+      <div class="sidebar">
+        {% block sidebar %}
+          <ul class="sidebar-nav itim-regular" >
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'products' %}">All products</a></li>
+            <li><a href="{% url 'manufacturers' %}">All manufacturers</a></li>
+            <li><a href="{% url 'promo-codes' %}">Promocodes</a></li>
+            <li><a href="{% url 'contacts' %}">Our employees</a></li>
+            <li><a href="{% url 'reviews' %}">Reviews</a></li>
+            <li><a href="{% url 'privacy_policy' %}">Privacy policy</a></li>
+            <li><a href="{% url 'news' %}">News</a></li>
+            <li><a href="{% url 'about' %}">About company</a></li>
+            <li><a href="{% url 'faq' %}">FAQ</a></li>
+            <li><a href="{% url 'jobs' %}">Job</a></li>
+
+             {% if user.is_authenticated %}
+                 <li>User: {{ user.get_username }}</li>
+                 {% for group in user.groups.all %}
+                    {% if group.name == "Shop Members" %}
+                        <li><a href="{% url 'my-orders' %}">My Orders</a></li>
+                        <li><a href="{% url 'cart' %}">My Cart</a></li>
+                        <li><a href="{% url 'pickup-locations' %}">Pick-up points</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if user.is_superuser %}
+                    <li><a href="{% url 'all-orders' %}">All Orders</a></li>
+                    <li><a href="{% url 'clients' %}">All clients</a></li>
+                    <li><a href="{% url 'employee-stats' %}">All statistics</a></li>
+                    <li><a href="{% url 'employee_table' %}">Employee</a></li>
+                    {% if perms.onlineshop.can_mark_returned %}
+                        {% if order and order.id %}
+                            <li><a href="{% url 'change-status-employee' order.id %}">Change Order Status</a></li>
+                        {% endif %}
+                    {% endif %}
+                {% else %}
+                    {% for group in user.groups.all %}
+                        {% if group.name == "Employees" %}
+                            <li><a href="{% url 'all-orders' %}">All Orders</a></li>
+                            <li><a href="{% url 'clients' %}">All clients</a></li>
+                            <li><a href="{% url 'employee-stats' %}">All statistics</a></li>
+                            {% if perms.onlineshop.can_mark_returned %}
+                                {% if order and order.id %}
+                                    <li><a href="{% url 'change-status-employee' order.id %}">Change Order Status</a></li>
+                                {% endif %}
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{% url 'logout' %}">
+    <button type="submit" class="btn btn-emerald">Logout</button>
+</form>
+    </li>
+             {% else %}
+                 <li><a href="{% url 'login'%}?next={% url 'index' %}">Login</a></li>
+             {% endif %}
+          </ul>
+        {% endblock %}
+      </div>
+      <div class="content">{% block content %}{% endblock %}
+      {% block pagination %}
+{#  {% if is_paginated %}#}
+{#    <div class="pagination">#}
+{#      <span class="page-links">#}
+{#        {% if page_obj.has_previous %}#}
+{#          <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>#}
+{#        {% endif %}#}
+{#        <span class="page-current">#}
+{#          Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.#}
+{#        </span>#}
+{#        {% if page_obj.has_next %}#}
+{#          <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>#}
+{#        {% endif %}#}
+{#      </span>#}
+{#    </div>#}
+{#  {% endif %}#}
+{% endblock %}
+      </div>
+    </div>
+  </body>
+</html>

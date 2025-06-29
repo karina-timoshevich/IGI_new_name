@@ -1,0 +1,77 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<h1>Employee List</h1>
+<button id="toggleForm">Add Employee</button>
+
+<div id="employeeForm" style="display: none; margin-top: 20px; border: 1px solid #ccc; padding: 15px;">
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label>First Name:</label>
+            <input type="text" name="first_name" required>
+        </div>
+        <div>
+            <label>Last Name:</label>
+            <input type="text" name="last_name" required>
+        </div>
+        <div>
+            <label>Position:</label>
+            <input type="text" name="position" required>
+        </div>
+        <div>
+            <label>Photo:</label>
+            <input type="file" name="photo">
+        </div>
+        <div>
+            <label>Job Description:</label>
+            <textarea name="job_description"></textarea>
+        </div>
+        <div>
+            <label>Phone:</label>
+            <input type="text" name="phone" required>
+            {% if error_message == 'Invalid phone number' %}
+            <span class="error">Invalid phone number</span>
+            {% endif %}
+        </div>
+        <div>
+            <label>Email:</label>
+            <input type="email" name="email" required>
+        </div>
+        <div>
+            <label>Username:</label>
+            <input type="text" name="username" required>
+        </div>
+        <div>
+            <label>Password:</label>
+            <input type="password" name="password" required>
+        </div>
+        <div>
+            <label>Confirm Password:</label>
+            <input type="password" name="password_confirmation" required>
+            {% if error_message == 'Passwords do not match' %}
+            <span class="error">Passwords do not match</span>
+            {% endif %}
+        </div>
+        <div>
+            <label>URL:</label>
+            <input type="text" name="url" required>
+            {% if error_message == 'Invalid URL' %}
+            <span class="error">Invalid URL</span>
+            {% endif %}
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    document.getElementById('toggleForm').addEventListener('click', () => {
+        const form = document.getElementById('employeeForm');
+        form.style.display = form.style.display === 'none' ? 'block' : 'none';
+    });
+</script>
+
+{% if error_message %}
+<p class="error">{{ error_message }}</p>
+{% endif %}
+{% endblock %}

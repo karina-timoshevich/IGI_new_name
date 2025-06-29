@@ -1,0 +1,24 @@
+{% extends "base_generic.html" %}
+{% block head %}
+{% endblock %}
+{% block content %}
+    <h1 class="itim-regular" style="text-align: center">Manufacturer List</h1>
+
+    {% if manufacturer_list %}
+    <ul class="manufacturer-list">
+      {% for manufacturer in manufacturer_list %}
+      <li>
+        {% if manufacturer.logo %}
+          <img src="{{ manufacturer.logo.url }}" alt="{{ manufacturer.name }}">
+        {% endif %}
+        <a href="{{ manufacturer.get_absolute_url }}">{{ manufacturer.name }}</a>
+        <span class="phone">{{ manufacturer.phone }}</span>
+        <a href="{{ manufacturer.website }}" target="_blank" class="btn-website">Visit Website</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+         <p>There are no manufacturers in the online-shop.</p>
+    {% endif %}
+    <meta name="description" content="List of all manufacturers of online-shop">
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <div class="content-container">
+    <div class="main-content">
+      <div class="articles-container">
+        {% for article in articles %}
+          <div class="article-item" id="{{ article.title | slugify }}" itemscope itemtype="http://schema.org/NewsArticle">
+            <header>
+              <h2 translate="yes" itemprop="headline">{{ article.title }}</h2>
+            </header>
+            <p class="news-summary" itemprop="description">{{ article.summary }}</p>
+            <a href="{% url 'article_detail' article.id %}">
+              <img class="news-image" src="{{ article.image.url }}" alt="{{ article.title }}" itemprop="image" border="0" width="500">
+            </a>
+            <footer>
+              <a class="read-more" href="{% url 'article_detail' article.id %}" itemprop="url">Read more</a>
+            </footer>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="right-column">
+      <nav>
+        <ul>
+          {% for article in articles %}
+            <li class="itim-regular"><a href="#{{ article.title | slugify }}">{{ article.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </nav>
+    </div>
+  </div>
+{% endblock %}

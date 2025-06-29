@@ -1,0 +1,39 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1 class="itim-regular">Name: {{ manufacturer.name }}</h1>
+
+  <div class="manufacturer-details">
+    {% if manufacturer.logo %}
+      <img src="{{ manufacturer.logo.url }}" alt="{{ manufacturer.name }}" class="manufacturer-logo">
+    {% endif %}
+    <p><strong>Description:</strong> {{ manufacturer.description }}</p>
+    <p><strong>Location:</strong> {{ manufacturer.address }}</p>
+    <p><strong>Phone:</strong> {{ manufacturer.phone }}</p>
+    <p><strong>Website:</strong> <a href="{{ manufacturer.website }}" target="_blank">{{ manufacturer.website }}</a></p>
+  </div>
+
+  <div class="products-section">
+    <h4 class="itim-regular table-title">Products</h4>
+    <table class="product-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Description</th>
+          <th>Id</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product in manufacturer.product_set.all %}
+        <tr>
+          <td><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></td>
+          <td>{{ product.price }}</td>
+          <td>{{ product.description }}</td>
+          <td class="text-muted">{{ product.id }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

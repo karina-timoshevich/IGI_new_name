@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Order:</h1>
+
+  <p><strong>Date:</strong> {{ order.order_date }}</p>
+  <p><strong>Total Price:</strong> {{ order.total_price }}</p>
+  <p><strong>Status:</strong> {{ order.get_status_display }}</p>
+  <p><strong>Pickup Location:</strong> {{ order.pickup_location.name }}</p>
+  <p><strong>Pickup Address:</strong> {{ order.pickup_location.address }}</p>
+
+  <h2>Products:</h2>
+  {% if order.products.all %}
+    <ul>
+      {% for product_instance in order.products.all %}
+        <li>
+          <p><strong>Name:</strong> {{ product_instance.product.name }}</p>
+          <p><strong>Price:</strong> {{ product_instance.product.price }}</p>
+          <p><strong>Quantity:</strong> {{ product_instance.quantity }}</p>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No products in this order.</p>
+  {% endif %}
+{% endblock %}

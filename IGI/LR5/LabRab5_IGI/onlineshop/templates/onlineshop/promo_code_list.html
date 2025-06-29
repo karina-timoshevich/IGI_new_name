@@ -1,0 +1,43 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <div class="promo-code-page">
+    <h1 class="itim-regular">Promo Codes</h1>
+    <p>To use a promo code, enter it at checkout. Only one promo code can be used per order.</p>
+    <ul id="promo-list">
+      {% for promo_code in object_list %}
+        <li>
+          <h2>{{ promo_code.code }}</h2>
+          <p>Discount: {{ promo_code.discount }}%</p>
+        </li>
+      {% empty %}
+        <li>No promo codes available.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <script>
+
+    function animatePromoCodes() {
+      const promoList = document.getElementById('promo-list');
+      const listItems = promoList.querySelectorAll('li');
+
+      listItems.forEach((item, index) => {
+        const animation = item.animate([
+          { opacity: 0, transform: 'translateY(20px)' },
+          { opacity: 1, transform: 'translateY(0)' }
+        ], {
+          duration: 500,
+          delay: index * 200,
+          easing: 'ease-out',
+        });
+
+        animation.onfinish = () => {
+          item.style.opacity = 1;
+        };
+      });
+    }
+
+    window.onload = animatePromoCodes;
+  </script>
+{% endblock %}

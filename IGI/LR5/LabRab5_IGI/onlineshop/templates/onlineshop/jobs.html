@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <article itemscope itemtype="https://schema.org/JobPosting">
+        <header>
+            <h1 class="itim-regular" itemprop="title">Jobs</h1>
+        </header>
+        <section>
+            {% for job in jobs %}
+                <article itemscope itemtype="https://schema.org/JobPosting" class="job-posting">
+                    <header>
+                        <h2 itemprop="title" class="itim-regular">{{ job.title }}</h2>
+                    </header>
+                    <p itemprop="description">{{ job.description }}</p>
+                </article>
+                <div class="clear"></div>
+            {% empty %}
+                <p>There are no jobs</p>
+            {% endfor %}
+        </section>
+    </article>
+{% endblock %}

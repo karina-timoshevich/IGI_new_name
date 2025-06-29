@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <article>
+  <div class="centered-container">
+    <header>
+      <h1 class="itim-regular">FAQ</h1>
+    </header>
+
+    <section>
+      {% for faq in faqs %}
+        <details >
+          <summary>
+            <h2>{{ faq.question }}</h2>
+          </summary>
+          <p > {{ faq.answer }}</p>
+          <footer>
+            <p><strong>Date added:</strong> {{ faq.date_added }}</p>
+          </footer>
+        </details>
+      {% endfor %}
+    </section>
+</div>
+  </article>
+{% endblock %}

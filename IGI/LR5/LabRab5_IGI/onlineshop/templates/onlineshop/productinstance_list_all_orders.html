@@ -1,0 +1,17 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>All Orders</h1>
+
+    {% if order_list %}
+    <ul>
+      {% for order in order_list %}
+      <li>
+         <a href="{% url 'change-status-employee' order.id %}">Order {{ order.order_date|date:"d.m.Y" }} - {{ order.get_status_display }}</a> (Total price: {{ order.total_price }}, Ordered by: {{ order.client.user.username }})
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+        <p>There are no orders.</p>
+    {% endif %}
+{% endblock %}
